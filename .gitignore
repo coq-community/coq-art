@@ -1,4 +1,5 @@
-Makefile.conf
+Makefile.coq
+Makefile.coq.conf
 execute_loops.ml
 execute_loops.mli
 insert-sort.ml
