@@ -1,0 +1,47 @@
+<html>
+<title> Witness Extraction </title>
+<body>
+<h1> Witness Extraction </h1>
+Define a function <tt>sig_extract</tt> having the following type :
+<pre>
+forall (A:Type) (P:A -> Prop), sig P -> A
+</pre>
+such that the following theorem holds :
+
+<pre>
+Theorem sig_extract_ok {A: Type}{P:A -> Prop}:
+ forall (y:sig P), P (sig_extract A P y).
+</pre>
+Prove this theorem in <em>Coq</em>.
+
+<hr>
+
+Apply your construction to the following problem :
+<br>
+Considering the following declaration :
+<pre>
+Require Import ZArith.
+Open Scope Z_scope.
+
+Parameter
+  div_pair :
+    forall a b:Z,
+      0 < b ->
+      {p : Z * Z | a = fst p * b + snd p  /\ 0 <= snd p < b}.
+</pre>
+
+Use <tt>sig_extract</tt> to build a function of type
+<pre>
+forall a b:Z, 0 &lt; b -> Z*Z.
+</pre>
+<br>
+Your function must satisfy the specification of euclidean division.
+
+<h2> Solution </h2>
+<a href="SRC/extract.v"> Follow this link </a>
+<br>
+<br>
+<hr>
+
+</body>
+</html>

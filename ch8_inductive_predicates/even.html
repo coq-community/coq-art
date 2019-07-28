@@ -1,0 +1,41 @@
+<html>
+<title> About Even Numbers </title>
+<body>
+<h1> About Even Numbers </h1>
+
+Show that the double of any natural number is even, then show that
+the square of any even number is even too.
+<br>
+Show that every even natural number is the double of some natural number.
+<br>
+You must use the following definitions :
+
+<pre>
+Require Import Arith.
+
+Inductive even : nat -> Prop :=
+  | O_even : even 0
+  | plus_2_even : forall n:nat, even n -> even (S (S n)).
+
+
+Hint Resolve O_even plus_2_even.
+
+Fixpoint mult2 (n:nat) : nat :=
+  match n with
+  | O => 0
+  | S p => S (S (mult2 p))
+  end.
+</pre>
+
+<h2> Solution </h2>
+
+<a href="SRC/even.v"> This file </h2> <hr>
+<br>
+<a href="even_notes.html"> Remarks and/or hints </a>
+<br><br>
+<hr>
+
+<hr>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<html>
+<title> Triangular Arrays   </title>
+<body>
+<h1>  Triangular Arrays   </h1>
+
+The following type declaration allows us to represente triangular arrays:
+The <em>i-</em>  line (starting from the top) contains a tuple of <em>i</em>  
+elements of type <tt>A</tt>.
+
+<pre>
+Inductive triangular (A B : Type) :=
+| base : B -> triangular A B
+| line : B -> triangular A (A * B) -> triangular A B. 
+
+Definition triangle (A: Type) := triangular A A.
+
+Arguments base {A B} _.
+Arguments line {A B} _ _.
+
+Example t1 : triangle  nat :=
+base 6.
+
+Example t2 : triangle nat :=
+  line 5
+ (base (1, 1)).
+
+Example t3 :triangle nat  :=
+line 6 
+(line (5, 3) 
+(line (5, (7, 8)) 
+(base (1, (2, (3, 4)))))).
+</pre>
+
+<h2>Task </h2>
+
+Define functions for computing:
+<ul>
+<li> The height of a triangle of type <tt>triangle A </tt>. For instance, <tt>t3</tt>'s heigth is 
+4.
+<li> The bottom line of a triangle : For instance, the list <tt>(1::2::3::4::nil)</tt>
+   for <tt>t3</tt> 
+<li> The leftmost colummn of a triangle : For instance, the list <tt>(6::5::5::1::nil)</tt>
+   for <tt>t3</tt> 
+<li> The rightmost diagonal of a triangle : For instance, the list <tt>(6::3::8::4::nil)</tt>
+   for <tt>t3</tt> 
+<li> A concatenation of all the lines of a triangle :
+For instance, the list <tt>6 :: 5 :: 3 :: 5 :: 7 :: 8 :: 1 :: 2 :: 3 :: 4 :: nil </tt>
+   for <tt>t3</tt> 
+</ul>
+
+<br><br>
+Define  a function that returns a triangle of given height, such that all the cells
+contain the same given element.
+<h2> Acknowledgements </h2>
+This example of using inductive types with a varying parameter (here <tt>B</tt>)
+was given to us by Ralph Mattes.
+
+<h2>Solution</h2>
+
+Look at <a href="SRC/triangular.v"> this file </a>
+<br><br>
+
+<h2> Extra work </h2>
+Define the same structure as a type depending on the heigth of the triangle. Instead 
+of lists, you should return vectors.
+<br>
+Can you write a function that builds Pascal's triangle?
+
+<hr>
+<hr>
+</body>
+</html>

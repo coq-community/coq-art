@@ -1,0 +1,26 @@
+<html>
+<title> Another definition of &lt;= </title>
+<body>
+<h1> Another definition of &lt;= </h1>
+
+Consider the following inductive definition :
+
+<pre>
+Inductive le' : nat -> nat -> Prop :=
+  | le'_0_p : forall p:nat, le' 0 p
+  | le'_Sn_Sp : forall n p:nat, le' n p -> le' (S n) (S p).
+</pre>
+
+
+Show that coq's predicate <tt>le</tt> and <tt>le'</tt> are 
+logically equivalent.
+
+<h2>Solution</h2>
+<a href="SRC/le_prime.v"> Look at this file </a>
+<br>
+<hr>
+<a href="../index.html">Going  home </a> 
+<hr>
+<address><a href="mailto:casteran@labri.fr">Pierre Castéran</a></address>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<html>
+<title>Proofs using specific induction principles
+</title>
+<body>
+<h1>Proofs using specific induction principles
+</h1>
+<p>
+Here is a function of division by 2:
+</p>
+<pre>
+Fixpoint div2 (n:nat):nat:=
+  match n with 0 => 0 | 1 => 0 | S (S p) => S (div2 p) end.
+</pre>
+
+<p>
+Define a function <tt>rem2</tt> similar to
+<tt>div2</tt>, but to compute the remainder
+of division by 2, use the specific induction principle associated to
+these function to prove the following statement:
+<pre>
+forall n:nat, 2 * div2 n + rem2 n = n
+</p>
+<p>
+Here are two definitions of the fibonacci function.  Using a specific
+induction principle for the first fibonacci function, prove that the
+two functions return consistent values.
+</p>
+<pre>
+Fixpoint fib (n:nat) : nat :=
+  match n with
+    0 => 1
+  | 1 => 1
+  | S ((S p) as q) => fib p + fib q
+  end.
+
+Fixpoint fib2 (n:nat) : nat*nat :=
+  match n with
+    0 => (1, 1)
+  | S p => 
+    let (v1, v2) := fib2 p in (v2, v1 + v2)
+  end.
+</pre>
+<h2>Solution</h2>
+
+<a href="SRC/div2tofib_ind.v"> Look at this file </a>
+
+<br>
+<br>
+<hr>
+
+</body>
+</html>
+
+

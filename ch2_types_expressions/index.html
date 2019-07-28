@@ -1,0 +1,43 @@
+<html>
+<title> Coq as a Programming Language </title>
+
+<h2> Exercises </h2>
+<ul>
+<li> <a href="Zbtree.html"> Recursive programming on binary trees </a>
+</ul>
+
+<h2> Remark </h2>
+You will able to prove formally your programs are correct soon. <br>
+For now, it could be useful to write some tests for each function you define.
+You may use the command <tt>Compute</tt>:
+
+<pre>
+Compute fact 5.
+(** expected result : 
+ = 120 : Z
+*)
+</pre>
+
+Another possibility is to include  some lemmas of the following form:
+
+<pre>
+Example test_fact : fact 5 = 120.
+Proof. reflexivity. Qed.
+<pre>
+
+If your function is buggy and does not return the expected result,  the compilation of your file will fail.
+
+<h2> Errata </h2>
+<ol>
+  <li> Page 24: section 2.2.3.1:<br>
+  In the sentence "In the second example, the function <tt>Zplus</tt> expects an integer..." the word <tt>Zplus</tt> should be replaced by <tt>Zmult</tt>.
+<li> Page 42:<br>
+The two occurrences of <tt>Z_fun_to_nat_fun</tt> must be replaced by
+<tt>nat_fun_to_Z_fun</tt>
+ 
+  </ol>
+<br>
+<br>
+<hr>
+</body>
+</html>

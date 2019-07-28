@@ -1,0 +1,53 @@
+<html>
+<title> An impredicative definition of equality </title>
+<body>
+<h1> An impredicative definition of equality </h1>
+
+Consider the following impredicative definition of leibniz equality :
+
+<pre>
+Section leibniz.
+ Variable A : Set.
+ 
+ Set Implicit Arguments.
+
+ Definition leibniz (a b:A) : Prop := forall P:A -> Prop, P a -> P b.
+</pre>
+
+Prove the following theorems (load library <tt>Relations</tt> before)
+
+<pre>
+ Theorem leibniz_sym : symmetric A leibniz.
+
+ Theorem leibniz_refl : reflexive A leibniz. 
+
+ Theorem leibniz_trans :  transitive A leibniz.
+
+ Theorem leibniz_equiv : equiv A leibniz.
+
+ Theorem leibniz_least :
+  forall R:relation A, reflexive A R -> inclusion A leibniz R.
+
+ Theorem leibniz_eq : forall a b:A, leibniz a b -> a = b.
+
+ Theorem eq_leibniz : forall a b:A, a = b -> leibniz a b.
+
+ Theorem leibniz_ind :
+  forall (x:A) (P:A -> Prop), P x -> forall y:A, leibniz x y -> P y.
+</pre>
+
+<h2> Solution </h2>
+<ul>
+<li> <a href="SRC/leibniz.v"> leibniz.v </a>
+<li> <a href="SRC/leibniz_with_classes.v"> Alternate solution, using <tt>RelationClasses</tt> </a>
+</ul>
+
+<br>
+See also <a href="leibniz_notes.html"> Some remarks </a>
+
+<br><br>
+<hr>
+<hr>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Inclusion preserves well-founded</title>
+  </head>
+
+  <body>
+    <h1>Inclusion preserves well-founded</h1>
+<p>Prove the following theorem (the constant <tt>inclusion</tt> is defined
+in module <tt>Relations</tt>).
+</p>
+<pre>
+wf_inclusion:
+  forall (A:Set) (R S:A->A->Prop),
+    inclusion A R S -> well_founded A S -> well_founded A R.
+</pre>
+<h2>Solution</h2>
+<p>The solution to this exercise is given in the Coq libraries</p>
+
+<br><br>
+<hr>
+    <hr>
+    <address><a href="mailto:bertot@harfang.inria.fr">Yves Bertot</a></address>
+<!-- Created: Wed May 14 17:55:11 MEST 2003 -->
+<!-- hhmts start -->Last modified: Sun May  3 13:53:38 CEST 2015 <!-- hhmts end -->
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<html>
+<title> Grafting trees  </title>
+<body>
+<h1> Grafting trees </h1>
+
+
+Define the function <tt>graft</tt> such that
+<tt>(graft t t')</tt> is the tree obtained by replacing all leaves 
+of <tt>t</tt> by <tt>t'</tt>.
+<br>
+
+prove  the following unfolding  lemmas:
+<pre>
+Lemma graft_unfold1 {A: Type}: forall t': LTree A, graft LLeaf  t' = t'.
+
+Lemma graft_unfold2 {A: Type}: forall (a:A) (t1 t2 t':LTree A),
+                      (graft (LBin a t1 t2) t')=
+                      (LBin a (graft t1 t') (graft t2 t')).
+
+Lemma graft_unfold {A: Type}: forall  (t t': LTree A),
+                     graft t t' = match t  with
+                                  | LLeaf => t'
+                                  | LBin n t1 t2 =>
+                                             LBin  n (graft t1 t')
+                                                     (graft t2 t')
+                                  end.
+
+<h3>Resources</h3>
+You must load the<a href="SRC/Ltree.v"> solution </a> of <a href="Ltree.html">
+this exercise</a>.
+
+<h2> Solution </h2>
+<a href="SRC/graft.v"> Follow this link </a> 
+<br>
+<br>
+<hr>
+<hr>
+</body>
+</html>

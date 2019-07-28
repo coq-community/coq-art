@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Computing square roots</title>
+  </head>
+
+  <body>
+    <h1>Computing square roots</h1>
+<p>Given a natural number <i>x</i>, we want to compute the pair of numbers
+<i>s</i> and <i>r</i> such that <i>s * s &le; x &lt; (S+1)*(s+1)</i>
+and <i>x=s*s+r</i>.</p>.  Let <i>x=4*q+r0</i> with <i>r&lt;4</i>.  If <i>s'</i>
+ and <i>r'</i> are the result for computing the square root of <i>q</i>, then there
+are two possibilities:
+<ol>
+<li>If <i>4*r'+r0 &lt;4*s'+1</i> then
+ either <i>s=2s'</i> and <i>r=4r'+r0</i></li>
+<li>Otherwise <i>s=2s'+1</i> and <i>r=r4'+r0-4s'-1</i>
+</ol>
+Build a function with bounded recursion that uses this algorithme to
+compute the square root.  Prove that it is correct and then use it
+to obtain a function with the following type:
+<pre>
+sqrt_nat : forall n:nat,
+    {s : nat &  {r : nat | n = s * s + r /\ n < (s + 1) * (s + 1)}}
+</pre>
+<h2>Solution </h2>
+<a href="SRC/sqrt.v"> Follow this link </a>
+<br><br>
+<hr>
+    <hr>
+    <address><a href="mailto:bertot@harfang.inria.fr">Yves Bertot</a></address>
+<!-- Created: Mon May 12 20:36:11 MEST 2003 -->
+<!-- hhmts start -->Last modified: Sun May  3 13:54:37 CEST 2015 <!-- hhmts end -->
+  </body>
+</html>

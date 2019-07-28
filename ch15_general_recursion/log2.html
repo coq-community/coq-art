@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title> Discrete logarithm
+</title>
+  </head>
+
+  <body>
+    <h1> Discrete logarithm
+</h1>
+<p>
+Using the function <tt>exp2</tt> defined for the exercise
+<a href="../ch6_inductive_data/two_power.html">about computing the power of 2.</a>
+and well-founded recursion, define a function that satisfies the following
+specification:
+</p>
+<pre>
+ forall n:nat, n <> 0 ->
+         {p : nat | exp2 p <= n /\ n < exp2 (p + 1)}
+</pre>
+<h2>Solution</h2>
+<a href="SRC/log2.v">Follow this link</a>
+<br><br>
+<h2> See also </h2>
+<a href="SRC/log2_function.v"> This file presents a definition of the
+discrete algorithm with the help of command <tt>Function</tt> and 
+some proofs that use the tactic <tt>functional induction </tt>.
+<hr>
+    <hr>
+    </body>
+</html>

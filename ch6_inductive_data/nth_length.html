@@ -1,0 +1,35 @@
+<html>
+<title> On (too) short lists  </title>
+<body>
+<h1> On (too) short lists </h1>
+
+Consider the following definition:
+<pre>
+Require Import List.
+Require Import Arith.
+
+Fixpoint nth_option (A:Set)(n:nat)(l:list A) {struct l}
+  : option A :=
+  match n, l with
+  | O, cons a tl =>  Some a
+  | S p, cons a tl => nth_option A p tl
+  | n, nil => None
+  end.
+</pre>
+
+Prove the following theorem:
+
+<pre>
+Lemma nth_length : 
+  forall (A:Set)(n:nat)(l:list A), nth_option _ n l = None <->
+                                   length l <= n.
+</pre>
+<h2>Solution</h2>
+
+Look at <a href="SRC/nth_length.v"> this file </a>
+<br>
+<hr>
+
+
+</body>
+</html>

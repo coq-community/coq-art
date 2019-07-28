@@ -1,0 +1,31 @@
+<html>
+<title> Proofs with or without Cut </title>
+<body>
+<h1> Proofs with or without Cut </h1>
+
+ Consider the following context :
+<pre>
+ Variables P Q R T : Prop.
+ Hypothesis H : P -> Q.
+ Hypothesis H0 : Q -> R. 
+ Hypothesis H1 : (P -> R) -> T -> Q.
+ Hypothesis H2 : (P -> R) -> T.
+</pre>
+
+Compare the proof terms of <tt>Q</tt> obtained from interactive
+manual proofs <em>without using <tt>auto></tt></em>.
+<ol>
+<li> without <tt>cut</tt> nor <tt>assert</tt>
+<li> with <tt>cut</tt>
+<li> with <tt>assert</tt>
+</ol>
+
+<h2> Solution </h2>
+See file <a href="SRC/cut_example.v"> cut_example.v </a>
+<br>
+<br>
+<hr>
+</body>
+</html>
+
+

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Division by bounded recursion</title>
+  </head>
+
+  <body>
+    <h1>Division by bounded recursion</h1>
+<p>Using the definition of a division function by bounded recursion given
+by the following text :
+</p>
+<pre>
+Require Export Arith.
+
+Fixpoint bdiv_aux (b m n:nat) {struct b} : nat * nat :=
+  match b with
+  | O => (0, 0)
+  | S b' =>
+      match le_gt_dec n m with
+      | left H => match bdiv_aux b' (m - n) n with
+                  | (q, r) => (S q, r)
+                  end
+      | right H => (0, m)
+      end
+  end.
+</pre>
+<p>Prove the following property:</p>
+<pre>
+bdiv_aux_correct2 :
+ forall b m n:nat, m <= b -> 0 < n -> snd (bdiv_aux b m n) < n.
+</pre>
+<br><br>
+<hr>
+<h2>Solution</h2>
+<a href="SRC/bdiv.v">Follow this link</a>
+
+    <hr>
+    <address><a href="mailto:bertot@harfang.inria.fr">Yves Bertot</a></address>
+<!-- Created: Tue May 13 22:08:49 MEST 2003 -->
+<!-- hhmts start -->Last modified: Sun May  3 13:52:16 CEST 2015 <!-- hhmts end -->
+  </body>
+</html>

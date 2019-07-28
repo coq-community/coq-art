@@ -1,0 +1,37 @@
+<html>
+<title> About Left Factors </title>
+<body>
+<h1> About Left Factors  </h1>
+Let us consider the inductive property on  lists
+<blockquote>
+"<em> u </em> is a left factor of <em> v </em>"
+</blockquote>
+</body>
+<pre>
+Require Import Lists.
+Set Implicit Arguments.
+
+Section A_fixed.
+Variable A: Type.
+
+Inductive lfactor  : list A -> list A -> Prop :=
+|  lf1 : forall u:list A, lfactor nil u
+| lf2 : forall (a:A) (u v:list A), lfactor u v ->
+          lfactor (a :: u) (a :: v).
+
+</pre>
+
+Define a function meeting the following specification :
+<pre>
+ forall u v:list A, lfactor u v -> {w : list A | v = u ++ w}.
+</pre>
+
+<h2>Solution</h2>
+
+Look at <a href="SRC/factor.v"> this file </a>
+<br><br>
+<hr>
+
+<hr>
+</body>
+</html>

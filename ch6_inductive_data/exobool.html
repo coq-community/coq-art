@@ -1,0 +1,71 @@
+<html>
+<title> Computing on booleans </title>
+<body>
+<h1>  Computing on booleans  </h1>
+Define the functions associated with the following boolean connectives :
+Notice that these functions are already defined in the standard library
+under the names <tt>negb</tt>,  <tt>orb</tt>, <tt>andb</tt> , <tt>xorb</tt> 
+and <tt>Bool.eqb</tt>.
+
+<pre>
+bool_not : bool -> bool
+bool_or : bool->bool->bool
+bool_and : bool->bool->bool
+bool_xor : bool->bool->bool
+bool_eq : bool->bool->bool
+</pre>
+
+Prove the following theorems :
+<pre>
+Theorem bool_xor_not_eq : 
+  (b1,b2:bool)(bool_xor b1 b2)=(bool_not (bool_eq b1 b2)).
+
+Theorem bool_not_and : 
+(b1,b2:bool)(bool_not (bool_and b1 b2))=
+            (bool_or (bool_not b1) (bool_not b2)).
+
+Theorem bool_not_not : (b:bool)(bool_not (bool_not b))=b.
+
+Theorem bool_tex : (b:bool)(bool_or b (bool_not b))=true.
+
+Theorem bool_eq_reflect : (b1,b2:bool)(bool_eq b1 b2)=true -> b1=b2.
+
+Theorem bool_eq_reflect2 : (b1,b2:bool)b1=b2 ->(bool_eq b1 b2)=true.
+
+Theorem bool_not_or : (b1,b2:bool)(bool_not (bool_or b1 b2))=
+                                  (bool_and (bool_not b1) (bool_not b2)).
+
+Theorem bool_or_and_distr:  (b1,b2,b3:bool)
+        (bool_or (bool_and b1 b3) (bool_and b2 b3))=
+        (bool_and (bool_or b1 b2) b3).
+</pre>
+
+<h2>Solution</h2>
+<a href="SRC/exobool.v"> exobool.v </a>
+ 
+<h3> Note </h3>
+Please notice the difference between the data type <tt> bool : Set </tt>,
+which has only two inhabitants, and the type <tt> Prop : Type </tt>
+of all propositions, which has an infinite number of inhabitants.
+<br>
+Since <tt>Prop</tt> and <tt>bool</tt> are very different types,
+the reader must not be puzzled by the boolean versions of double negation
+(<tt>bool_not_not</tt>) and excluded middle (<tt>bool_tex</tt>).
+Let us recall that the following propositions <em>do not hold</em>
+in <em>Coq</em>!
+<pre>
+(P:Prop)~~P <->P
+(P:Prop) P \/~P
+</pre>
+<br>
+Notice also that the theorems <tt>bool_eq_reflect</tt> and 
+<tt>bool_eq_reflect2</tt> establish a bridge between the boolean
+function <tt>bool_eq</tt> and the Leibniz equality <tt>eq</tt>.
+<br>
+<br>
+<hr>
+
+<address><a href="mailto:casteran@labri.fr">Pierre Castéran</a></address>
+</body>
+</html>
+

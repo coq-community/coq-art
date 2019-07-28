@@ -1,0 +1,26 @@
+<html>
+<title> Some Remarks </title>
+<body>
+
+<h1> Some Remarks </h1>
+It is important to notice the two kinds of induction used in these
+proofs :
+<ul>
+<li> Induction on <tt>nat</tt> in the  proof of :
+<pre>
+ mult2_even : forall n:nat, even (mult2 n).
+</pre>
+<li> Induction on <tt>(even n)</tt> in the proof of :
+<pre>
+sum_even :forall n p:nat, even n -> even p -> even (n + p).
+
+square_even : forall n:nat, even n -> even (n * n).
+</pre>
+</ul>
+<br><br>
+<hr>
+
+<hr>
+
+</body>
+</html>

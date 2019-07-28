@@ -1,0 +1,45 @@
+<html>
+<title>  A recursor for Finite  </title>
+<body>
+<h1>   A recursor for Finite  </h1>
+
+Proposed by Vincent Filou.
+<br>
+Define  the following recursor:
+
+<pre>
+Finite_rect :
+forall (A : Type) (P : LList A -> Type),
+P (LNil A) ->
+(forall (x : A) (l : LList A), P l -> P (LCons x l)) ->
+forall l : LList A, Finite l -> P l
+</pre>
+
+Hint <br>
+Define an inductive  predicate with only one constructor, equivalent to <tt>Finite</tt>, such that Coq generates an elimination principle for sort <tt>Type></tt>.
+<br>
+
+Use <tt>Finite_rect</tt> for defining a function that maps any finite Llist to a list:
+<pre>
+Fixpoint llist_injection (A:Set) (l:list A) {struct l} : 
+ LList A :=
+  match l with
+  | nil => LNil
+  | a :: l' => LCons a (llist_injection l')
+  end.
+
+Definition to_list_strong: to_list_strong
+     : forall (A : Type) (x : LList A),
+       Finite x -> {l : list A | x = list_injection A l}.
+</pre>
+<h2> Solution </h2>
+<a href="SRC/Llist_to_list.v"> Follow this link </a> 
+<br>
+<a href="SRC/DamienPous_alt.v"> An alternate version contributed by Damien Pous </a> 
+
+<br>
+<hr>
+<hr>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<html>
+<title>Hoare Logic rule for sequences
+</title>
+<body>
+<h1>Hoare Logic rule for sequences
+</h1>
+<p>
+It is possible to define the abstract syntax and the semantics of a
+little programming language with the following inductive definitions:
+</p>
+<pre>
+Section little_semantics.
+ Variables Var aExp bExp : Set.
+ Inductive inst : Set :=
+ | Skip : inst
+ | Assign : Var->aExp->inst
+ | Sequence : inst->inst->inst
+ | WhileDo : bExp->inst->inst.
+
+ Variables
+  (state : Set)
+  (update : state->Var->Z -> option state)
+  (evalA : state->aExp -> option Z)
+  (evalB : state->bExp -> option bool).
+
+ Inductive exec : state->inst->state->Prop :=
+ | execSkip : forall s:state, exec s Skip s
+ | execAssign :
+    forall (s s1:state)(v:Var)(n:Z)(a:aExp),
+     evalA s a = Some n -> update s v n = Some s1 ->
+     exec s (Assign v a) s1
+ | execSequence :
+    forall (s s1 s2:state)(i1 i2:inst),
+     exec s i1 s1 -> exec s1 i2 s2 ->
+     exec s (Sequence i1 i2) s2
+ | execWhileFalse :
+    forall (s:state)(i:inst)(e:bExp),
+     evalB s e = Some false -> exec s (WhileDo e i) s
+ | execWhileTrue :
+    forall (s s1 s2:state)(i:inst)(e:bExp),
+     evalB s e = Some true ->
+     exec s i s1 ->
+     exec s1 (WhileDo e i) s2 ->
+     exec s (WhileDo e i) s2.
+</pre>
+<p>
+The Hoare-logic rule for the while loop can abstractly be represented by
+the following theorem, which we prove in the book.
+</p>
+<pre>
+Theorem HoareWhileRule :
+ forall (P:state->Prop)(b:bExp)(i:inst)(s s':state),
+   (forall s1 s2:state,
+      P s1 -> evalB s1 b = Some true -> exec s1 i s2 -> P s2)->
+   P s -> exec s (WhileDo b i) s' ->
+   P s' /\ evalB s' b = Some false.
+</pre>
+<p>
+Find and prove a similar rule for the sequence construct.
+</p>
+<h2> Solution </h2>
+
+Look at <a href="SRC/Hoare_sequence.v"> This file </a>
+<br>
+<br>
+<hr>
+
+</body>
+
+</html>

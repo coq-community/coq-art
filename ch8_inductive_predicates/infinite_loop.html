@@ -1,0 +1,65 @@
+<html>
+<title>Infinite loop in an imperative language
+</title>
+<body>
+<h1>Infinite loop in an imperative language
+</h1>
+<p>
+It is possible to define the abstract syntax and the semantics of a
+little programming language with the following inductive definitions:
+</p>
+<pre>
+Section little_semantics.
+ Variables Var aExp bExp : Set.
+ Inductive inst : Set :=
+ | Skip : inst
+ | Assign : Var->aExp->inst
+ | Sequence : inst->inst->inst
+ | WhileDo : bExp->inst->inst.
+
+ Variables
+  (state : Set)
+  (update : state->Var->Z -> option state)
+  (evalA : state->aExp -> option Z)
+  (evalB : state->bExp -> option bool).
+
+ Inductive exec : state->inst->state->Prop :=
+ | execSkip : forall s:state, exec s Skip s
+ | execAssign :
+    forall (s s1:state)(v:Var)(n:Z)(a:aExp),
+     evalA s a = Some n -> update s v n = Some s1 ->
+     exec s (Assign v a) s1
+ | execSequence :
+    forall (s s1 s2:state)(i1 i2:inst),
+     exec s i1 s1 -> exec s1 i2 s2 ->
+     exec s (Sequence i1 i2) s2
+ | execWhileFalse :
+    forall (s:state)(i:inst)(e:bExp),
+     evalB s e = Some false -> exec s (WhileDo e i) s
+ | execWhileTrue :
+    forall (s s1 s2:state)(i:inst)(e:bExp),
+     evalB s e = Some true ->
+     exec s i s1 ->
+     exec s1 (WhileDo e i) s2 ->
+     exec s (WhileDo e i) s2.
+</pre>
+<p>
+Prove that executing a while loop with a body that does not change its state
+and a conditional test that is true never succeeds to produce a final state.
+Here is the exact statement:
+</p>
+<pre>
+ forall (s s':state)(b:bExp),
+   exec s (WhileDo b Skip) s' -> evalB s b = Some true -> False.
+</pre>
+
+<h2> Solution </h2>
+
+Look at <a href="SRC/infinite_loop.v"> This file </a>
+<br>
+<br>
+<hr>
+
+</body>
+
+</html>

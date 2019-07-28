@@ -1,0 +1,28 @@
+<html>
+<title> Mapping finite lists to lazy lists </title>
+<body>
+<h1> Mapping finite lists to lazy lists </h1>
+
+Build an injection from <tt>list A</tt> into
+<tt>LList A</tt>. You must prove that your mapping is injective.
+<h3>Resources</h3>
+
+Here's the definition of type <tt>LList</a>.
+<pre>
+Set Implicit Arguments.
+
+CoInductive LList (A:Set) : Set :=
+  | LNil : LList A
+  | LCons : A -> LList A -> LList A.
+
+Implicit Arguments LNil [A].
+</pre>
+
+<h2> Solution </h2>
+<a href="SRC/list_inject.v"> Follow this link </a>
+<br>
+<br>
+<hr>
+<hr>
+</body>
+</html>

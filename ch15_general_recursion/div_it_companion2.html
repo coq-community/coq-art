@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title> A companion theorem for division specified by a fixpoint equation
+</title>
+  </head>
+
+  <body>
+    <h1> A companion theorem for division specified by a fixpoint equation
+</h1>
+<p>  The following script contains the assumptions that describe a division
+function.  For instance, these facts can be obtained when the function is
+defined using a <i>recursion by iteration technique</i>.
+</p>
+<pre>
+Parameter div_it : forall n m:nat, 0 < m -> nat*nat.
+
+Axiom div_it_fix_eqn :
+ forall (n m:nat)(h:(0 < m)),
+   div_it n m h =
+   match le_gt_dec m n with
+   | left H => let (q,r) := div_it (n-m) m h in (S q, r)
+   | right H => (0, n)
+   end.
+</pre>
+<p>
+These assumptions can be used to prove a companion theorem:
+</p>
+<pre>
+Theorem div_it_correct1 :
+ forall (m n:nat)(h:0 < n),
+   m = fst (div_it m n h) * n + snd (div_it m n h).
+Proof.
+ intros m; elim m using (well_founded_ind lt_wf).
+ intros m' Hrec n h; rewrite div_it_fix_eqn.
+ case (le_gt_dec n m'); intros H; trivial.
+ pattern m' at 1; rewrite (le_plus_minus n m'); auto.
+ pattern (m'-n) at 1.
+ rewrite Hrec with (m'-n) n h; auto with arith.
+ case (div_it (m'-n) n h); simpl; auto with arith.
+Qed.
+</pre>
+<p>
+Prove the second companion theorem, with the following statement:
+</p>
+<pre>
+forall (m n:nat)(h:0 < n), snd (div_it m n h) < n
+</pre>
+<h2>Solution </h2>
+<a href="SRC/div_it_companion2.v"> Follow this link </a>
+<br><br>
+<hr>
+    <hr>
+    <address><a href="mailto:bertot@harfang.inria.fr">Yves Bertot</a></address>
+<!-- Created: Mon May 12 20:36:11 MEST 2003 -->
+<!-- hhmts start -->Last modified: Sun May  3 13:52:54 CEST 2015 <!-- hhmts end -->
+  </body>
+</html>

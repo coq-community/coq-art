@@ -1,0 +1,65 @@
+AFAIRE.txt
+
+Voir les entiers int31 (Admitted dans Powers.v) 
+
+
+A faire : Rédiger une note sur le travail à faire sur les corrigés;
+  enlever des auto, tauto, congruence, now, ";", etc.
+  rubrique "implicit exercises"  ci-dessus + en cas de définitions différentes
+  de la meme notion essayer d'en prouver l'équivalence.
+ 
+Plein de truc sur les ordres, permutations, tris à factoriser ou cross référencer.
+
+
+Note sur les fichiers chap$i$.v . Contiennent pour des raisons pédagogiques 
+ des Abort, Restart, Undo, Check, Print, etc... Ok pour PFG, pour CoqIde ????
+
+Ajouter un exo :
+Comparer les preuves utilisant les différentes définitions de la fermeture transitive.
+En quoi ça change la preuve de bonne fondation de R+ ?
+
+chapitre 2 : Transformer en "Coq as a Programming Language" + exos des Summer Schools
+
+ch2_types_expresssions/Zbtree.html : 
+Explicit the links at the bottom of the page
+ch2_types_expresssions/SRC/Zbtree.v Create exercises on Zbtree_rec[t]
+
+
+contents.html
+index.html
+README.txt
+
+.
+./ch6_inductive_data/SRC:
+vectorsbis.v  (nettoyer, puis mettre avec le tutorial avec Eduardo)
+Faire un html sur Computing_powers
+
+
+./ch7_automatic_tactics:
+index.html
+
+On_nstaz.v   A faire
+
+./ch8_inductive_predicates:
+index.html
+parsing.tex
+
+./ch8_inductive_predicates/SRC:
+id_solution.v  misplaced? Add something about non empty vectors 
+magaud.v OK mettre une référence vers ce fichier: message envoyé à Nicolas
+
+
+.Add a link to SRC/even_odd.v
+
+index.html
+plus_prim.html Move to another chapter!
+
+
+./tutorial_inductive_co_inductive_types:
+J'ai fait une copie : coqart/trunk/Coqbook/IndTutorialV8.5
+  la vérifier et en même temps faire le RecTutorial.v cohérent
+RecTutorial.v  (fait en partie : jusqu a le_case_analysis (14%) )
+
+./tutorial_type_classes:
+Faire un README
+

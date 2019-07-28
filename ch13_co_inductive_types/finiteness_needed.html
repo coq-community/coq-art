@@ -1,0 +1,25 @@
+<html>
+<title>  Using finiteness hypotheses  </title>
+<body>
+<h1>  Using finiteness hypotheses </h1>
+
+Consider the following proof (from <a href="SRC/chap13.v"> this file </a>):
+
+<pre>
+Lemma Eventually_of_LAppend :
+  forall (P:LList A -> Prop) (u v:LList A),
+    Finite u ->
+    satisfies v (Eventually P) -> satisfies (LAppend u v) (Eventually P).
+</pre>
+
+Build a counterexample for showing that the hypothesis
+<tt> Finite u </tt> is necessary.
+
+<h2> Solution </h2>
+<a href="SRC/finiteness_needed.v"> Follow this link </a> 
+<br>
+<br>
+<hr>
+<hr>
+</body>
+</html>

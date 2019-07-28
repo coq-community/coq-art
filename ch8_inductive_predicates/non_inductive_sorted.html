@@ -1,0 +1,39 @@
+<html>
+<title>Non inductive definition of sorted lists
+</title>
+<body>
+<h1>Non inductive definition of sorted lists
+</h1>
+<p>
+Here are two definitions of sorted lists.  Prove that they are equivalent.
+</p>
+<pre>
+Require Export List Relations.
+
+Section Definitions.
+Variables (A:Type)(R: relation A).
+
+Inductive sorted : list A -> Prop :=
+  | sorted0 : sorted nil
+  | sorted1 : forall x:A, sorted  (x :: nil)
+  | sorted2 :
+      forall (x y:A)(l:list A),
+        R x y ->
+        sorted (y :: l)-> sorted  (x :: y :: l).
+
+Definition sorted' (l:list A) :=
+  forall (l1 l2:list A)(n1 n2:A),
+    l = l1 ++ (n1 :: n2 ::l2) -> 
+    R n1 n2.
+
+</pre>
+<h2> Solution </h2>
+
+Look at <a href="SRC/non_inductive_sorted.v"> This file </a>
+<br>
+<br>
+<hr>
+
+</body>
+
+</html>

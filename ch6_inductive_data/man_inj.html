@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Manual injection on variably dependent types</title>
+  </head>
+
+  <body>
+    <h1>Manual injection on variably dependent types</h1>
+<p>Using the type <tt>htree> given by the following definition:</p>
+<pre>
+Inductive htree (A:Set) : nat -> Set :=
+  hleaf : A -> (htree A O)
+| hnode : forall n:nat, A -> htree A n -> htree A n -> htree A (S n).
+</pre>
+<p>Prove the following statement:</p>
+<pre>
+Theorem injection_first_htree:
+ forall (n : nat) (t1 t2 t3 t4 : htree nat n),
+   hnode nat n O t1 t2 = hnode nat n O t3 t4 ->  t1 = t3.
+</pre>
+<h2>Solution</h2>
+<p><a href="SRC/man_inj.v">This file</a></p>
+<h2>Note</h2>
+<p>Use tactics to define the injection function that maps a tree down 
+    to one of its subterms: the <tt>case</tt> tactic provides the
+      relevant dependent pattern matching construct.</p>
+
+    <hr>
+    <address><a href="mailto:bertot@bahia.inria.fr">Yves Bertot</a></address>
+<!-- Created: Sat Aug  2 11:11:48 MEST 2003 -->
+<!-- hhmts start -->
+Last modified: Sat Aug  2 11:17:27 MEST 2003
+<!-- hhmts end -->
+  </body>
+</html>

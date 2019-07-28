@@ -1,0 +1,27 @@
+<html>
+<title> Functions defined by cases without <tt>match</tt>  </title>
+<body>
+<h1>  Functions defined by cases without <tt>match</tt>  </h1>
+
+Consider the following type definition for vehicles (including  bicycles
+and motorized vehicles).  For bicycles, we can have a variable number
+of seats and for motorized vehicles we can have a variable number
+of seats and a variable number of wheels:
+<pre>
+Inductive vehicle : Set :=
+  | bicycle : nat -> vehicle 
+  | motorized : nat -> nat -> vehicle.
+</pre>
+
+
+Define a function computing the number of seats of any vehicle,
+<em>as an application of vehicle_rec (without using <tt>match ... with </tt>)</em>.
+
+<h2>Solution</h2>
+<a href="SRC/nbseats.v"> This file </a>
+<br><hr><br>
+
+
+</body>
+</html>
+

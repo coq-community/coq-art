@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>On nested recursion </title>
+  </head>
+
+  <body>
+    <h1>On nested recursion</h1>
+
+Complete the missing parts:
+
+<pre>
+Require Import Arith.
+Require Import Omega.
+
+Fixpoint div2 (n:nat) : nat := match n with S (S p) => S (div2 p) | _ => 0 end.
+
+(* as we advised in chapter 9, we use a specific induction principle
+   to reason on the division function. *)
+
+Theorem div2_ind :
+ forall P:nat->Prop,
+   P 0 -> P 1 -> (forall n, P n -> P (S (S n))) ->
+   forall n, P n.
+Proof.
+ intros P H0 H1 HS n ; assert (H' : P n /\ P (S n)).
+ -  induction n; intuition.
+ - now destruct H'.  
+Qed.
+
+
+(* Once the induction principle breaks down the problem into the
+   various cases, the omega tactic can handle them. *)
+
+Theorem double_div2_le : forall x:nat, div2 x + div2 x <= x.
+
+Theorem f_lemma : forall x v, v <= div2 x -> div2 x + v <= x.
+
+</pre>
+
+<br><br>
+<h2> Solution </h2>
+<a href="SRC/exo_15_13.v"> This file </a>
+<hr>
+    <hr>
+    <address><a href="mailto:bertot@harfang.inria.fr">Yves Bertot</a></address>
+<!-- Created: Wed May 14 08:23:43 MEST 2003 -->
+<!-- hhmts start -->Last modified: Sun May  3 13:53:02 CEST 2015 <!-- hhmts end -->
+  </body>
+</html>

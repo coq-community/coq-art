@@ -1,0 +1,65 @@
+<html>
+<title> Some impredicative definitions </title>
+<body>
+<h1> Some impredicative definitions </h1>
+
+Let us consider the following impredicative definitions of
+falsehood, conjunction, disjunction and existencial quantification.
+
+<pre>
+Definition my_False : Prop := forall P:Prop, P.
+
+Definition my_not (P:Prop) : Prop := P -> my_False.
+
+Definition my_and (P Q:Prop) : Prop := forall R:Prop, (P -> Q -> R) -> R.
+
+Definition my_or (P Q:Prop) : Prop :=
+  forall R:Prop, (P -> R) -> (Q -> R) -> R.
+
+Definition my_ex (A:Set) (P:A -> Prop) : Prop :=
+  forall R:Prop, (forall x:A, P x -> R) -> R.
+</pre>
+
+Prove the following theorems :
+<pre>
+Theorem my_and_left : forall P Q:Prop, my_and P Q -> P.
+
+Theorem my_and_right : forall P Q:Prop, my_and P Q -> Q.
+
+Theorem my_and_ind : forall P Q R:Prop, (P -> Q -> R) -> my_and P Q -> R.
+
+Theorem my_or_introl : forall P Q:Prop, P -> my_or P Q.
+
+Theorem my_or_intror : forall P Q:Prop, Q -> my_or P Q.
+
+Theorem my_or_ind : forall P Q R:Prop, (P -> R) -> (Q -> R) -> my_or P Q -> R.
+
+Theorem my_or_False : forall P:Prop, my_or P my_False -> P.
+
+Theorem my_or_comm : forall P Q:Prop, my_or P Q -> my_or Q P.
+
+Theorem my_ex_intro : forall (A:Set) (P:A -> Prop) (a:A), P a -> my_ex A P.
+
+Theorem my_not_ex_all :
+ forall (A:Set) (P:A -> Prop), my_not (my_ex A P) -> forall a:A, my_not (P a).
+
+Theorem my_ex_ex : forall (A:Set) (P:A -> Prop), my_ex A P -> ex P.
+</pre>
+</pre>
+
+<h2> Solution </h2>
+
+<a href="SRC/impred.v"> See this file </a>
+
+<h3> Notes </h3>
+We encourage the reader to look at these proofs, and find another solutions,
+for instance by removing the automatisms.
+
+<br><br>
+<hr>
+<hr>
+</body>
+</html>
+
+ 
+

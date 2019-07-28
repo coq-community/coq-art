@@ -1,0 +1,48 @@
+<html>
+<title> An impredicative définition of &lt;= on <tt>nat</tt> </title>
+<body>
+<h1> An impredicative définition of &lt;= on <tt>nat</tt> </h1>
+
+Consider the following definition :
+<pre>
+Require Arith.
+
+Definition my_le (n p:nat) :=
+  forall P:nat->Prop,
+    P n ->
+    (forall q:nat, P q -> P (S q)) ->
+    P p. 
+</pre>
+
+Prove the following theorems :
+<pre>
+Lemma my_le_n : forall n:nat, my_le n n.
+Lemma my_le_S : forall n p:nat, my_le n p -> my_le n (S p).
+Lemma my_le_inv : forall n p:nat, my_le n p ->n = p \/ my_le (S n) p.
+Lemma my_le_inv2 : forall n p:nat, my_le (S n) p ->
+                     exists q, p=(S q) /\ my_le n q.
+Lemma my_le_n_O : forall n:nat, my_le n (0) -> n=0.
+Lemma my_le_le : forall n p:nat, my_le n p ->  n <= p.
+Lemma le_my_le : forall n p:nat, n <= p -> my_le n p.   
+</pre>
+
+
+<h2> Hints </h2>
+In order to get comfortable with the definition of <tt>my_le</tt>,
+you should try to prove manually some simple inequalities,
+like <tt>(my_le 0 2)</tt>, <tt>(my_le 1 3)</tt>, etc.
+<br>
+You should also print and look at the proof terms for all the
+theorems you prove. It will make you understand how 
+ <tt>my_le</tt> works.
+
+<h2> Solution </h2>
+
+See file <a href="SRC/le_impred.v"> le_impred.v </a>
+
+<br>
+<br>
+<hr>
+
+</body>
+</html>

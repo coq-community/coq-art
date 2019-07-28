@@ -1,0 +1,29 @@
+<html>
+<title> A counting function for trees and lists of trees.
+</title>
+<body>
+<h1> A counting function for trees and lists of trees. </h1>
+
+<p>
+We define a type of trees based on lists of trees.  In this type, an
+node can have an arbitrary (but finite) number of children, grouped in a list.
+</p>
+<pre>
+Require Export List.
+
+Inductive ltree (A:Set) : Set :=
+    lnode : A -> list (ltree A)-> ltree A.
+</pre>
+<p>
+For this type, define a function <tt>count</tt>
+that counts the number of nodes in a tree.
+</p>
+<h2>Solution</h2>
+
+Look at <a href="SRC/ltree_count.v"> this file </a>
+<br><br>
+<hr>
+<hr>
+
+</body>
+</html>

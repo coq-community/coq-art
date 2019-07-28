@@ -1,0 +1,38 @@
+<html>
+<title> A simple proof by induction </title>
+<body>
+<h1> A simple proof by induction </h1>
+
+Consider the following function, which returns the double
+of its argument (of type <tt>nat</tt>).
+
+<pre>
+Require Arith.
+
+Fixpoint mult2 (n:nat) : nat :=
+  match n with
+    O => O
+  | (S p) => (S (S (mult2 p)))
+  end.
+</pre>
+
+Show that, for each <em>n</em>, <tt>(mult2 <em>n</em>)</tt>
+is equal to <em>n+n</em>.
+
+<h2>Solution</h2>
+
+Look at <a href="SRC/mult2.v"> this file </a>
+
+<h3> Note </h3>
+In order to simplify a term like <tt>(plus n0 (S n0))</tt>,
+first consult <em>Coq</em>'s library by typing :
+<pre>
+SearchRewrite (plus _ (S _)).
+</pre>
+<br>
+<br>
+<hr>
+
+<hr>
+</body>
+</html>

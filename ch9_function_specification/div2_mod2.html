@@ -1,0 +1,29 @@
+<html>
+<title> Euclidean division by 2 </title>
+<body>
+<h1>Euclidean division by 2 </h1>
+
+Define a  recursive function restecting  the following specification:
+<pre>
+ Definition div2_mod2 : 
+  forall n:nat, {q:nat & {r:nat | n = 2*q + r /\ r <= 1}}.
+</pre>
+
+<h2> Remark </h2>
+We all know that there exists in Coq's standard library such a function 
+for euclidean division by any positive integer, but we just ask for a simpler 
+development.
+
+<h2> Solution </h2>
+
+Look at <a href="SRC/div2_mod2.v"> This file </a>
+<br>
+<br>
+<hr>
+
+
+</body>
+
+</html>
+
+

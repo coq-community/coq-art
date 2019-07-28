@@ -1,0 +1,37 @@
+<html>
+<title> On the existential quantifier </title>
+<body>
+<h1>  On the existential quantifier </h1>
+
+Complete the following development:
+
+
+<pre>
+Section on_ex. 
+  Variables 
+   (A:Type)
+   (P Q:A -> Prop).
+
+ Lemma ex_or : (exists x:A, P x \/ Q x) -> ex P \/ ex Q.
+ 
+ Lemma ex_or_R : ex P \/ ex Q -> (exists x:A, P x \/ Q x).
+
+ Lemma two_is_three : (exists x:A, forall R : A->Prop, R x) -> 2 = 3.
+
+ Lemma forall_no_ex : (forall x:A, P x) -> ~(exists y:A, ~ P y).
+
+End on_ex.
+
+</pre>
+
+<h2>Solution</h2>
+
+<a href="SRC/exo_on_ex.v"> Look at this file </a>
+
+
+<hr>
+<hr>
+</body>
+</html>
+
+

@@ -1,0 +1,35 @@
+<html>
+<title> A two step induction proof </title>
+<body>
+<h1>A two step induction proof </h1>
+
+Consider the following function:
+
+<pre>
+Fixpoint div2 (n:nat) : nat :=
+  match n with 
+  | 0 => 0
+  | 1 => 0
+  | S (S p) => S (div2 p)
+  end.
+</pre>
+
+Define the function <tt>mod2</tt> which returns the rest of division by
+two, the prove the following equality for all <tt>n</tt>:
+
+<pre>
+ n = 2 * (div2 n) + mod2 n
+</pre>
+<h2> Solution </h2>
+
+Look at <a href="SRC/mod2.v"> This file </a>
+<br>
+<br>
+<hr>
+
+
+</body>
+
+</html>
+
+

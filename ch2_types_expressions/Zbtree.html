@@ -1,0 +1,87 @@
+<html>
+<title> Simple Function on binary trees </title>
+<body>
+<h1> Simple Function on binary trees  </h1>
+
+Consider the following definition of binary trees the nodes of which are 
+labelled with integers
+
+<pre>
+Inductive Zbtree : Type :=
+|  leaf 
+|  bnode (r:Z)(t1 t2: Zbtree).
+</pre>
+
+<h2 Define the following functions </h2>
+
+<pre>
+(** Checks whether t is a leaf *)
+is_leaf (t: Zbtree) : bool :=
+
+
+(** Returns the total number of nodes (binary nodes and leaves) of t *)
+size (t: Zbtree) : nat :=
+
+(** returns the heigth of t *)
+height (t:Zbtree) : nat :=
+
+(** returns the mirror of t *)
+mirror (t:Zbtree) : Zbtree 
+
+(** Checks whether n labels some node of t *)
+memb (n:Z)(t: Zbtree) : bool 
+
+(** Computes the list of t's labels (in infix order) *)
+infix_list (t:Zbtree) : list Z 
+
+(** Checks whether t is a search tree *)
+is_searchtree (t:Zbtree) : bool
+
+(** Checks whether n labels some node of t . This function is more efficient
+   than memb, but is correct  only is applied to to a search tree *)
+memb_in_searchtree  (n:Z)(t: Zbtree) : bool 
+
+(** Transforms a list of integers into a searchtree *)
+list_to_searchtree (l:list Z) : Zbtree 
+
+</pre>
+
+
+<h2> Notes </h2>
+
+You may require some libraries :
+<ul>
+<li> <tt>Max</tt> (for computing the maximum of two natural numbers)
+<li> <tt>ZArith</tt> (for using the type <tt>Z</tt> )
+<li> <tt>Bool</tt> (for infix notations of the boolean connectives)
+<li> <tt>List</tt>
+</ul>
+<br><br>
+
+<h3> Comments </h3>
+This exercise will be extended in several directions:
+<ul>
+<li> The composition of functions <tt>list_to_searchtree</tt> and
+<tt>infix_list</tt> cannot be considered as a sorting function on lists.
+Why? One can fix this issue in two ways:
+<ul>
+<li> Modifying the data structure for storing the multiplicity of any element
+   of the list, or
+<li> Keeping the type <tt>Zbtree</tt> but slightly modifying the notion 
+  of search-trees.
+</ul>
+<li> Polymorphism : type <tt>Z</tt> will be replaced with any type provided with a decidable total order.
+<li> Formal proof of correctness of the functions above
+<li> Formal specification of a type associated with search-trees (using sigma-types)
+<li> 
+</ul>
+<h2> Solution </h2>
+
+See <a href="SRC/Zbtree.v"> this file </a>
+
+<br><br>
+<hr>
+<hr>
+
+</body>
+</html>

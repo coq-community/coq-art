@@ -1,0 +1,39 @@
+<html>
+<title> On Negation </title>
+<body>
+<h1> On Negation </h1>
+
+Please consider the propositions automatically 
+proved in <a href="Solutions/on_negation.v"> this file </a>.
+
+Some of these propositions do not require <tt>False</tt>-elimination and
+ can be considered as instances of theorems of  minimal propositional logic.
+The other propositions are proved with the help of <tt>tauto</tt>.
+
+Please replace occurrences of <tt>auto</tt> with combinations of
+<tt>intros</tt>, <tt>apply</tt> and <tt>assumption</tt>. 
+<br>
+Proofs made initially with 
+<tt>tauto</tt> will be rewritten using  <tt>unfold not</tt>, and
+<tt>False</tt> and negation elimination.
+
+
+<h2> Solution </h2>
+
+See <a href="SRC/on_negation.v"> on_negation.v </a>
+
+<h2>Notes</h2>
+Whenever <tt>False</tt>-elimination  is  not
+ needed, we first proved some lemma in minimal propositional logic, then
+apply it to derive the statement we wanted to prove.
+<br>
+Please notice that all these results could be proved in one step :
+either by "<tt>unfold not; auto</tt>" if <tt>False</tt>-elimination is not needed,
+or by <tt>tauto</tt> in the other case.
+
+<br><br>
+<hr>
+<hr>
+
+</body>
+</html>

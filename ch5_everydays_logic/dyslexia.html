@@ -1,0 +1,26 @@
+<html>
+<title> Some bad inference rules </title>
+<body>
+<h1> Some bad inference rules </h1>
+Among many logical mistakes, we often meet bad inference rules, the use of
+which can lead to inconsistencies. 
+For instance, let us consider implication dyslexia (confusion between 
+<em>P->Q</em>  and <em>Q->P</em>) and dyslexic contraposition :
+<pre>
+Definition dyslexic_imp := forall P Q:Prop, (P->Q) -> Q -> P.
+
+Definition dyslexic_contrap :=forall P Q:Prop,(P->Q) -> ~P -> ~Q.
+</pre>
+
+
+Show that if one or the other of the preceding types was inhabited,
+one could prove <tt>False</tt>, hence any proposition.
+
+<h2> Solution </h2>
+
+<a href="SRC/dyslexia.v"> Look at file dyslexia.v </a>
+<br><br>
+<hr>
+<hr>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Rewriting with exceptions</title>
+  </head>
+
+  <body>
+    <h1>Rewriting with exceptions</h1>
+<p>
+The <tt>ZArith</tt> library provides the following two theorems:
+</p>
+<pre>
+Zpos_xI  : forall p:positive, Zpos (xI p) = (2 * Zpos p + 1)%Z
+Zpos_xO  : forall p:positive, Zpos (xO p) = (2 * Zpos p)%Z
+</pre>
+The number <tt>2%Z</tt> is also represented by <tt>Zpos (xO xH)</tt>.  Write
+a function that rewrite as many times as possible with these two theorems
+without entering a loop.
+    <hr>
+
+<h2> Solution </h2>
+Look at <a href="SRC/Zpos_x_tac.v"> this file </a>
+
+    <address><a href="mailto:bertot@harfang.inria.fr">Yves Bertot</a></address>
+<!-- Created: Fri Feb 27 20:57:52 MET 2004 -->
+<!-- hhmts start -->
+Last modified: Sun May  8 08:06:46 MEST 2005
+<!-- hhmts end -->
+  </body>
+</html>

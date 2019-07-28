@@ -1,0 +1,42 @@
+<html>
+<title> On fractions  </title>
+<body>
+<h1>   On fractions  </h1>
+
+Every strictly positive rational number can be obtained in a unique
+manner by a succession of applications of functions <em>N</em> and <em>D</em> on 
+the number <em>1</em>, where <em>N</em> and <em>D</em> are defined by the following
+equations:
+
+<pre>
+N(x) = 1 + x
+D(x) =  1
+       ------
+           1
+       1 + -
+           x
+</pre>
+
+We can associate any strictly positive rational number to an element of
+an inductive type with one constructor for one, and two other
+constructors representing the functions <em>N</em> and <em>D</em>.
+<br>
+Define this inductive type.
+<br><br>
+Build the function that takes an 
+element of this type defined  and returns
+the numerator and denominator of the corresponding reduced fraction.
+
+
+<br>
+<h2>Solution</h2>
+<a href="SRC/exo_frac.v"> This file </a>
+<br><br>
+<font color=red> Note:  this file solution contains also a proof
+that the fraction we compute is irreducible. We admit Bezout's equality.
+Notice that we use techniques described in <a href="../inductive-prop-chap/index.html">
+the chapter devoted to inductive predicates </a> </font>
+<br><hr><br>
+</body>
+</html>
+

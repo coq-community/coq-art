@@ -1,0 +1,29 @@
+<html>
+<title> Five characterizations of classical logic   </title>
+<body>
+<h1>  Five characterizations of classical logic </h1>
+
+Here are five statements that are often considered as
+characterizations of classical logic.  Prove that these five
+propositions are equivalent.
+
+<pre>
+Definition peirce := forall P Q:Prop, ((P->Q)->P)->P.
+Definition classic := forall P:Prop, ~~P -> P.
+Definition excluded_middle := forall P:Prop, P\/~P.
+Definition de_morgan_not_and_not := forall P Q:Prop, ~(~P/\~Q)->P\/Q.
+Definition implies_to_or := forall P Q:Prop, (P->Q)->(~P\/Q).
+</pre>
+
+
+<h2>Solution</h2>
+
+<a href="SRC/class.v"> Look at this file </a>
+<br><br>
+<hr>
+<hr>
+
+</body>
+</html>
+
+

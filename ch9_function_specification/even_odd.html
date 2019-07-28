@@ -1,0 +1,45 @@
+<html>
+<title> Formal Specification of a parity test  </title>
+<body>
+<h1>Formal Specification of a parity test </h1>
+
+Consider the following declarations:
+
+<pre>
+Definition Even (n:nat) : Prop :=
+ exists p:nat, n = 2*p. 
+
+Definition Odd (n:nat) : Prop :=
+ exists p:nat, n = S (2*p).
+
+Inductive even_spec (n:nat) : bool -> Prop :=
+| even_true : forall (Heven : Even n), even_spec n true 
+| even_false : forall (Hodd : Odd n), even_spec n false.
+
+Definition even_test_ok (f : nat -> bool) :=
+ forall n:nat, even_spec n (f n).
+</pre>
+
+Define a function <tt>even_bool</tt> such that <tt>even_test_ok even_bool</tt> holds.
+
+<br><br><br>
+Prove the following lemma:
+<pre>
+Lemma even_bool_false (f: nat->bool) (H: even_test_ok f):
+ forall n,  Odd n <-> f n = false.
+</pre>
+<br><br>
+Solution:<br>
+Prove the following lemma:
+
+Look at <a href="SRC/even_odd.v"> This file </a>
+<br>
+<br>
+<hr>
+
+
+</body>
+
+</html>
+
+

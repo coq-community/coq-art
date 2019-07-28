@@ -1,0 +1,27 @@
+<html>
+<title>  Another definition of infinite lists </title>
+<body>
+<h1> Another definition of infinite lists </h1>
+
+Consider the following definitions :
+<pre>
+Definition Infinite_ok (A:Type) (X:LList A -> Prop) :=
+  forall l:LList A,
+    X l ->  exists a : A | ( exists l' : LList A | l = LCons a l' /\ X l').
+ 
+Definition Infinite1 (A:Type) (l:LList A) :=
+   exists X : LList A -> Prop | Infinite_ok X /\ X l.
+</pre>
+
+<br> 
+Prove that the predicates <tt>Infinite1</tt> and <tt>Infinite</tt>
+are logically equivalent.
+
+
+<br> <a href = "SRC/infinite_impred_prelude.v"> A context for starting to  work </a>
+
+<br> <a href = "SRC/infinite_impred.v"> A solution </a>
+<br>
+<hr>
+</body>
+</html>

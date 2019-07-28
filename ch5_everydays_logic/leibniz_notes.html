@@ -1,0 +1,46 @@
+<html>
+<title> Notes </title>
+<body>
+<h2> Notes </h2>
+
+
+The proof of symmetry is worth to look at. <br>
+
+The definition of the impredicative leibniz equality 
+<tt>leibniz a b</tt> has an asymmetric form, due to
+the implication <tt>P a -> P b </tt>, but the symmetry is
+restored by a proper substitution for <tt>P</tt> :<br>
+
+Let us assume <tt>leibniz a b</tt>, <em>i.e.</em>
+<pre>
+H : forall P:A->Prop, P a -> P b
+</pre>
+
+Then for every predicate <tt>Q</tt> over <tt>A</tt>,
+the term <tt>H fun a0:A => Q a0 -> Q a</tt> is a proof of the proposition :
+<pre>
+(Q a -> Q a)-> Q b -> Q a
+</pre>
+
+from which we trivially prove  <tt>Q b -> Q a</tt>
+<hr>
+
+The theorems <tt>leibniz_eq</tt> 
+and <tt>eq_leibniz</tt> imply together that 
+the propositions <tt>leibniz a b</tt> and
+<tt>a=b</tt>  are <em>logically</em> equivalent. Nevertheless, there is a 
+slight diffrence. There is a constant <tt>eq_rec</tt> which allows
+to rewrite <tt>a</tt> in <tt>b</tt> in a construction of sort <tt>Set</tt> ,
+but you can't do that with the proposition 
+<tt>leibniz a b</tt>.
+<br>
+In other words, you can't build a term of the following type :
+<pre>
+forall (x : A) (P:A->Set), P x -> (forall y:A, leibniz x y-> P y
+</pre>
+The same problem remains if one replaces  <tt>Set</tt> with <tt>Type</tt> and
+<tt>eq_rec</tt> with <tt>eq_rect</tt>.
+<hr>
+<hr>
+</body>
+</html>

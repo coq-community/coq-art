@@ -1,0 +1,23 @@
+<html>
+<title> Another addition function  </title>
+<body>
+<h1> Another addition function </h1>
+Consider the following definition on addition:
+<pre>
+Fixpoint plus' (n m:nat){struct m} : nat :=
+  match m with O => n | S p => S (plus' n p) 
+  end.
+</pre>
+
+Show (without using <tt>plus</tt>) that <tt>plus'</tt> is associative.
+
+<h2> Solution </h2>
+<a href="SRC/plus_prim.v"> Follow this link </a>
+<br>
+<br>
+<hr>
+
+
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<html>
+<title> On division and primality  </title>
+<body>
+<h1>   On division and primality  </h1>
+
+Consider the following definitions:
+
+<pre>
+
+Require Export ZArith.
+Require Export ZArithRing.
+
+Fixpoint check_range (v:Z)(r:nat)(sr:Z){struct r} : bool :=
+  match r with
+    O => true
+  | S r' =>
+    match (v mod sr)%Z with
+      Z0 => false
+    | _ => check_range v r' (Zpred sr)
+    end
+  end.
+
+Definition check_primality (n:nat) :=
+  check_range (Z_of_nat n)(pred (pred n))(Z_of_nat (pred n)).
+</pre>
+
+Prove the following theorems:
+<pre>
+
+Theorem verif_divide :
+    forall m p:nat, 0 < m -> 0 < p ->
+    (exists q:nat, m = q*p)->(Z_of_nat m mod Z_of_nat p = 0)%Z.
+
+Theorem divisor_smaller :
+    forall m p:nat, 0 < m -> forall q:nat, m = q*p -> q <= m.
+
+Theorem  check_range_correct :
+  forall (v:Z)(r:nat)(rz:Z),
+  (0 < v)%Z -> Z_of_nat (S r) = rz -> check_range v r rz = true ->
+  ~(exists k:nat, k <= S r /\ k <> 1 /\ 
+                       (exists q:nat, Zabs_nat v = q*k)).
+
+Theorem check_correct :
+  forall p:nat, 0 < p -> check_primality p = true ->
+  ~(exists k:nat, k <> 1 /\ k <> p /\ (exists q:nat, p = q*k)).
+</pre>
+
+
+<h2>Solution</h2>
+<a href="SRC/verif_divide.v"> This file </a>
+<br>
+<br>
+<hr>
+</body>
+</html>
+

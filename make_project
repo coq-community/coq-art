@@ -1,0 +1,3 @@
+echo "-R . coqart85 " >_CoqProject ; find . -name '*.v' -print  >> _CoqProject;  echo 'COQDOCFLAGS = "-interpolate -utf8 --latex --html  --body-only --short"' >> _CoqProject
+
+

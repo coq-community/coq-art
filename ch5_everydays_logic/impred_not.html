@@ -1,0 +1,28 @@
+<html>
+<title> On Negation (impredicative definition) </title>
+<body>
+<h1> On Negation (impredicative definition) </h1>
+
+Consider the following definitions :
+<pre>
+Definition my_False : Prop := forall P:Prop, P.
+
+Definition my_not (P:Prop) : Prop := P -> my_False.
+</pre>
+
+Prove the same theorems as in  <a href="on_negation.html"> that exercise </a>, 
+but using 
+<tt>my_False</tt> and <tt>my_not</tt> instead of 
+<tt>False</tt> and <tt>not</tt>.
+<br>
+
+<h2> Solution </h2>
+
+See <a href="SRC/impred_not.v"> this file </a>
+
+<br><br>
+<hr>
+<hr>
+
+</body>
+</html>

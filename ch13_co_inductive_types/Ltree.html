@@ -1,0 +1,41 @@
+<html>
+<title> Potentially infinite trees </title>
+<body>
+<h1> Potentially infinite trees </h1>
+
+Consider the following definition :
+
+<pre>
+Set Implicit Arguments.
+
+(* potentialy infinite trees with internal nodes labeled with type A *)
+
+CoInductive LTree (A : Set) : Set :=
+   LLeaf :  LTree A
+ | LBin : A -> (LTree A) -> (LTree A) -> LTree A.
+</pre>
+
+Define the following predicates and functions :
+<ul>
+<li> <tt>(is_LLeaf <em>t</em>)</tt> is a proposition meaning
+"<em>t</em> is a leaf".
+<li> <tt>(L_root <em>t</em>)</tt> returns the label of the root of <em>t</em>
+  (if exists)
+<li> <tt>(L_left_son <em>t</em>) </tt> returns the left son  of  <em>t</em>
+(if exists)
+<li> <tt>(L_right_son <em>t</em>)</tt> returns the right son  of <em>t</em> (if exists)
+<li> <tt>(L_subtree <em>p</em> <em>t</em>)</tt> returns the subtree of <em>t</em> at path
+       <em>p</em> (if exists)
+<li> <tt>(LTree_label <em>p</em> <em>t</em>)</tt> returns the label  at path
+       <em>p</em> (if exists)
+
+</ul>
+
+
+<h2> Solution </h2>
+<a href="SRC/Ltree.v"> Follow this link </a>
+<br>
+<br>
+<hr>
+</body>
+</html>

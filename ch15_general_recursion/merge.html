@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Merging sorted lists</title>
+  </head>
+
+  <body>
+    <h1>Merging sorted lists</h1>
+
+<p>A good algorithm to sort lists is the merging algorithm that relies
+en merging sublists that are already sorted.  The structure of this
+algorithm can be summarized by the following two equations
+(in both cases one supposes that <i>a</i> is smaller than <i>b</i>):</p>
+<pre>
+merge (a :: l) (b :: l') = a :: merge l (b :: l')
+merge (b :: l) (a :: l') = a :: merge (b :: l) l'
+</pre>
+<p>This function is not structural recursive with respect to the
+the first list (because of the second equation) or with respect
+to the second list (because of the first equation), but the sum of length
+of lists decreases at each recursive call.  Use this remark to
+build an algorithm that sorts lists of elements of type <i>A</i>, working
+in a functor taking a module with the following type as argument.
+
+<pre>
+Module Type Comparable_data.
+Parameter A : Set.
+Parameter Ale : A -> A -> Prop.
+Parameter Ale_dec : forall x y:A, {Ale x y}+{Ale y x}
+End Comparable_data.
+</pre>
+
+<h2>Solution</h2>
+<p>Look at <a href="SRC/merge.v">this file</a>.
+<br><br>
+<hr>
+
+<h2> Additional Exercise </h2>
+Write a version of <a href="SRC/merge.v">merge.v</a> using type classes instead of the module
+system.
+
+
+    <hr>
+    <address><a href="mailto:bertot@harfang.inria.fr">Yves Bertot</a></address>
+<!-- Created: Wed May 14 08:23:43 MEST 2003 -->
+<!-- hhmts start -->Last modified: Sun May  3 13:54:12 CEST 2015 <!-- hhmts end -->
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<html>
+<title> Looking for a value in a tree  </title>
+<body>
+<h1>   Looking for a value in a tree  </h1>
+
+Consider the following type:
+
+<pre>
+Require Import ZArith.
+
+Inductive Z_btree : Set :=
+ | Z_leaf : Z_btree 
+ | Z_bnode : Z->Z_btree->Z_btree->Z_btree.
+</pre>
+
+
+Define a function taking as argument an integer <em>z</em> 
+and a tree <em>t:Z_btree</em> and returning <tt>true</tt> iff <em>t</em>
+has (at least) an occurrence of <em>z</em>.
+
+<h2>Hint</h2>
+Use the function <tt>Zeq_bool</tt> to compare two intergers wrt equality.
+formula.
+<h2>Solution</h2>
+<a href="SRC/value_present.v"> This file </a>
+<br><br>
+<font color=red> Note: </font> this solution contains also an infix notation
+for these formulae.<br><br>
+Suggestion: add propositional variables !
+<br><hr><br>
+
+</body>
+</html>
+

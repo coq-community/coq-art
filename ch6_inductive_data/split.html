@@ -1,0 +1,28 @@
+<html>
+<title> Splitting and combining lists </title>
+<body>
+<h1>  Splitting and combining lists </h1>
+
+Define two functions with the following type
+<tt>
+split
+     : forall A B : Type, list (A * B) -> list A * list B
+
+combine
+     : forall A B : Type, list A -> list B -> list (A * B)
+
+</tt>
+and the usual behavior (transform a list of pairs into
+a pair of lists containing the same data, and vice-versa, whenever possible)
+
+<br>
+Prove a simple theorem relating <tt>split</tt> and <tt>combine</tt>
+
+<h2>Solution</h2>
+
+Look at <a href="SRC/split.v"> this file </a>
+<hr>
+
+
+</body>
+</html>

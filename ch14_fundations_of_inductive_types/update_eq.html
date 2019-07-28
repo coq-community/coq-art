@@ -1,0 +1,43 @@
+<html>
+<title> <tt>eq_rect</tt> as an identity function
+</title>
+<body>
+<h1> <tt>eq_rect</tt> as an identity function </h1>
+
+<p>
+The module <tt>Eqdep</pp> provides the following theorem
+</p>
+<pre>
+eq_rec_eq: forall (U:Type) (P:U -> Set) (p:U) (x:P p) (h:p = p), x = eq_rec p P x p h.
+</pre>
+<p>
+We use the function <tt>eq_rect</tt> to define the <tt>update</tt> function.
+</p>
+<pre>
+Section update_def.
+Variables (A : Type) (A_eq_dec : forall (x y : A),  ({ x = y }) + ({ x <> y })).
+Variables (B : A ->  Type) (a : A) (v : B a) (f : forall (x : A),  B x).
+ 
+Definition update (x : A) : B x :=
+   match A_eq_dec a x with
+    | left h => eq_rec a B v x h
+    | right h' => f x
+   end.
+ 
+End update_def.
+</pre>
+<p>Prove the following theorem:</p>
+<pre>
+Theorem update_eq:
+ forall (A : Type) (eq_dec : forall (x y : A),  ({ x = y }) + ({ x <> y }))
+        (B : A ->  Type) (a : A) (v : B a) (f : forall (x : A),  B x),
+  update A eq_dec B a v f a = v.
+</pre>
+<h2>Solution</h2>
+
+Look at <a href="SRC/update_eq.v"> this file </a>
+<br><br>
+<hr>
+<hr>
+</body>
+</html>

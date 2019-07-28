@@ -1,0 +1,34 @@
+<html>
+<title> Using <tt>pattern</tt> and <tt>rewrite</tt> </title>
+<body>
+<h1> Using <tt>pattern</tt> and <tt>rewrite</tt>  </h1>
+
+Prove the following result :
+
+<pre>
+Theorem plus_permute2 :
+    forall n m p:nat, n + m + p = n + p + m.
+</pre>
+
+Your are not allowed to use sophisticated tactics for arithmetic in
+this exercise. You may use <tt>rewrite</tt>, <tt>pattern</tt>, and
+<tt>reflexivity</tt>, as well as the following theorems of 
+the <tt>Arith</tt> library :
+
+<pre>
+plus_comm  : forall n m:nat, n + m = m + n
+
+plus_assoc_r : forall n m p:nat, n + m + p = n + (m + p)
+</pre>
+
+<h2>Solution</h2>
+
+<a href="SRC/plus_permute2.v"> Look at this file </a>
+<br><br>
+<hr>
+<hr>
+
+</body>
+</html>
+
+

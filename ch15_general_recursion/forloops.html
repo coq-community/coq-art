@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Semantics of for loops</title>
+  </head>
+
+  <body>
+    <h1>Semantics of for loops</h1>
+<p>The semantics of a little programming language is described with
+the following declarations : </p>
+
+<pre>
+Require Export ZArith.
+ 
+ 
+Section little_abstract_semantics.
+Variables
+   (Var, aExp, bExp, state : Set) (evalA : state -> aExp ->  option Z)
+   (evalB : state -> bExp ->  option bool)
+   (update : state -> Var -> Z ->  option state).
+ 
+Inductive inst : Set :=
+  Skip: inst
+ | Assign: Var -> aExp ->  inst
+ | Scolon: inst -> inst ->  inst
+ | WhileDo: bExp -> inst ->  inst .
+
+
+(* The semantics of the language is given in chapter 7. *)
+ 
+Inductive exec : state -> inst -> state ->  Prop :=
+  execSkip: forall s : state, exec s Skip s
+ | execAssign:
+     forall (s s1 : state) (v : Var) (n : Z) (a : aExp),
+     evalA s a = Some n ->
+     update s v n = Some s1 -> exec s (Assign v a) s1
+ | execScolon:
+     forall (s s1 s2 : state) (i1 i2 : inst),
+     exec s i1 s1 -> exec s1 i2 s2 -> exec s (Scolon i1 i2) s2
+ | execWhileFalse:
+     forall (s : state) (i : inst) (e : bExp),
+     evalB s e = Some false -> exec s (WhileDo e i) s
+ | execWhileTrue:
+     forall (s s1 s2 : state) (i : inst) (e : bExp),
+     evalB s e = Some true ->
+     exec s i s1 -> exec s1 (WhileDo e i) s2 -> exec s (WhileDo e i) s2.
+</pre>
+
+<p>We use the predicate <tt>forLoops</tt> to characterize a subset of programs
+for which execution is guaranteed to terminate (if there are no execution errors).
+</p>
+<pre>
+(* We need to use the evaluation functions as if they were total.  extract_optio
+n
+   makes them total by adding a default value. *)
+ 
+Definition extract_option : forall A : Set, option A -> A ->  A :=
+   fun A x def => match x with None => def | Some v => v end.
+Implicits extract_option [1].
+(* When a while loop contains a variable that is decreased at each
+  step and tested against a bound, it is obvious that this loop will
+  terminate.  We consider such loops are "for" loops.*)
+ 
+Inductive forLoops : inst ->  Prop :=
+  aForLoop:
+    forall (e : bExp) (i : inst) (variant : aExp),
+    (forall s, s' : state,
+     evalB s e = Some true ->
+     exec s i s' ->
+      Zwf
+       ZERO (extract_option (evalA s' variant) ZERO)
+       (extract_option (evalA s variant) ZERO)) ->
+    forLoops i ->  forLoops (WhileDo e i)
+ | assignFor: forall (v : Var) (e : aExp), forLoops (Assign v e)
+ | skipFor: forLoops Skip
+ | scolonFor:
+     forall i1 i2 : inst,
+     forLoops i1 -> forLoops i2 -> forLoops (Scolon i1 i2).
+
+</pre>
+<p>
+Define a function with the following type :
+</p>
+<pre>
+ forall (s : state) (i : inst),
+ forLoops i ->
+   {s' : state | exec s i s'}+{forall s' : state, ~ exec s i s'}.
+</pre>
+<h2> Solution </h2>
+<p>Here is a hint: look at the files from the Coq standard library where
+<tt>well-founded</tt> appears.</p>
+<p>
+<a href="SRC/forloops.v"> Follow this link </a>
+</p>
+ <br><br>
+<hr>
+   <hr>
+    <address><a href="mailto:bertot@harfang.inria.fr">Yves Bertot</a></address>
+<!-- Created: Tue May  6 21:57:46 MEST 2003 -->
+<!-- hhmts start -->Last modified: Sun May  3 13:53:31 CEST 2015 <!-- hhmts end -->
+  </body>
+</html>

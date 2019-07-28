@@ -1,0 +1,36 @@
+<html>
+<title> Yet another definition of &lt;= </title>
+<body>
+<h1> Yet another definition of &lt;= </h1>
+
+Consider the following inductive definition :
+
+<pre>
+Inductive le_diff (n m : nat) : Prop :=
+   le_d : forall x:nat, (plus x n)=m -> le_diff n m.
+</pre>
+
+
+Show that coq's predicate <tt>le</tt> and <tt>le_diff</tt> are 
+logically equivalent.
+
+<h2> Variant </h2>
+
+Use an explicit existential quantifier :
+
+<pre>
+Definition le_diff' (n m : nat) := exists x, (plus x n)=m.
+</pre>
+
+
+<h2>Solution</h2>
+<a href="SRC/le_diff.v"> Look at this file </a>
+<br>
+<a href="le_diff_notes.html"> Remarks </a>
+
+<br><br>
+<hr>
+
+<hr>
+</body>
+</html>

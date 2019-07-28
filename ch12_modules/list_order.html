@@ -1,0 +1,26 @@
+<html>
+<title> Lexicographic ordering on lists (with functors) </title>
+<body>
+<h1>   Lexicographic ordering on lists (with functors)  </h1>
+
+Construct a functor associed with the lexicographic ordering on lists.
+<pre>
+Require Export DecOrders.
+
+(* Lexicographic ordering for lists *)
+
+Module List_Order (D: DEC_ORDER) <: DEC_ORDER with Definition
+  A := list D.A .
+</pre>
+
+<br>
+<a href="SRC/DecOrders.v"> You may require this module </a>
+<h2>Solution</h2>
+<a href="SRC/list_order.v"> This file </a>
+ 
+<br>
+<br>
+<hr>
+</body>
+</html>
+

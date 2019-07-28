@@ -1,0 +1,33 @@
+<html>
+<title> On permutations </title>
+<body>
+<h1> On permutations </h1>
+
+Define the following relationships on <tt>(list A)</tt>:
+<ul>
+<li> The list <em>l'</em> is obtained from <em>l</em> by transposing two consecutive
+    items.
+<li> The list <em>l'</em> is obtained from <em>l</em> by a finite number of such transpositions. <em> We say that <em>l'</em> is a permutation of <em>l</em>.
+</ul>
+
+Show that the second one is an equivalence relation.
+
+<h2> Solution </h2>
+
+Look at <a href="SRC/perms.v"> this file </a>
+
+<h3> Notes </h3>
+You could also define directly the relation <tt>perm</tt> as
+the reflexive-rtransitive closure of <tt>transpose</tt>. In this case, you first have to load the module <tt>Operators_Properties</tt> of the library <tt>Relations</tt>.
+<br><br>
+See also the development in <a href="../ch1_overview/SRC/polymorphic_insertion_sort.v"> this file </a>, that contains some lemmas on permutations. 
+Additionnally, it uses the library <tt>Relation_Classes</tt>.
+
+<br>
+<a href="SRC/perms2.v"> Follow this link </a>
+<br>
+<br>
+<hr>
+
+</body>
+</html>

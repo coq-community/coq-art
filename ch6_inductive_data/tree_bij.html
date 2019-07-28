@@ -1,0 +1,47 @@
+<html>
+<title> Representing trees with functions (continued) </title>
+<body>
+<h1>   Representing trees with functions  (continued) </h1>
+
+Consider the following inductive types for binary trees (with nodes
+labeled by integers).
+<pre>
+Require Import ZArith.
+
+Inductive Z_btree : Set :=
+  Z_leaf : Z_btree | 
+  Z_bnode : Z -> Z_btree -> Z_btree -> Z_btree.
+
+Inductive Z_fbtree : Set :=
+ | Z_fleaf : Z_fbtree 
+ | Z_fnode : Z  -> (bool -> Z_fbtree) -> Z_fbtree.
+</pre>
+
+Define functions  :
+<pre>
+f1 : Z_btree : Z_fbtree
+f2 : Z_fbtree : Z_btree
+</pre>
+that establish the most natural bijection between the two types.
+<br>
+Prove the following theorem:
+
+<pre>
+Theorem f2_f1 : forall t: Z_btree, f2 (f1 t) = t.
+</pre>
+
+What is missing to prove the following statement?
+<pre>
+Theorem f1_f2 : forall t: Z_fbtree, f1 (f2 t) = t.
+</pre>
+
+
+<h2>Solution</h2>
+<a href="SRC/tree_bij.v"> This file </a>
+<br>
+<br>
+<hr>
+
+</body>
+</html>
+

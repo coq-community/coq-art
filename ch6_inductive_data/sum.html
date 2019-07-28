@@ -1,0 +1,35 @@
+<html>
+<title> On the sum of the <em>n</em> first natural numbers  </title>
+<body>
+<h1> On the sum of the <em>n</em> first natural numbers </h1>
+We define the sum of naturals numbers from <em>1</em> upto
+<em>n</em> with the following function :
+
+
+
+<pre>
+Require Arith.
+Fixpoint sum_n (n:nat) : nat :=
+  match n with O => O 
+             | (S p) => (plus (S p) (sum_n p)) end.
+</pre>
+
+Show that for each <em>n</em>, we have: 
+<br>
+<tt>2(sum <em>n</em>)=<em>n(n+1)</em></tt>
+<br>
+<tt><em>n</em> &lt;= sum_n <em>n</em><tt>.
+
+
+
+<h2>Solution</h2>
+
+Look at <a href="SRC/sum.v"> this file </a>
+<br>
+<br>
+<hr>
+
+<hr>
+
+</body>
+</html>

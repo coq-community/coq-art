@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title> A well-specified log with recursion on an ad-hoc predicate
+</title>
+  </head>
+
+  <body>
+    <h1> A well-specified log with recursion on an ad-hoc predicate
+</h1>
+<p>
+Define a well-specified log function by recursion on the ad-hoc
+predicate <tt>log_domain</tt> defined as follows:
+</p>
+<pre>
+Fixpoint div2 (n:nat) : nat :=
+  match n with S (S p) => S (div2 p) | _ => 0 end.
+
+Inductive log_domain : nat->Prop :=
+  log_domain_1 : log_domain 1
+| log_domain_2 :
+    forall p:nat, log_domain (S (div2 p))-> log_domain (S (S p)).
+</pre>
+<p>
+The same lemmas are needed as for the exercise on a well-specified
+discrete log function by well-founded recursion (see <a
+href="log2.html">this file</a>).  The following theorems will also
+play an important role.
+</p>
+<pre>
+Theorem log_domain_non_O : forall x:nat, log_domain x -> x <> 0.
+Proof.
+ intros x H; case H; intros; discriminate.
+Qed.
+Theorem log_domain_inv :
+ forall x p:nat, log_domain x -> x = S (S p)-> 
+            log_domain (S (div2 p)).
+Proof.
+ intros x p H; case H; try (intros H'; discriminate H').
+ intros p' H1 H2; injection H2; intros H3; 
+ rewrite <- H3; assumption.
+Defined.
+</pre>
+<h2>Solution </h2>
+<a href="SRC/log_domain_well_spec.v"> Follow this link </a>
+<br><br>
+<hr>
+    <hr>
+    <address><a href="mailto:bertot@harfang.inria.fr">Yves Bertot</a></address>
+<!-- Created: Mon May 12 20:36:11 MEST 2003 -->
+<!-- hhmts start -->Last modified: Sun May  3 13:54:06 CEST 2015 <!-- hhmts end -->
+  </body>
+</html>

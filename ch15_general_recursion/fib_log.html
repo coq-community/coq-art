@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>An efficient way to compute the fibonacci function
+</title>
+  </head>
+
+  <body>
+    <h1>An efficient way to compute the fibonacci function
+</h1>
+<p>
+Here is a  definition of the Fibonacci function.
+</p>
+<pre>
+Fixpoint fib (n:nat) : nat :=
+  match n with
+    0 => 1
+  | 1 => 1
+  | S ((S p) as q) => fib p + fib q
+  end.
+</pre>
+<p>
+Prove the following statements:
+</p>
+<pre>
+  forall n, fib (2*n) = fib (n) * fib (n) + 
+           (fib (n+1) - fib n)*(fib (n+1) - fib n).
+
+  forall n, fib (2*n+1) = 2 * fib n * fib (n+1) - fib n * fib n.
+
+  forall n, fib (S (2*n+1)) = fib (n+1) * (fib (n+1)) + fib n * fib n.
+</pre>
+<p>
+Use these formulas to define another function that computes the
+values of the Fibonacci function for n, with only a logarithmic number
+of recursive calls (to compute the values for 17 and 18, this function
+should only compute the values for 8, 9, 4, 5, 2, and 3).
+</p>
+<h2>Solution</h2>
+<a href="SRC/fib_log.v">Follow this link</a>
+<br><br>
+<hr>
+    <hr>
+    <address><a href="mailto:casterant@labri.fr">Pierre Castéran</a></address>
+  </body>
+</html>

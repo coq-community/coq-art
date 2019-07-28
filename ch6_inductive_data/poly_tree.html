@@ -1,0 +1,33 @@
+<html>
+<title>Monomorphic binary trees and polymorphic trees
+</title>
+<body>
+<h1>Monomorphic binary trees and polymorphic trees
+</h1>
+<p>
+Here is a monomorphic type of binary trees:
+</p>
+<pre>
+Inductive Z_btree : Set :=
+  Z_leaf : Z_btree | Z_bnode : Z->Z_btree->Z_btree->Z_btree.
+</pre>
+<p>
+Build the type <tt>btree</tt> of polymorphic binary trees.  Define
+translation functions from  <tt>Z_btree</tt> to <tt>btree Z</tt>
+and vice versa.
+Prove that they are inverse to each other.
+
+</p>
+<h2>Solution</h2>
+
+<a href="SRC/poly_tree.v"> Look at this file </a>
+
+<br>
+<br>
+<hr>
+
+
+</body>
+</html>
+
+

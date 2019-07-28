@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>General Recursion</title>
+  </head>
+
+  <body bgcolor=#08FFFF>
+    <h1>General Recursion</h1>
+<a href="SRC/chap15.v">Scripts from the book</a>
+<h2>Exercises</h2>
+<h3>Bounded recursion</h3>
+
+<a href="bdiv.html"> Exercise 15.1 page 410</a> Division by bounded recursion
+<br><a href="bdivspec.html">Exercise 15.2 page 410</a> Well specified version of division
+
+<br><a href="merge.html">Exercise 15.3 page 410</a> Merging sorted lists
+<br><a href="sqrt.html"> Exercise 15.4 page 411</a> Computing square roots
+
+<br> <a href="parsing2.html">More about parsing</a> More about parsing
+
+<h3>Well founded recursion</h3>
+
+<a href="btreewf.html"> Exercise 15.5 page 413</a> Well-founded subterm relation on trees
+<br><a href="inclusionwf.html"> Exercise 15.6 page 413</a> Inclusion preserves well-founded
+<br><a href="not_decreasing.html"> Exercise 15.7 page 413 </a> Well founded relations and infinite sequences
+<br><a href="fib_log.html">  Exercise 15.8 page 418 </a> An efficient way to compute the fibonacci function
+<br><a href="log2.html">  Exercise 15.9 page 418 </a> The discrete logarithm
+<br><a href="factZ.html">Exercise 15.10 page 418</a> The factorial function on Z
+<br><a href="sqrt_nat_wf.html">Exercise 15.11 page 418</a> Computing square roots (with well-founded recursion)
+<br><a href="cubic.html"> Exercise 15.12 page 418</a> Computing cubic roots (with well-founded recursion)
+<h3>Nested recursion </h3>
+
+<br> <a href="exo_15_13.html"> Exercise 15.13 page 420 </a> On nested recursion 
+<br> <a href="exo_15_14.html"> Exercise 15.14 page 420 </a> On nested recursion : a strange function
+
+
+<h3>Recursion by iteration</h3>
+
+<br> <a href="div_it_companion2.html">Exercise 15.16 page 426</a> A companion theorem for division specified by a fixpoint equation
+<br> <a href="factZ_it.html">Exercise 15.17 page 427</a> Defining a factorial function by iteration
+<br> <a href="log2_it.html">Exercise 15.18  page 427</a> Defining a discrete log function by iteration
+ 
+<h3>Recursion with an ad hoc predicate</h3>
+<a href="log_domain_well_spec.html">Exercise 15.19  page 431</a> A well-specified log with recursion on an ad-hoc predicate
+<br> <a href="forloops.html">Exercise 15.20  page 431</a> Semantics of for loops
+<br><br>
+<h2> Errata </h2>
+<ol>
+<li> page 422 (2nd paragraph of 15.3.2):<br>
+The correct specification is the following:
+<pre>
+forall n:A, {v:B | exists p:nat,
+                    forall (k:nat)(g:A->B), p < k -> 
+                                            iter k F g x = v }
+</pre>
+</ol>
+<br>
+<hr>
+    <hr>
+    <address><a href="mailto:bertot@harfang.inria.fr">Yves Bertot</a></address>
+<!-- Created: Tue May  6 21:48:41 MEST 2003 -->
+<!-- hhmts start -->Last modified: Sun May  3 13:53:45 CEST 2015 <!-- hhmts end -->
+  </body>
+</html>

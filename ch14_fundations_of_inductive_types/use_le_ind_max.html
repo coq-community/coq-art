@@ -1,0 +1,44 @@
+<html>
+<title> Using maximal induction principles (le) </title>
+<body>
+<h1> Using maximal induction principles (le) </h1>
+
+<p>
+Use the <tt>Scheme</tt> command to generate the maximal induction 
+principle for <tt>le</tt>.
+</p>
+
+<p>The following text defines a function with a pre-condition
+based on <tt>le</tt> and proves a small theorem about this function.
+<p>
+<pre>
+Definition pred_partial: forall (n : nat), n <> 0 ->  nat.
+Proof.
+ refine (fun n:nat => match n return n <> 0 -> nat 
+                      with 
+                         | 0 => fun h  => False_rec _ _
+                         | S p => fun h => p
+                      end).
+ -  now destruct h.
+Defined.
+
+
+Theorem le_2_n_not_zero: forall (n : nat), 2 <= n ->  n <> 0.
+Proof.
+intros n Hle; elim Hle; intros; discriminate.
+Qed.
+</pre>
+
+<p>Prove the following theorem, using the maximal induction principle.</p>
+<pre>
+Theorem le_2_n_pred:
+ forall (n : nat) (h : 2 <= n),  pred_partial n (le_2_n_not_zero n h) <> 0.
+</pre>
+<h2>Solution</h2>
+
+Look at <a href="SRC/use_le_ind_max.v"> this file </a>
+<br><br>
+<hr>
+<hr>
+</body>
+</html>

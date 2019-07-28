@@ -1,0 +1,29 @@
+<html>
+<title>An efficient Fibonacci function on binary numbers
+</title>
+<body>
+<h1>
+An efficient Fibonacci function on  binary numbers
+</h1>
+
+This exercise follows <a href="fib-tail.html">this one</a>.
+<br>
+Find a simple relation between <tt>(fib <i>n</i>, fib (<i>n</i>+1))</tt>
+and <tt>(fib (2<i>n</i>), fib (2<i>n</i>+1))</tt>.  Use this relation
+to construct an efficient function with the following type:
+<pre>
+forall p:nat, {u:nat &{u':nat | u = fib n \coqand u' = fib(n+1)}}
+</pre>
+using a recursive algorith on numbers of type <tt>positive.</tt>
+
+<h2> Solution </h2>
+
+Look at <a href="SRC/fib_positive.v"> This file </a>
+<br>
+<br>
+<hr>
+
+
+</body>
+
+</html>

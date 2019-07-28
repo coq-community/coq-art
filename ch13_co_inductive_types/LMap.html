@@ -1,0 +1,28 @@
+<html>
+<title>  Mapping a function on a stream  </title>
+<body>
+<h1>  Mapping a function on a stream </h1>
+
+Define the functional with the following type
+<pre>
+ LMap: forall (A B:Set), (A ->B) ->  LList A -> LList B
+</pre>
+such that <tt>LMap f u</tt> is the list of images by <tt>f</tt> of
+all elements of <tt>u</tt>.
+<br><br>
+Can you define the functional with the following type
+<pre>
+ LMapcan: forall (A B:Set), (A -> LList B) ->  LList A -> LList B
+</pre>
+such that <tt>LMapcan f u</tt> is the concatenation by <tt>LAppend</tt>
+of the images by <tt>f</tt> of 
+all elements of <tt>u</tt> ?
+
+<h2> Solution </h2>
+<a href="SRC/LMap.v"> Follow this link </a> 
+<br>
+<br>
+<hr>
+<hr>
+</body>
+</html>

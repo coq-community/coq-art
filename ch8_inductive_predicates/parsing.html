@@ -1,0 +1,195 @@
+<html>
+<title> On parsing  </title>
+<br>
+<h1> About parsing </h1>
+A thread of 9 exercises in the eight chapter of the book is devoted
+to parsing well balanced sequences of parentheses. This thread ends with the
+proof of correctness (i.e. soundness and completeness) of a parsing function.
+<a href="SRC/parsing.v"> This file </a> is a full development which can be
+considered as a solution to all these exercises.
+<h2>Defining well-parenthesized expressions, take 1</h2>
+<p>
+We consider the following type of characters:
+</p>
+<pre>
+Inductive par : Set := open | close.
+</pre>
+<p>We represent character strings using the type <t>list par</t>.  An
+expression is well-parenthesized 
+when:
+</p>
+<ul>
+<li> it is the empty list,</li>
+<li> it is a well-parenthesized expression between parentheses,</li>
+<li> it is the concatenation of two well-parenthesized expressions. </li>
+</ul>
+Define the inductive property
+<t>wp:list par -> Prop</t> that corresponds to this
+informal definition.  You can use the function <t>app</t> given in
+the module <t>List</t> to concatenate two lists.  Prove the
+following two properties:
+
+<pre>
+wp_oc : wp (cons open (cons close nil))
+
+wp_o_head_c :
+     forall l1 l2:list par,
+       wp l1 -> wp l2 -> wp (cons open (app l1 (cons close l2)))
+
+wp_o_tail_c :
+     forall l1 l2:list par, wp l1 -> wp l2 ->
+       wp (app l1 (cons open (app l2 (cons close nil))))
+</pre>
+<h2>Generating well-parenthesized expressions, take 1</h2>
+<p>
+We consider a type of
+binary trees without labels and a function that maps any tree to a
+list of characters.  Show that this function always builds a
+well-parenthesized expression:
+</p>
+<pre>
+Inductive bin : Set := L : bin | N : bin->bin->bin.
+
+Fixpoint bin_to_string (t:bin) : list par :=
+  match t with
+  | L => nil
+  | N u v =>
+    cons open 
+      (app (bin_to_string u)(cons close (bin_to_string v)))
+  end.
+</pre>
+<h2>Generating well-parenthesized expressions, take 2</h2>
+<p>Prove that the following function also returns a well-parenthesized
+expression:</p>
+<pre>
+Fixpoint bin_to_string' (t:bin) : list par :=
+  match t with
+  | L => nil
+  | N u v =>
+    app (bin_to_string' u)
+        (cons open (app (bin_to_string' v)(cons close nil)))
+  end.
+</pre>
+<h2>Defining well-parenthesized expressions, take 2</h2>
+<p>
+Here is a second definition of
+well-parenthesized expressions.  Prove that it is equivalent to the
+previous one:</p>
+<pre>
+Inductive wp' : list par -> Prop :=
+| wp'_nil : wp' nil
+| wp'_cons : forall l1 l2:list par, wp' l1 -> wp' l2 -> 
+                  wp' (cons open (app l1 (cons close l2))).
+</pre>
+<h2>Defining well-parenthesized expressions, take 3</h2>
+<p>Here is a third
+definition. Prove that it is equivalent to the previous ones:</p>
+<pre>
+Inductive wp'' : list par -> Prop :=
+| wp''_nil : wp'' nil
+| wp''_cons :
+  forall l1 l2:list par, wp'' l1 -> wp'' l2 ->
+      wp'' (app l1 (cons open (app l2 (cons close nil)))).
+</pre>
+<h2>Recognizing well-parenthesized expressions (completeness)</h2>
+<p>Here is a function that 
+recognizes well-parenthesized expressions by counting the opening
+parentheses that are not yet closed:</p>
+<pre>
+Fixpoint recognize (n:nat)(l:list par){struct l} : bool :=
+  match l with
+    nil => match n with O => true | _ => false end
+  | cons open l' => recognize (S n) l'
+  | cons close l' =>
+    match n with O => false | S n' => recognize n' l' end
+  end.
+</pre>
+<p>Prove the following theorem:</p>
+<pre>
+recognize_complete_aux :
+  forall l:list par, wp l ->
+  forall (n:nat)(l':list par), 
+  recognize n (app l l') = recognize n l'.
+</pre>
+<p>
+Conclude with the following main theorem:
+</p>
+<pre>
+recognize_complete :
+  forall l:list par, wp l -> recognize 0 l = true.
+</pre>
+<h2>Recognizing well-parenthesized expressions (soundness)</h2>
+This exercise is rather hard. Prove that the <t>recognize</t> function only
+accepts well-parenthesized expressions, More precisely
+<pre>
+recognize_sound : forall l:list par, recognize 0 l = true -> wp l.
+</pre>
+<h3>hint:</h3> 
+<p>we suggest proving that if <t>recognize</t> <i>n l</i> is <t>true</t>
+then the string <t>app</t> <i>ln l</i> is well-parenthesized, where
+<i>ln</i> is the string made of <i>n</i> opening parentheses.
+Several lemmas about list concatenation are needed.
+</p>
+<h2>Parsing well-parenthesized expressions</h2>
+<p>We consider the following parsing function:</p>
+<pre>
+Fixpoint parse (s:list bin)(t:bin)(l:list par){struct l}
+ : option bin :=
+  match l with
+  | nil => match s with nil => Some t | _ => None end
+  | cons open l' => parse (cons t s) L l'
+  | cons close l' =>
+    match s with
+    | cons t' s' => parse s' (N t' t) l'
+    | _ => None
+    end
+  end.
+</pre>
+<p>Prove that this parser is correct and complete:</p>
+<pre>
+parse_complete :
+ forall l:list par, wp l -> parse nil L l <> None.
+
+parse_invert:
+  forall (l:list par)(t:bin),
+      parse nil L l = Some t -> bin_to_string' t = l.
+
+parse_sound:
+ forall (l:list par)(t:bin), parse nil L l = Some t -> wp l.
+</pre>
+<h2>Inductive presentation of parsing</h2>
+The following inductive definition gives
+the description of a parsing function for well-parenthesized
+expressions.  Intuitively, ``<t>parse_rel <i>l1 l2 t</i></t>'' 
+reads as ``parsing the string <i>l1</i> leaves <i>l2</i> as suffix
+and builds the tree <i>t</i>.''
+<pre>
+Inductive parse_rel : list par -> list par -> bin -> Prop :=
+  | parse_node :
+    forall (l1 l2 l3:list par)(t1 t2:bin),
+      parse_rel l1 (cons close l2) t1 -> parse_rel l2 l3 t2 -> 
+      parse_rel (cons open l1) l3 (N t1 t2)
+  | parse_leaf_nil : parse_rel nil nil L
+  | parse_leaf_close :
+      forall l:list par, parse_rel (cons close l)(cons close l) L.
+</pre>
+<p>
+Prove the following lemmas:
+</p>
+<pre>
+parse_rel_sound_aux :
+    forall (l1 l2:list par)(t:bin),
+      parse_rel l1 l2 t -> l1 = app (bin_to_string t) l2.
+parse_rel_sound :
+    forall l:list par, (exists t:bin, parse_rel l nil t)-> wp l.
+</pre>
+<br>
+
+<h2> Solution </h2>
+
+<a href="SRC/parsing.v"> Look at this file </a>
+
+
+<hr>
+</body>
+</html>

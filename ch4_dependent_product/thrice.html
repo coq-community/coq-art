@@ -1,0 +1,27 @@
+<html>
+<title> A polymorphic functional  </title>
+<body>
+<h1>  A polymorphic functional </h1>
+
+Consider the following definitions :
+
+
+<pre>
+Definition compose {A:Type} (g f:A -> A) (x:A) := g (f x).
+
+Definition thrice {A:Type} (f:A -> A) := compose  f (compose f f).
+</pre>
+
+Use <tt>thrice</tt> for defining a function that adds 27 to any natural number, a function that multiplies any integer by 27 and a function that raises 
+any integer to its 27-th power.
+
+<h2>Solution</h2>
+
+<a href="SRC/thrice.v"> Look at this file </a>
+<br><br>
+<hr>
+<hr>
+</body>
+</html>
+
+

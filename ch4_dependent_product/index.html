@@ -1,0 +1,60 @@
+<html>
+<title> The dependent Product </title>
+<body bgcolor=#08FFFF>
+<h1> Dependent Products </h1>
+<h2> All the examples of the chapter </h2>
+This file contains all the coq source included in the chapter about
+the depend product.
+We advise the surfer to download it, re-run all the examples, and
+try to change the proofs whenever possible.
+<a href="SRC/chap4.v"> Download this file </a>
+
+<h2> Exercises </h2>
+<br>
+ <a href="types_in_cc.html">  Exercise 4.1 page 76 </a> Some types in the calculus of constructions
+<br>
+ <a href="thrice.html">   Exercise 4.2 page 90  </a> A polymorphic functional
+<br>
+<a href="polyminimal.html"> Polymorphic minimal logic     </a> 
+<br>
+<a href="all-perm.html">   Exercises 4.3 page 93 and 4.5 page 97 </a> Some inference rules
+<br> 
+<a href="polymorph.html">  Exercise 4.4 page 96  </a> Some simple polymorphic functions
+
+<h2> Errata </h2>
+
+<ul>
+<li> Page 84, (first paragraph)<br>
+Read "the last argument should be an
+integer of the type <tt>Z</tt>, but it is an element of <tt>nat</tt> 
+that is provided" </li>
+<li>Page 92, Fig 4.4, remove the mention  "simple types"</li>
+<li>Page 99, "in other words, if gives a type to <i>type constructors</i>"
+  should be "in other words, it gives a type to <i>type constructors</i>"</li>
+<li> Page 102 (list of typing judgments) :
+ <pre>
+ list (Z -> nat) : Set
+ cons (A:= Z-> nat) : (Z->nat) ->
+                      list (Z -> nat) ->
+                      list (Z -> nat)
+ cons Zabs_nat : list (Z -> nat)
+ </pre><br>
+Notice that <tt>Zabs_nat</tt> is the <tt>|.|</tt> function.
+</ul>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<hr>
+</body>
+</html>

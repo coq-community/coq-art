@@ -1,0 +1,26 @@
+<html>
+<title> An impredicative definition of <tt>&lt;=</tt> </title>
+<h1>  An impredicative definition of <tt>&lt;=</tt> </h1>
+Consider the following definition of the order <tt>&lt;=</tt> on <tt>nat</nat>:
+<pre>
+Definition my_le (n p:nat) :=
+  forall P : nat -> Prop,
+   P n ->
+   (forall q : nat, P q -> P (S q)) ->
+   P p.
+</pre>
+
+Prove the following theorems:
+<pre>
+Theorem my_le_n : forall n:nat, my_le n n.
+
+Theorem my_le_S : forall n p:nat,
+                   my_le n p -> my_le n (S p).
+
+Theorem my_le_le : forall n p:nat,
+                    my_le n p -> n <= p.
+</pre>
+
+<h2> Solution </h2>
+Look at <a href="SRC/my_le.v"> this file </a>.
+</html>

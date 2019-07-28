@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>More about parsing</title>
+  </head>
+
+  <body>
+    <h1>More about parsing</h1>
+
+Consider the development about parsing well parenthetized strings
+(see <a href="../ch8_inductive_predicates/parsing.html">here</a>).
+Build a function with the following specification:
+
+<pre>
+Definition parse_nest :
+ forall l: list par,
+  {l'':list par &
+   {t:bin | parse_rel l l'' t}}+{forall l'' t', ~parse_rel l l'' t'}.
+</pre>
+<h2>Solution </h2>
+<a href="SRC/parsing4.v"> Follow this link </a>
+<br><br>
+<hr>
+    <hr>
+    <address><a href="mailto:bertot@harfang.inria.fr">Yves Bertot</a></address>
+<!-- Created: Mon May 12 20:36:11 MEST 2003 -->
+<!-- hhmts start -->Last modified: Sun May  3 13:54:30 CEST 2015 <!-- hhmts end -->
+  </body>
+</html>

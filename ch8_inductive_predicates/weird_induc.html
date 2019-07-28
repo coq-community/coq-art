@@ -1,0 +1,39 @@
+<html>
+<title> A weird induction principle </title>
+<body>
+<h1> A weird induction principle </h1>
+
+Consider the following context :
+<pre>
+Section weird_induc_proof.
+ Variable P : nat -> Prop.
+ Variable f : nat -> nat. 
+ 
+ Hypothesis f_strict_mono : forall n p:nat, n < p -> f n < f p.
+ Hypothesis f_O : 0 < f 0.
+ 
+ Hypothesis P0 : P 0.
+ Hypothesis P_Sn_n : forall n:nat, P (S n) -> P n.
+ Hypothesis f_P : forall n:nat, P n -> P (f n).
+ 
+</pre>
+
+Prove the following theorem :
+<pre>
+ Theorem weird_induc : forall n:nat, P n.
+</pre>
+
+<h2> Hints and Notes </h2>
+It would be a good idea to show some lemmas before proving yhe
+theorem itself.
+<br>
+This exercise was suggested by H. Sudbrock.
+<h2> Solution </h2>
+
+Look at the file <a href="SRC/weird_induc.v">weird_induc.v</a>. 
+<br>
+<br>
+<hr>
+
+</body>
+</html>

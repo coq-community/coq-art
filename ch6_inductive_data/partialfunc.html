@@ -1,0 +1,40 @@
+<html>
+<title> On partial functions    </title>
+<body>
+<h1> On partial functions </h1>
+
+Complete the following development:
+
+<pre>
+Section partial_functions.
+
+ Variable P : nat -> Prop.
+ Variable f : nat -> option nat.
+ 
+ Hypothesis f_domain : forall n, P n <-> f n <> None.
+
+ Definition g n : option nat := 
+     match f (n+2) with None => None 
+                      | Some y => Some (y + 2) end.
+
+
+ Lemma g_domain : forall n, P (n+2) <-> g n <> None.
+ ...
+ Qed.
+ 
+End partial_functions.
+</pre>
+
+<h3>Hint</h3>
+You may use the <tt>caseEq</tt> tactic (page 160)
+
+<h2>Solution</h2>
+
+Look at <a href="SRC/partialfunc.v"> this file </a>
+<br>
+<br>
+<hr>
+
+<hr>
+</body>
+</html>

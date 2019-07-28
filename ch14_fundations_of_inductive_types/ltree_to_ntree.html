@@ -1,0 +1,36 @@
+<html>
+<title> A counting function for trees and lists of trees.
+</title>
+<body>
+<h1> A counting function for trees and lists of trees. </h1>
+
+<p>
+We define a type of trees based on lists of trees.  In this type, an
+node can have an arbitrary (but finite) number of children, grouped in a list.
+</p>
+<pre>
+Require Export List.
+
+Inductive ltree (A:Set) : Set :=
+    lnode : A -> list (ltree A)-> ltree A.
+</pre>
+<p>We can define a similar type using mutual inductive types as in
+the following definition:
+</p>
+<pre>
+Inductive ntree (A:Set) : Set :=
+  nnode : A -> nforest A -> ntree A
+with nforest (A:Set) : Set :=
+  nnil : nforest A | ncons : ntree A -> nforest A -> nforest A.
+</pre>
+<p>Define functions <tt>ltree_to_ntree</tt> and <tt>ntree_to_ltree</tt> that
+establish a bijection between the two types and prove the bijection property.
+</p>
+<h2>Solution</h2>
+
+Look at <a href="SRC/ltree_to_ntree.v"> this file </a>
+<br><br>
+<hr>
+<hr>
+</body>
+</html>

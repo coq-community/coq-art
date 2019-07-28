@@ -1,0 +1,35 @@
+<html>
+<title>  Finiteness, infinity and classical logic </title>
+<body>
+<h1> Finiteness, infinity and classical logic </h1>
+
+Prove the following theorems (<font color=red> You will need classical logic ! </font>).
+
+
+
+<pre>
+Require Import chap13.
+
+Require Import Classical.
+
+Lemma Not_Infinite_Finite :
+  forall (A:Type) (l:LList A),
+   ~ Infinite l -> Finite l.
+
+Lemma Finite_or_Infinite :
+  forall (A:Type)(l:LList A), Finite l \/ Infinite l. 
+</pre>
+
+<h2> Remark </h2>
+Notice that classical logic is really needed for proving 
+<tt>Finite_or_Infinite</tt>. If this theorem were provable in intuitionnistic logic, we could infer an algorithm for deciding whether the computation of any Turing machine is finite.
+
+
+<br> <a href = "SRC/finite_or_infinite.v"> The solution </a>
+<br>
+<hr>
+<a href="../index.html">Going  home </a> 
+<hr>
+<address><a href="mailto:casteran@labri.fr">Pierre Castéran</a></address>
+</body>
+</html>

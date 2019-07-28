@@ -1,0 +1,53 @@
+<html>
+<title> Computing prime numbers  </title>
+<body>
+<h1>   Computing prime numbers  </h1>
+
+The aim of this exercise is to implement a sieve function that
+computes all the prime numbers that are less than a given number.
+The first step is to define a type of comparison values:
+
+<pre>
+Inductive cmp : Set := Less : cmp | Equal : cmp | Greater : cmp.
+</pre>
+
+Then define the following functions:
+
+<pre>
+three_way_compare : nat -> nat -> cmp 
+</pre>
+for comparing two natural numbers.
+<br>
+<pre>
+update_primes: nat -> (list nat*nat) -> (list nat*nat)*bool
+</pre>
+
+such that if <em>k</em> is a natural number and <em>l</em> is a list 
+of pairs  <em>(p,m)</em> such that
+<em>m</em>  is the smallest multiple of <em>p</em>
+ greater than or equal to <em>k</em>, then
+<tt>update_primes k l</tt> returns the list of pairs 
+<em>(p,m')</em> where <em>m'</em> is the smallest
+multiple of <em>p</em> strictly greater than <em>k</em> and a boolean
+ value that is <em>true</em> if one of the <em>m</em> was equal to <em>k</em>.
+
+<pre>
+prime_sieve: nat -> (list nat*nat)
+</pre>
+to map a
+number <em>k</em> to the list of pairs <em>(p,m)</em> where <em>p</em> is a prime
+number smaller or equal to <em>k</em> and <em>m</em> is the smallest multiple of 
+<em>p</em> greater than or equal to <em>k+1</em>.
+
+<br>
+<br>
+Prove that <tt>prime_sieve</tt> can be used to compute all the prime 
+numbers smaller than a given <em>k</em>.
+
+<h2>Solution</h2>
+<a href="SRC/erato.v"> This file </a>
+<br><br>
+
+</body>
+</html>
+

@@ -1,0 +1,28 @@
+<html>
+<title> Representing trees with functions </title>
+<body>
+<h1>   Representing trees with functions  </h1>
+
+Consider the following inductive type for binary trees (with nodes
+labeled by integers).
+<pre>
+Require Import ZArith.
+
+Inductive Z_fbtree : Set :=
+ | Z_fleaf : Z_fbtree 
+ | Z_fnode : Z  -> (bool -> Z_fbtree) -> Z_fbtree.
+</pre>
+
+Define a function <tt>fzero_present:Z_fbtree -> bool</tt>  that
+maps any tree <em>t</em>  to <tt>true</tt> if and only if <em>t</em> contains
+the value zero.
+
+<h2>Solution</h2>
+<a href="SRC/fzero_present.v"> This file </a>
+<br>
+<br>
+<hr>
+
+</body>
+</html>
+

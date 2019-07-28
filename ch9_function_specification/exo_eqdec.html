@@ -1,0 +1,26 @@
+<html>
+<title> Equality on nat is decideable   </title>
+<body>
+<h1>  Equality on nat is decideable  </h1>
+Consider the following definition:
+
+<pre>
+Definition eqdec (A:Set) := forall a b : A, {a = b}+{a <> b}.
+</pre>
+
+Build a certified function of the following type:
+
+<pre>
+Definition nat_eq_dec : eqdec nat.
+</pre>
+
+<h2> Solution </h2>
+<a href="SRC/exo_eqdec.v"> Follow this link </a>
+<br>
+<br>
+<hr>
+<a href="../index.html">Going  home </a> <hr>
+<address><a href="mailto:casteran@labri.fr">Pierre Castéran</a></address>
+
+</body>
+</html>

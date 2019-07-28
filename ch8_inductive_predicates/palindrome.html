@@ -1,0 +1,70 @@
+<html>
+<title> On palindromes </title>
+<body>
+<h1> On palindromes </h1>
+
+Défine the inductive predicate <tt>palindrome</tt>
+associated to lists that can be read the same way in both directions.
+
+<h2> Solution </h2>
+
+Look at <a href="SRC/palindrome.v">this file </a>.
+
+<h3> Note </h3>
+We added to the end of this file a proof that a list is
+palindromic (according to the inductive definition) if and only if
+it is equal to its own reverse (defined by the function <tt>rev</tt> in
+<tt>PolyList</tt>).
+<br><br>
+This proof is quite interesting, because we needed to build some tools to
+achieve it :
+
+<ul>
+<li> In order to prove that  <tt>(palindromic l)</tt> implies
+<tt>(rev l)=l</tt>, we had to prove an inversion theorem about the
+extraction of the last element of a list (lemma <tt>remove_last_inv</tt>)
+and a commutation lemma between <tt>app</tt> and <tt>rev</tt>.
+
+<li> The proof of the converse was quite harder, since palindromes are
+built by adding items at both ends of a list, and the lisp-like definition
+of lists considers only insertion at the beginning (constructor <tt>cons</tt>).
+<br>
+The way we proceeded was to prove first an induction principle for lists,
+considering insertions at both ends :
+<pre>
+Lemma list_new_ind :
+ forall P:list A -> Prop,
+   P nil ->
+   (forall a:A, P (a :: nil)) ->
+   (forall (a b:A) (l:list A), P l -> P (a :: l ++ b :: nil)) ->
+   forall l:list A, P l.
+</pre>
+The proof of this induction principle  uses the "Fibonacci induction scheme" :
+<pre>
+Lemma fib_ind :
+ forall P:nat -> Prop,
+   P 0 ->
+   P 1 -> 
+  (forall n:nat, P n -> P (S n) -> P (S (S n))) -> 
+  forall n:nat, P n.
+</pre>
+
+<li> Finally, we proved two lemmas of regularity of <tt>app</tt>
+
+<pre>
+Lemma app_left_reg : forall l l1 l2:list A, l ++ l1 = l ++ l2 -> l1 = l2.
+
+Lemma app_right_reg : forall l l1 l2:list A, l1 ++ l = l2 ++ l -> l1 = l2.
+</pre>
+The first lemma is proved by a simple induction on
+<tt>l</tt>, the second one comes directly <em>via</em> properties of
+the <tt>rev</tt> function (taken from <tt>PolyList</tt>).
+ A direct proof by induction  both on <tt>l1</tt> and
+<tt>l2</tt> would have been too long.
+</ul>
+<br>
+<br>
+<hr>
+
+</body>
+</html>

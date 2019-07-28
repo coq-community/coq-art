@@ -1,0 +1,28 @@
+<html>
+<title> Associativity of the tail recursively defined addition </title>
+<body>
+<h1>Associativity of the tail recursively defined addition </h1>
+
+Consider the following function:
+
+<pre>
+Fixpoint plus'' (n m:nat) {struct m} : nat :=
+  match m with 0 =>  n 
+      | S p => plus'' (S n) p 
+  end.
+</pre>
+
+Prove that <tt>plus''</tt> is associative.
+
+<h2> Solution </h2>
+
+Look at <a href="SRC/plusss.v"> This file </a>
+<br>
+<br>
+<hr>
+
+</body>
+
+</html>
+
+

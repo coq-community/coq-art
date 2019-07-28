@@ -1,0 +1,32 @@
+<html>
+<title>Finding 0 in an infinitely branching tree</title>
+<body>
+<h1>Finding 0 in an infinitely branching tree</h1>
+
+<p>
+We use the type of infinitely branching tree defined as:
+<pre>
+Inductive Z_inf_branch_tree : Set :=
+  Z_inf_leaf : Z_inf_branch_tree
+| Z_inf_node : Z->(nat->Z_inf_branch_tree)->Z_inf_branch_tree.
+</pre>
+We say that a value <i>v</i> is accessible by indices lower than <i>n</i> in a
+tree <i>t</i> if the tree the tree has the form <i>Z_inf_node v' f</i>
+and <i>v=v'</i>, or if it is
+(recursively) accessible by indices lower than <i>n</i> in one of the
+tree <i>f p</i> for <i>p <= n</i>.
+</p>
+<p>Write a function that computes whether the value 0 is accessible by
+indices lower than a natural number in an infinitely branching tree.
+<h2>Solution</h2>
+
+<a href="SRC/izero_present.v"> Look at this file </a>
+
+<br>
+<br>
+<hr>
+
+</body>
+</html>
+
+

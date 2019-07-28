@@ -1,0 +1,57 @@
+<html>
+<title> Trees with [in]finite branches </title>
+<body>
+<h1> Trees with [in]finite branches  </h1>
+
+Define four predicates on potentially infinite binary trees :
+<ul>
+<li> Having some infinite branch
+<li> Having only infinite branches
+<li> Having some finite branch
+<li> Having only finite branches (<em>i.e.</em> being finite)
+</ul>
+
+<br>
+For each of the preceding predicates, build an example tree, then prove
+that it satisfies this predicate.
+
+<br>
+Prove the following theorems (for any tree <em>t</em>) :
+<ul>
+<li>  If every branch of <em>t</em> is finite, </em>t</em> has no 
+      infinite branch.
+<li>  If </em>t</em> has some infinite branch, the not every branch of <em>t</em> is finite.
+<li> If </em>t</em> has some finite branch, then not every branch of <em>t</em> is infinite.
+<li> If </em>t</em> has no finite branch, then every branch of <em>t</em> is
+     infinite.
+<li> If </em>t</em> is finite, then <tt>(graft </em>t</em> (LLeaf A))=</em>t</em>.
+
+<li> <font color = red> (in classical logic :) </font> if not every branch of
+     </em>t</em> is finite, then </em>t</em> has some infinite branch.
+</ul>
+
+
+
+<h3> Resources</h3>
+Use the solution of all preceding exercises of this thread.
+<h3> Caution </h3>
+  Please remind that you've just defined these four predicates, and can't
+   argue that "being infinite" is just the negation of "being finite".
+<br> Moreover,
+    the last theorem of the list above can't be proved in the intuitionnistic
+framework of <em>Coq</em>, since knowing that not every branch of
+<em>t</em> is finite doesn't help you to build an infinite branch !
+You can use <em>Coq</em>'s classical module, or just open a section 
+like that :
+<pre>
+Section classic.
+ Hypothesis class : forall P:Prop, ~~P->P.
+...
+</pre>
+<h2> Solution </h2>
+<a href="SRC/Tree_Inf.v"> Follow this link </a>
+<br><br>
+<hr>
+<hr>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<html>
+<title> Some types in the calculus of constructions </title>
+<body>
+<h1> Some types in the calculus of constructions </h1>
+
+We can verify by <tt>Check</tt>  that these types are admissible
+and of sort <tt>Type</tt>. 
+One can also consider the formal rules of construction of dependent
+product, and do the verification manually.
+
+<hr>
+The predicate associated to strictly monotonous functions from
+<tt>nat</tt> to <tt>nat</tt> has type <tt>(nat->nat)->Prop</tt>
+
+<hr>
+The pointwise ordering  on <tt>nat->nat</tt> :
+<pre>
+  fun f g : nat-> nat => forall n:nat, f n <= g n
+</pre>
+ <br>  has type 
+<tt>(nat->nat)->(nat->nat)->Prop</tt>
+
+<hr>
+We can consider for instance a constant 
+<pre>
+boolean_matrix : nat->nat->Set
+</pre>
+such that, if <em>n</em> and <em>p</em> are of type </tt>nat</tt>,
+the type 
+<pre>
+boolean_matrix <em>n</em> <em>p</em>
+</pre>
+is the type of boolean matrices of height <em>n</em>
+and width <em>p</em>. This type has sort </tt>Set</tt>.
+<br><br>
+<hr>
+<hr>
+</body>
+</html>

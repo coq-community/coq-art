@@ -1,0 +1,66 @@
+<html>
+<head>
+<title> Infinite Objects and Proofs </title>
+</head>
+<body bgcolor=#08FFFF>
+<h1> Infinite Objects and Proofs </h1>
+
+<h2> Potentially infinite lists </h2>
+
+The chapter on co-inductive types of our book 
+is mainly illustrated with the theory of finite or infinite ("lazy") lists.
+<a href="SRC/Coinduc.v"> This file </a> contains the complete development
+of this theory.
+Please notice that most of exercises proposed in the book are solved
+in <a href="SRC/chap13.v"> this file </a>, presented as a complete Coq
+development.
+
+
+
+<br>
+Here are some more exercises on this topic.
+
+
+<br> <a href="list_inject.html"> Exercise 13.1 page 350 </a> Mapping finite lists to lazy lists 
+<br> <a href="LMap.html"> Exercise 13.5 page 357 </a>  Mapping a function on a stream 
+<br>  <font color=red> Erratum 6th line (on the book) : read "such that LMapcan ..." instead
+of "such that LMap ..." </font>
+<br> <a href="bug_infinite.html"> Exercise 13.13 page 366 </a>  A boggy definition of Infinity 
+
+<br> <a href="finite_or_infinite.html"> Exercise 13.16 page 367 </a>  Finiteness, infinity and classical logic 
+<br> <a href="infinite_impred.html"> Exercise 13.17 page 368 </a>  Another definition of infinite lists 
+<br> <a href="finiteness_needed.html"> Exercise 13.29 page 373 </a>   Using finiteness hypotheses  
+<br> <a href="Llist_to_list.html"> Building a recursor for finite Llists </a>
+<h2> Lazy binary trees </h2>
+All the technology illustrated by linear lists apply to
+tree structures. The following thread of exercises is devoted to
+binary trees which may have infinite branches.
+
+
+<br> <a href="Ltree.html"> Exercise 13.2 page 351 </a> Potentially infinite trees 
+<br> <a href="building.html"> Exercise 13.3 page 355  </a> Building some complex trees 
+<br> <a href="graft.html"> Exercise 13.4 page 355  </a> Grafting trees  
+<br> <a href="Tree_Inf.html"> Exercise 13.14 page 366 </a> Trees with [in]finite branches
+<br> <a href="LTree_bisimilar.html"> Exercise 13.23 page 370 </a> Tree bisimilarity 
+<br> <a href="graft_absorb.html"> Exercise 13.26 page 371 </a>  A theorem on graft 
+<br>
+<br>
+<h2> Further Reading </h2>
+
+Yves Bertot, then Yves Bertot and Ekaterina Komendantskaya published two papers
+for solving the filter issue on infinite lists. The first paper shows how 
+to define the stream of prime numbers using Erathsthenes's sieve.
+The second paper presents  a generalization of the employed techniques.
+<br>
+Both papers show how to mix inductive and co-inductive techniques. They also
+use sophisticated techniques of dependent elimination.
+
+<ul>
+<li> <a href="https://hal.inria.fr/inria-00070658">Filters on Co-Inductive streams: an application to Eratosthenes' sieve <a> by <a href="www-sop.inria.fr/members/Yves.Bertot/">Yves Bertot</a>
+
+<li> <a href="https://hal.inria.fr/inria-00277075">Inductive and Coinductive Components of Corecursive Functions in Coq  <a> by <a href="www-sop.inria.fr/members/Yves.Bertot/">Yves Bertot</a> and <a href="http://staff.computing.dundee.ac.uk/katya/">Ekaterina Komendantskaya</a>.
+</ul>
+
+<hr>
+</body>
+</html>

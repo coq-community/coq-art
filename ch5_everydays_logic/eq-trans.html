@@ -1,0 +1,26 @@
+<html>
+<title> Transitivity of Leibniz equality </title>
+<body>
+<h1> Transitivity of Leibniz equality </h1>
+
+Prove manually the following theorem (already in <em>Coq</em>'s base of
+theorems) :
+<pre>
+ forall (A:Type) (a b c:A), a = b -> b = c -> a = c.
+</pre>
+
+<ol>
+<li> Applying  explicitely <tt>eq_ind</tt>,
+<li> Using <tt>Rewrite</tt>
+</ol>
+
+<h2>Solution</h2>
+
+<a href="Solutions/eq_trans.v"> Look at this file </a>
+<br><br>
+<hr>
+<hr>
+</body>
+</html>
+
+

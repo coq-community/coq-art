@@ -1,0 +1,35 @@
+<html>
+<title> Foundations of Inductive Types</title>
+<body bgcolor=#08FFFF>
+<h1> Foundations of Inductive Types </h1>
+
+The complete source of examples from this chapter <a href="SRC/chap14.v"> click here </a>
+<h2> Exercises </h2>
+
+
+<br> <a href="plus_with_natrec.html"> Exercise 14.1 page 392 </a> A direct definition of addition 
+<br> <a href="use_le_ind_max.html"> Exercise 14.4 page 394 </a> Using maximal induction principles (le)
+<br> <a href="factor.html"> Exercise 14.5 page 396 </a> About Left Factors 
+<br> <a href="update_eq.html"> Exercise 14.6 page 398 </a> <tt>eq_rec</tt> as an identity function
+<br> <a href="list_ltree_ind2.html"> Exercise 14.7 page 405</a> A correct induction principle for lists of trees
+<br> <a href="ltree_count.html"> Exercise 14.8 page 405</a> A counting function for trees and lists of trees
+<br> <a href="ltree_to_ntree.html">Exercise 14.9 page 406 </a> A counting function for trees and lists of trees (cont.)
+<br> <a href="triangular.html"> This (difficult) exercise shows how triangular 
+arrays can be represented through an inductive type family.
+
+<h2>Errata</h2>
+<ol>
+<li> Page 398, (3rd paragraph of 14.2.3),<br>
+   Read "R a<sub>i+1</sub> a<sub>i</sub>" instead of
+ "R a<sub>i</sub> a<sub>i+1</sub>"
+
+<li><em>Id</em>:<br>
+The correct definition is:<br>
+<tt> forall x, (forall y, R y x -> Phi y) <-> Phi x </tt>
+</ol>
+
+<br>
+<br>
+<hr>
+</body>
+</html>
