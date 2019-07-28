@@ -1,0 +1,88 @@
+---
+fullname: Coq'Art
+shortname: coq-art
+organization: coq-community
+community: true
+
+synopsis: Coq sources and exercises from the Coq'Art book
+
+description: |
+  Coq'Art is the familiar name for the first book on the Coq proof assistant
+  and its underlying theory, the Calculus of Inductive Constructions.
+  This project contains the source of all examples and the solution to 170
+  out of over 200 exercises from the book.
+
+paper:
+  doi: 10.1007/978-3-662-07964-5
+
+authors:
+- name: Yves Bertot
+  initial: true
+- name: Pierre Castéran
+  initial: true  
+
+maintainers:
+- name: Yves Bertot
+  nickname: ybertot
+- name: Pierre Castéran
+  nickname: Casteran
+
+opam-file-maintainer: palmskog@gmail.com
+
+license:
+  fullname: CeCILL-B
+  identifier: CECILL-B
+
+supported_coq_versions:
+  text: 8.9
+  opam: '{>= "8.9" & < "8.10~"}'
+
+tested_coq_nix_versions:
+- version_or_url: 8.9
+
+tested_coq_opam_versions:
+- version: 8.9
+
+namespace: coqart89
+
+keywords:
+- name: calculus of constructions
+
+categories:
+- name: Miscellaneous/Coq Use Examples
+
+documentation: |-
+  ## Documentation
+
+  For more information, see the [book website][book-url]
+  and the [publisher's website][publisher-url].
+
+  The repository is structured as follows.
+
+  ### Book chapters
+
+  1. [A Brief Presentation of Coq](ch1_overview)
+  2. [Gallina: Coq as a Programming Language](ch2_types_expressions)
+  3. [Propositions and Proofs](ch3_propositions_proofs)
+  4. [Dependent Product](ch4_dependent_product)
+  5. [Everyday Logic](ch5_everydays_logic)
+  6. [Inductive Data Structures](ch5_everydays_logic)
+  7. [Tactics and automation](ch5_everydays_logic)
+  8. [Inductive Predicates](ch8_inductive_predicates)
+  9. [Functions and their specification](ch9_function_specification)
+  10. [Extraction and imperative programming](ch10_extraction_and_imperative_programs)
+  11. [A Case Study: binary search trees](ch11_search_trees)
+  12. [The Module System](ch12_modules)
+  13. [Infinite Objects and Proofs](ch13_co_inductive_types)
+  14. [Foundations of Inductive Types](ch14_fundations_of_inductive_types)
+  15. [General Recursion](ch15_general_recursion)
+  16. [Proof by reflection](ch16_proof_by_reflection)
+
+  ### Additional material
+  
+  - [Tutorial on type classes](tutorial_type_classes)
+  - [Tutorial on inductive and coinductive types](tutorial_inductive_co_inductive_types)
+
+  [book-url]: http://www.labri.fr/perso/casteran/CoqArt/
+  [publisher-url]: https://www.springer.com/gp/book/9783540208549
+---

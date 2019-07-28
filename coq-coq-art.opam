@@ -1,0 +1,32 @@
+opam-version: "2.0"
+maintainer: "palmskog@gmail.com"
+
+homepage: "https://github.com/coq-community/coq-art"
+dev-repo: "git+https://github.com/coq-community/coq-art.git"
+bug-reports: "https://github.com/coq-community/coq-art/issues"
+license: "CECILL-B"
+
+synopsis: "Coq sources and exercises from the Coq'Art book"
+description: """
+Coq'Art is the familiar name for the first book on the Coq proof assistant
+and its underlying theory, the Calculus of Inductive Constructions.
+This project contains the source of all examples and the solution to 170
+out of over 200 exercises from the book.
+"""
+
+build: [make "-j%{jobs}%"]
+install: [make "install"]
+depends: [
+  "ocaml"
+  "coq" {>= "8.9" & < "8.10~"}
+]
+
+tags: [
+  "category:Miscellaneous/Coq Use Examples"
+  "keyword:calculus of constructions"
+  "logpath:coqart89"
+]
+authors: [
+  "Yves Bertot"
+  "Pierre Castéran"
+]
