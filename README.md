@@ -60,7 +60,7 @@ make install
 ```
 
 After installation, the included modules are available under
-the `coqart89` namespace.
+the `coqart` namespace.
 
 
 ## Documentation

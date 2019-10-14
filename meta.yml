@@ -43,7 +43,7 @@ tested_coq_nix_versions:
 tested_coq_opam_versions:
 - version: 8.9
 
-namespace: coqart89
+namespace: coqart
 
 keywords:
 - name: calculus of constructions

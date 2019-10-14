@@ -24,7 +24,7 @@ depends: [
 tags: [
   "category:Miscellaneous/Coq Use Examples"
   "keyword:calculus of constructions"
-  "logpath:coqart89"
+  "logpath:coqart"
 ]
 authors: [
   "Yves Bertot"
