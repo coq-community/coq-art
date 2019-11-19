@@ -37,7 +37,7 @@ out of over 200 exercises from the book.
   - Yves Bertot ([**@ybertot**](https://github.com/ybertot))
   - Pierre Castéran ([**@Casteran**](https://github.com/Casteran))
 - License: [CeCILL-B](LICENSE)
-- Compatible Coq versions: 8.9
+- Compatible Coq versions: 8.10
 - Additional Coq dependencies: none
 
 ## Building and installation instructions

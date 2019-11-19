@@ -34,14 +34,14 @@ license:
   identifier: CECILL-B
 
 supported_coq_versions:
-  text: 8.9
-  opam: '{>= "8.9" & < "8.10~"}'
+  text: '8.10'
+  opam: '{>= "8.10" & < "8.11~"}'
 
 tested_coq_nix_versions:
-- version_or_url: 8.9
+- version_or_url: '8.10'
 
 tested_coq_opam_versions:
-- version: 8.9
+- version: '8.10'
 
 namespace: coqart
 
