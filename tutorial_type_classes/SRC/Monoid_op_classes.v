@@ -348,7 +348,7 @@ Qed.
 
 
 
-Instance monoid_op_params : Params (@monoid_op) 2.
+Program Instance monoid_op_params : Params (@monoid_op) 2.
 
 Lemma Epower_x_plus `(M: EMonoid) : 
    forall x n p,  (Epower x (n + p)) == 
