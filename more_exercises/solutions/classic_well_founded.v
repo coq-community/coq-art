@@ -112,13 +112,15 @@ Section Classic_OK_R.
 
   End Absurd.
 
-  Theorem classic_wf_wf : classic_wf R -> well_founded R.
+  Theorem classic_wf_wf :  well_founded R.
   Proof.
     intros; apply NNPP.
     intro; now apply FF.
   Qed.
   
 End Classic_OK_R.
+
+Arguments classic_wf_wf {A}.
 
 Print Assumptions classic_wf_wf.
 
