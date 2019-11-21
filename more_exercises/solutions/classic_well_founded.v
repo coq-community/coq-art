@@ -1,5 +1,10 @@
 (**
     The "classical" definition of well-foundedness
+
+  Pierre Casteran
+
+ keywords :  well-founded relations, classical logic, axiom of choice
+
  *)
 
 Require Import Relations.
@@ -17,37 +22,34 @@ Definition classic_wf {A}(R: relation A) :=
 
 Theorem wf_classic_wf {A} (R: relation A) : well_founded R -> classic_wf R.
 Proof.
-  intros HR  H .
-  destruct H as [s Hs].
+  intros HR  [s Hs].
   assert (forall x:A,  ~ exists i,  s i = x).
   {
     apply (well_founded_induction  HR).
-    intros x Hx.
-    intros [i Hi].
-    subst x.
-    specialize (Hs i).
+    intros x Hx [i Hi].
+    subst x;  specialize (Hs i).
     specialize (Hx _ Hs).
     apply Hx ; now exists (S i).
   }
-  apply (H (s 0)).
-  now exists 0.
+  apply (H (s 0));  now exists 0.
 Qed.
 
 
-(** Now, we work with some axioms *)
+(** Now, we work with some axioms (assumed in the following libraries) *)
 
 Require Import Classical ClassicalChoice.
 
-About choice.
 
 (** In the current context, prove that the classical definition entails Coq's *)
 
 
 Section Classic_OK_R.
   Variable (A:Type)(R: relation A).
+
   Hypothesis H : classic_wf R.
 
-  Section Absurd.
+  Section Proof_by_absurd.
+
     Hypothesis (H0: ~ well_founded R).
 
     Lemma not_acc_ex : exists a:A,  ~ Acc R a.
@@ -60,24 +62,21 @@ Section Classic_OK_R.
                                     exists b,  R b a /\ ~ Acc R b.
     Proof.
       intros a H1;  apply not_all_not_ex.
-      intros H2.
-      apply H1.
-      split.
-      intros y H3.
-      specialize (H2 y).
-      apply not_and_or in H2.
+      intros H2; apply H1.
+      split; intros y H3.
+      specialize (H2 y); apply not_and_or in H2.
       destruct H2;auto.
       -  contradiction.
       -  now apply NNPP in H2.
     Qed.
 
-    (* In order to apply choice, we use an auxiliary type *)
+    (* In order to apply choice, we use an auxiliary sig type *)
 
     Let B : Type := {a : A | ~ Acc R a}. 
+
     Let R1 : relation B :=
       fun x y => R (proj1_sig y) (proj1_sig x).
 
-    
         
     Lemma next_not_acc_R1 : forall x:B, exists y:B, R1 x y.
     Proof.
@@ -110,15 +109,17 @@ Section Classic_OK_R.
       apply H, L2.
     Qed. 
 
-  End Absurd.
+  End Proof_by_absurd.
 
-  Theorem classic_wf_wf :  well_founded R.
-  Proof.
-    intros; apply NNPP.
-    intro; now apply FF.
-  Qed.
-  
 End Classic_OK_R.
+
+Theorem classic_wf_wf  {A} (R: relation A) : classic_wf R -> well_founded R.
+Proof.
+  intros; apply NNPP.
+  intro; now apply (FF _ R).
+Qed.
+  
+
 
 Arguments classic_wf_wf {A}.
 

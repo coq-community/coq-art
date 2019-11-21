@@ -1,5 +1,10 @@
 (**
     The "classical" definition of well-foundedness
+    Pierre Casteran
+
+ keywords :  well-founded relations, classical logic, axiom of choice
+
+   
  *)
 
 Require Import Relations.
@@ -17,18 +22,18 @@ Definition classic_wf {A}(R: relation A) :=
 Theorem wf_classic_wf {A} (R: relation A) : well_founded R -> classic_wf R.
 Admitted.
 
-(** Now, we work with some axioms *)
+(** Now, we work with some axioms (assumed in the following libraries) *)
 
 Require Import Classical ClassicalChoice.
 
 
 
 (** In the current context, prove that the classical definition entails Coq's 
-    (you may apply choice or Choice *)
+    (you may apply the following theorem)  *)
 
 About choice.
 
-About Choice.
+Print Assumptions choice.
 
 
 Theorem classic_wf_wf {A} (R: relation A) : classic_wf R -> well_founded R.
@@ -58,3 +63,11 @@ Print Assumptions wf_classic_wf.
 Closed under the global context
 *)
 
+
+
+
+
+
+
+
+  
