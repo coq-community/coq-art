@@ -185,4 +185,9 @@
 ./ch8_inductive_predicates/SRC/perms2.v
 ./ch8_inductive_predicates/SRC/weird_induc.v
 ./ch8_inductive_predicates/SRC/Hoare_while_rule_bis.v
+./more_exercises/texts/classic_well_founded.v
+./more_exercises/texts/vectors.v
+./more_exercises/solutions/classic_well_founded.v
+./more_exercises/solutions/vectors.v
+
 COQDOCEXTRAFLAGS = "-interpolate --gallina  -utf8 --latex --html"
