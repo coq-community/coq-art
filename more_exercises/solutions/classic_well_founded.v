@@ -106,8 +106,9 @@ Section Classic_OK_R.
     Qed.
 
     Lemma FF : False.
+    Proof.
       apply H, L2.
-    Qed. 
+    Qed.
 
   End Proof_by_absurd.
 

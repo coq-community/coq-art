@@ -28,6 +28,7 @@ Infix "==" := equiv (at level 70) : type_scope.
 Lemma app_assoc {d e f:nat} {A: Type} :
   forall (u: t A d)( v : t A e) (w: t A f),
     (u ++ v) ++ w ==  u ++ (v ++ w).
+Proof.
 Admitted.
 
 (** Plesae define a "cast" of the following type *)
@@ -41,17 +42,20 @@ Admitted. (* replace with "Defined" *)
 
 Lemma equiv_cast : forall (A:Type) n (v : t A n) n' (e: n = n'),
     v == cast v n' e.
+Proof.
 Admitted.
 
 (** equivalence is (almost) equality *)
 
 Lemma equiv_eq {A : Type}  : forall n (v w : t A n),
      v == w -> v = w.
- Admitted.
+Proof.
+Admitted.
 
 
 Lemma cast_eq {A} {n p} (v : t A n) (w : t A p) (e : n = p):
    v == w -> w = cast v p e.
+Proof.
 Admitted.
 
 
@@ -82,7 +86,3 @@ Compute add_r' _ 7 [1;2;3].
      : t nat 4
 
 *)
-
-
-
-

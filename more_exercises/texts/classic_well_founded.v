@@ -20,6 +20,7 @@ Definition classic_wf {A}(R: relation A) :=
 (** Prove that Coq's  definition entails the classical one *)
 
 Theorem wf_classic_wf {A} (R: relation A) : well_founded R -> classic_wf R.
+Proof.
 Admitted.
 
 (** Now, we work with some axioms (assumed in the following libraries) *)
@@ -37,8 +38,9 @@ Print Assumptions choice.
 
 
 Theorem classic_wf_wf {A} (R: relation A) : classic_wf R -> well_founded R.
+Proof.
 Admitted.
-  
+
 
 
 Print Assumptions classic_wf_wf.

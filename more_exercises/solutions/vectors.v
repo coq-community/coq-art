@@ -130,8 +130,7 @@ Compute add_r _ 7 [1;2;3].
 
 (** Please give an alternate definition of add_r *)
 
-Definition  add_1_r_transparent n : n+1 = S n.
-Proof.
+Definition add_1_r_transparent n : n+1 = S n.
 induction n; simpl; auto.
 Defined.
 
