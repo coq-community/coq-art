@@ -264,7 +264,7 @@ Section primes.
   end.
 Open Scope nat_scope.
 
-Hint Resolve lt_O_Sn.
+Hint Resolve lt_O_Sn : core.
 
 Ltac check_lt_not_divides :=
   match goal with

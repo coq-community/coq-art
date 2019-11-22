@@ -172,7 +172,7 @@ Section minimal_specification_strengthening.
   Proof.
   intro n; exists 1; simpl; auto.
  Qed.
- Hint Resolve divides_refl.
+ Hint Resolve divides_refl : core.
 
  Check (fun E:nat=>  fun n:nat => if prime_test n then n else E).
 
@@ -406,7 +406,7 @@ Proof.
 Qed.
 Hint Resolve rem_odd_ge_interval rem_even_ge_interval
  rem_odd_lt_interval rem_even_lt_interval rem_1_odd_interval
- rem_1_even_interval rem_1_1_interval.
+ rem_1_even_interval rem_1_1_interval : core.
 
 Ltac div_bin_tac arg1 arg2 :=
   elim arg1;

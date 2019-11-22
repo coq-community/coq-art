@@ -16,7 +16,7 @@ Definition sorted' (l:list A) :=
     l = l1 ++ (n1 :: n2 ::l2) -> 
     R n1 n2.
 
-Hint Constructors sorted.
+Hint Constructors sorted : core.
 
 
 (** Let us prove that sorted' satisfies the constructors of sorted 
@@ -46,7 +46,7 @@ Proof.
     intros Heq' Heqx; apply (Hs l1' l2); trivial.
 Qed.
 
-Hint Resolve sorted'0 sorted'1 sorted'2.
+Hint Resolve sorted'0 sorted'1 sorted'2 : core.
 
 Lemma sorted'_inv : forall a l, sorted' (a::l) -> sorted' l.
 Proof.

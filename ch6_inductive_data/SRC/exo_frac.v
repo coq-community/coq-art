@@ -69,7 +69,7 @@ Proof.
    now  rewrite (Zmult_comm v (Z_of_nat b)).
 Qed.
 
-Hint Resolve b_one b_d b_n.
+Hint Resolve b_one b_d b_n : core.
 
 Inductive simplified : nat*nat -> Prop :=
   mk_simpl : forall a b : nat, bezout a b -> simplified (a, b).

@@ -42,7 +42,7 @@ Inductive Finite (A:Type) :(LTree A)->Prop :=
                                       Finite (LBin a t1 t2).
 
 Hint Resolve Finite_leaf Finite_bin SomeFin_leaf 
-SomeFin_left  SomeFin_right.
+SomeFin_left  SomeFin_right : core.
 
 
 

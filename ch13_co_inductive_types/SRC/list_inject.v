@@ -6,7 +6,7 @@ CoInductive LList (A:Type) : Type :=
   | LNil : LList A
   | LCons : A -> LList A -> LList A.
 
-Arguments LNil [A].
+Arguments LNil {A}.
 
 Fixpoint llist_injection {A:Type} (l:list A) :  LList A :=
   match l with

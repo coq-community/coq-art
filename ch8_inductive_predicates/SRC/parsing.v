@@ -77,7 +77,7 @@ Proof.
  -  simpl ; intros t1 H1 t2 H2; apply wp_o_head_c; trivial.
 Qed.
 
-Hint Resolve wp_nil wp_concat wp_encapsulate wp_o_head_c wp_o_tail_c wp_oc.
+Hint Resolve wp_nil wp_concat wp_encapsulate wp_o_head_c wp_o_tail_c wp_oc : core.
 
 Fixpoint bin_to_string' (t:bin) : list par :=
   match t with
@@ -154,7 +154,7 @@ Proof.
     simpl; apply wp'_cons; auto.
 Qed.
 
-Hint Resolve wp'_nil wp'_cons wp'_concat.
+Hint Resolve wp'_nil wp'_cons wp'_concat : core.
 
 (* This is the other constructor of wp, also satisfied by wp'. *)
  
@@ -195,7 +195,7 @@ Inductive wp'' : list par -> Prop :=
       forall l1 l2:list par,
         wp'' l1 -> wp'' l2 -> wp'' (l1 ++ open :: l2 ++ close :: nil).
 
-Hint Resolve wp''_nil wp''_cons.
+Hint Resolve wp''_nil wp''_cons : core.
 
 (* Obviously this one also satisfies the concatenation property. *)
  
@@ -216,7 +216,7 @@ Proof.
  intros l H; change (wp'' (nil ++ open :: l ++ close :: nil));
  auto.
 Qed.
-Hint Resolve wp''_concat wp''_encapsulate.
+Hint Resolve wp''_concat wp''_encapsulate : core.
 
 (* solution to exercise \ref{exo-wp-4} *)
  

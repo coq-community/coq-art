@@ -9,7 +9,7 @@ Inductive last (a:A) : list A -> Prop :=
    | last_tl : forall (b:A) (l:list A), last a l -> last a (b :: l).
 
 
-Hint Constructors last.
+Hint Constructors last : core.
 
 Fixpoint last_fun (l:list A) : option A :=
   match l with

@@ -1053,7 +1053,7 @@ infiniteproof map_iterate'.
  reflexivity.
 Qed.
 
-Arguments LNil [A].
+Arguments LNil {A}.
 
 Lemma Lnil_not_Lcons : forall (A:Set)(a:A)(l:LList A),
                                LNil <> (LCons a l).

@@ -5,7 +5,7 @@ CoInductive LList (A:Type) : Type :=
   | LNil : LList A
   | LCons : A -> LList A -> LList A.
 
-Arguments LNil [A].
+Arguments LNil {A}.
 
 CoInductive Infinite {A:Type} : LList A -> Prop :=
     Infinite_LCons :
