@@ -24,7 +24,7 @@ Section leibniz.
  Qed.
 
 
- Hint Resolve leibniz_trans leibniz_sym leibniz_refl. 
+ Hint Resolve leibniz_trans leibniz_sym leibniz_refl : core.
 
  Theorem leibniz_equiv : equiv A leibniz.
  Proof.

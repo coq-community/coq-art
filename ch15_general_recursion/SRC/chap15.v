@@ -159,7 +159,7 @@ Proof.
   intros x v H; generalize (double_div2_le x);  omega.
 Qed.
 
-Hint Resolve div2_le f_lemma double_div2_le.
+Hint Resolve div2_le f_lemma double_div2_le : core.
 
 Definition nested_F :
   forall x:nat, (forall y:nat, y < x -> {v:nat | v <= y}) -> {v:nat | v <= x }.

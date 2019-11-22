@@ -5,13 +5,13 @@ CoInductive LList (A:Type) : Type :=
   | LNil : LList A
   | LCons : A -> LList A -> LList A.
 
-Arguments LNil [A].
+Arguments LNil {A}.
 
 CoInductive Infinite {A:Type} : LList A -> Prop :=
     Infinite_LCons :
       forall (a:A) (l:LList A), Infinite l -> Infinite (LCons a l).
 
-Hint Constructors Infinite.
+Hint Constructors Infinite : core.
 
  
 

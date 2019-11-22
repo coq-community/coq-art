@@ -17,7 +17,7 @@ Section mirror.
        forall (a:A) (l m:list A),
          palindrome l -> remove_last a m l -> palindrome (a :: m).
  
- Hint Constructors remove_last palindrome.  
+ Hint Constructors remove_last palindrome : core.
 
 
  Lemma ababa : forall a b:A, palindrome (a :: b :: a :: b :: a :: nil).

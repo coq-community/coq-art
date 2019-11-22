@@ -7,7 +7,7 @@ CoInductive LList (A:Type) : Type :=
   | LNil : LList A
   | LCons : A -> LList A -> LList A.
 
-Arguments LNil [A].
+Arguments LNil {A}.
 
 (** Tests :
 Check (LCons 1 (LCons 2 (LCons 3 LNil))).
@@ -902,7 +902,7 @@ Definition trans (q:st) (x:acts) : list st :=
 (* a toy automaton *)
 Definition A1 := mk_auto q0 trans.
       
-Hint Unfold A1.
+Hint Unfold A1 : core.
 
 Lemma no_deadlocks : forall q:states A1, ~ deadlock  A1 q.
 Proof.

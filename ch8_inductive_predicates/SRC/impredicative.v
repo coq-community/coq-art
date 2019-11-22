@@ -35,7 +35,7 @@ Inductive sorted : list A -> Prop :=
 | sorted2 : forall (x1 x2:A)(l':list A),
               R x1 x2 -> sorted  (x2::l') -> sorted  (x1::x2::l').
 
-Hint Constructors sorted.
+Hint Constructors sorted : core.
 
 Definition impredicative_sorted (l:list A) : Prop :=
   forall P :  list A -> Prop,
@@ -69,7 +69,7 @@ Proof.
  apply Hs; auto.
 Qed.
 
-Hint Resolve isorted0 isorted1 isorted2.
+Hint Resolve isorted0 isorted1 isorted2 : core.
 
 
 (* Proof of the equivalence between both definitions *)
@@ -114,7 +114,7 @@ Proof.
   intros n m Hle P Hn Hs; apply Hs; apply Hle; auto.
 Qed.
 
-Hint Resolve impredicative_le_n impredicative_le_S.
+Hint Resolve impredicative_le_n impredicative_le_S : core.
 
 Theorem le_to_impredicative :
  forall n p, n <= p -> impredicative_le n p.
@@ -152,7 +152,7 @@ Proof.
  unfold impredicative_or; auto.
 Qed.
 
-Hint Resolve impredicative_or_intro1 impredicative_or_intro2.
+Hint Resolve impredicative_or_intro1 impredicative_or_intro2 : core.
 
 Theorem or_to_impredicative : forall A B, A \/ B -> impredicative_or A B.
 Proof.
