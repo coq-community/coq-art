@@ -93,6 +93,7 @@ The repository is structured as follows.
 
 - [Tutorial on type classes](tutorial_type_classes)
 - [Tutorial on inductive and coinductive types](tutorial_inductive_co_inductive_types)
+- [More exercises](more_exercises)
 
 [book-url]: http://www.labri.fr/perso/casteran/CoqArt/
 [publisher-url]: https://www.springer.com/gp/book/9783540208549
