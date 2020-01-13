@@ -3,17 +3,21 @@ fullname: Coq'Art
 shortname: coq-art
 organization: coq-community
 community: true
+travis: true
+doi: 10.1007/978-3-662-07964-5
 
 synopsis: Coq sources and exercises from the Coq'Art book
 
-description: |
+description: |-
   Coq'Art is the familiar name for the first book on the Coq proof assistant
   and its underlying theory, the Calculus of Inductive Constructions.
   This project contains the source of all examples and the solution to 170
   out of over 200 exercises from the book.
 
-paper:
-  doi: 10.1007/978-3-662-07964-5
+publications:
+- pub_url: http://www.labri.fr/perso/casteran/CoqArt/
+  pub_title: Interactive Theorem Proving and Program Development
+  pub_doi: 10.1007/978-3-662-07964-5
 
 authors:
 - name: Yves Bertot
@@ -28,6 +32,8 @@ maintainers:
   nickname: Casteran
 
 opam-file-maintainer: palmskog@gmail.com
+
+opam-file-version: dev
 
 license:
   fullname: CeCILL-B
@@ -44,6 +50,15 @@ tested_coq_opam_versions:
 - version: '8.10'
 
 namespace: coqart
+
+build: |-
+ ## Building instructions
+
+ ``` shell
+ git clone https://github.com/coq-community/coq-art
+ cd coq-art
+ make   # or make -j <number-of-cores-on-your-machine>
+ ```
 
 keywords:
 - name: calculus of constructions
@@ -82,6 +97,7 @@ documentation: |-
   
   - [Tutorial on type classes](tutorial_type_classes)
   - [Tutorial on inductive and coinductive types](tutorial_inductive_co_inductive_types)
+  - [More exercises](more_exercises)
 
   [book-url]: http://www.labri.fr/perso/casteran/CoqArt/
   [publisher-url]: https://www.springer.com/gp/book/9783540208549
