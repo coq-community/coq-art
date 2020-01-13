@@ -18,6 +18,7 @@
 [gitter-shield]: https://img.shields.io/badge/chat-on%20gitter-%23c1272d.svg
 [gitter-link]: https://gitter.im/coq-community/Lobby
 
+
 [doi-shield]: https://zenodo.org/badge/DOI/10.1007/978-3-662-07964-5.svg
 [doi-link]: https://doi.org/10.1007/978-3-662-07964-5
 
@@ -25,8 +26,6 @@ Coq'Art is the familiar name for the first book on the Coq proof assistant
 and its underlying theory, the Calculus of Inductive Constructions.
 This project contains the source of all examples and the solution to 170
 out of over 200 exercises from the book.
-
-
 
 ## Meta
 
@@ -39,29 +38,17 @@ out of over 200 exercises from the book.
 - License: [CeCILL-B](LICENSE)
 - Compatible Coq versions: 8.10
 - Additional Coq dependencies: none
+- Coq namespace: `coqart`
+- Related publication(s):
+  - [Interactive Theorem Proving and Program Development](http://www.labri.fr/perso/casteran/CoqArt/) doi:[10.1007/978-3-662-07964-5](https://doi.org/10.1007/978-3-662-07964-5)
 
-## Building and installation instructions
-
-The easiest way to install the latest released version of Coq'Art
-is via [OPAM](https://opam.ocaml.org/doc/Install.html):
-
-```shell
-opam repo add coq-released https://coq.inria.fr/opam/released
-opam install coq-coq-art
-```
-
-To instead build and install manually, do:
+## Building instructions
 
 ``` shell
 git clone https://github.com/coq-community/coq-art
 cd coq-art
 make   # or make -j <number-of-cores-on-your-machine>
-make install
 ```
-
-After installation, the included modules are available under
-the `coqart` namespace.
-
 
 ## Documentation
 
