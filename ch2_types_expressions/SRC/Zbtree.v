@@ -80,7 +80,7 @@ match t with leaf => true
                               is_searchtree t2 
 end.
 
-SearchAbout (Z->Z->comparison).
+Search (Z->Z->comparison).
 
 Fixpoint memb_in_searchtree (n:Z)(t: Zbtree) : bool :=
 match t with 
@@ -133,11 +133,3 @@ Compute is_searchtree
                    (bnode 7 leaf leaf))
           (bnode 15 (bnode 16 leaf leaf)
                     (bnode 18 leaf leaf)))%Z.
-
-
-
-
-
-
-
-                  

@@ -12,3 +12,5 @@ pplus.mli
 *.glob
 *.vo
 *.vio
+*.vos
+*.vok

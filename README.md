@@ -24,7 +24,7 @@
 
 Coq'Art is the familiar name for the first book on the Coq proof assistant
 and its underlying theory, the Calculus of Inductive Constructions.
-This project contains the source of all examples and the solution to 170
+This project contains the Coq sources of all examples and the solution to 170
 out of over 200 exercises from the book.
 
 ## Meta
@@ -36,8 +36,8 @@ out of over 200 exercises from the book.
   - Yves Bertot ([**@ybertot**](https://github.com/ybertot))
   - Pierre Castéran ([**@Casteran**](https://github.com/Casteran))
 - License: [CeCILL-B](LICENSE)
-- Compatible Coq versions: 8.10
-- Additional Coq dependencies: none
+- Compatible Coq versions: 8.10 or later (use the corresponding release for other Coq versions)
+- Additional dependencies: none
 - Coq namespace: `coqart`
 - Related publication(s):
   - [Interactive Theorem Proving and Program Development](http://www.labri.fr/perso/casteran/CoqArt/) doi:[10.1007/978-3-662-07964-5](https://doi.org/10.1007/978-3-662-07964-5)

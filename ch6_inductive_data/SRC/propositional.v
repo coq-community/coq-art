@@ -19,6 +19,8 @@ Fixpoint L_value (l : L): bool :=
 
 (* infix notations *)
 
+Declare Scope prop_scope.
+
 Notation "A * B"  := (L_conj A B) : prop_scope.
 
 Notation "A + B"  := (L_disj A B) : prop_scope.

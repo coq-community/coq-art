@@ -11,6 +11,7 @@ Require Import ZArith  Div2  Recdef  Mat.
 
 Class monoid_binop (A:Type) := monoid_op : A -> A -> A.
 
+Declare Scope M_scope.
 Delimit Scope M_scope with M.
 Infix "*" := monoid_op: M_scope.
 Open Scope M_scope.
@@ -649,5 +650,3 @@ Example Ex6 : (2 * 5)%M = 7.
 Proof. reflexivity. Qed.
 
 (* The least priority level wins *)
-
-
