@@ -11,14 +11,13 @@ synopsis: "Coq sources and exercises from the Coq'Art book"
 description: """
 Coq'Art is the familiar name for the first book on the Coq proof assistant
 and its underlying theory, the Calculus of Inductive Constructions.
-This project contains the source of all examples and the solution to 170
+This project contains the Coq sources of all examples and the solution to 170
 out of over 200 exercises from the book."""
 
 build: [make "-j%{jobs}%"]
 install: [make "install"]
 depends: [
-  "ocaml"
-  "coq" {>= "8.10" & < "8.11~"}
+  "coq" {>= "8.10" & < "8.12~"}
 ]
 
 tags: [
