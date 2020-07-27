@@ -511,8 +511,7 @@ Definition div_bin3 : forall n m:positive, div_data n m.
             end
         end)); 
       clear div_bin3; try rewrite Zpos_xI; try rewrite Zpos_xO;
-      try rewrite H_eq; auto with zarith; try (ring; fail).
--  split;[auto with zarith | compute; auto].
--  split;[auto with zarith | compute; auto].
+      try rewrite H_eq; auto with zarith; try (ring; fail);
+ try (split;[auto with zarith | compute; auto]).
 Defined.
 
