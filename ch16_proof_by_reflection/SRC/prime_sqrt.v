@@ -136,8 +136,8 @@ Proof.
          replace (2*S n)%nat with (2*n +2)%nat.
          intros Hqlt'.
          assert (Hqle'' : (q <= 2*n +1)%nat) by omega.
-         apply (IHn x (p - 2)); auto with zarith arith.
-         rewrite Hp; rewrite inj_S; unfold Z.succ; ring.
+         apply (IHn x (p - 2)); auto with zarith arith;
+         try (rewrite Hp; rewrite inj_S; unfold Z.succ); ring.
          ring.
          intros Hq (y, Hdiv); elim (test_odds_correct2 n x H1ltx (p - 2)); auto.
          exists (S n * y)%nat; rewrite Hdiv; rewrite Hq; ring.

@@ -1,4 +1,5 @@
 -R . coqart
+-arg -w -arg -omega-is-deprecated
 ./ch9_function_specification/SRC/fib_positive.v
 ./ch9_function_specification/SRC/fib_ind.v
 ./ch9_function_specification/SRC/extract.v

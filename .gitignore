@@ -6,6 +6,7 @@ insert-sort.ml
 insert-sort.mli
 pplus.ml
 pplus.mli
+.lia.cache
 *~
 *.d
 *.aux
