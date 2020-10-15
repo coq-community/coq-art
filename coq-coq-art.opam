@@ -5,7 +5,7 @@ version: "dev"
 homepage: "https://github.com/coq-community/coq-art"
 dev-repo: "git+https://github.com/coq-community/coq-art.git"
 bug-reports: "https://github.com/coq-community/coq-art/issues"
-license: "CECILL-B"
+license: "MIT"
 
 synopsis: "Coq sources and exercises from the Coq'Art book"
 description: """
@@ -14,7 +14,7 @@ and its underlying theory, the Calculus of Inductive Constructions.
 This project contains the Coq sources of all examples and the solution to 170
 out of over 200 exercises from the book."""
 
-build: [make "-j%{jobs}%"]
+build: [make "-j%{jobs}%" ]
 install: [make "install"]
 depends: [
   "coq" {>= "8.10" & < "8.13~"}
