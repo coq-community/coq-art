@@ -36,8 +36,8 @@ opam-file-maintainer: palmskog@gmail.com
 opam-file-version: dev
 
 license:
-  fullname: CeCILL-B
-  identifier: CECILL-B
+  fullname: MIT License
+  identifier: MIT
 
 supported_coq_versions:
   text: 8.10 or later (use the corresponding release for other Coq versions)

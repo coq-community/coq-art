@@ -35,7 +35,7 @@ out of over 200 exercises from the book.
 - Coq-community maintainer(s):
   - Yves Bertot ([**@ybertot**](https://github.com/ybertot))
   - Pierre Castéran ([**@Casteran**](https://github.com/Casteran))
-- License: [CeCILL-B](LICENSE)
+- License: [MIT License](LICENSE)
 - Compatible Coq versions: 8.10 or later (use the corresponding release for other Coq versions)
 - Additional dependencies: none
 - Coq namespace: `coqart`
