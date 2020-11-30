@@ -55,6 +55,8 @@ make   # or make -j <number-of-cores-on-your-machine>
 For more information, see the [book website][book-url]
 and the [publisher's website][publisher-url].
 
+This repository is also used as the source for the following [web site][community-url].
+
 The repository is structured as follows.
 
 ### Book chapters
@@ -84,3 +86,4 @@ The repository is structured as follows.
 
 [book-url]: http://www.labri.fr/perso/casteran/CoqArt/
 [publisher-url]: https://www.springer.com/gp/book/9783540208549
+[community-url]: https://coq-community.org/coq-art/
