@@ -1,36 +1,6 @@
-(** Note :
-  The function three_way_compare should be replaced with 
-  standard library's nat_compare (of module Arith.Compare_dec) 
-  Some lemmas about this function are already proven in this module
-
-  Same remark about all-list (List.Forall in Standard Library) 
-
-
-
-  Exercise : make explicit the structure of this proof :
-  Add bullets, braces, comments, etc.
-
-*)
 
 Require Import List.
 Require Import Arith.
-
-(**  Similar to Datatypes.comparison 
-     but not the same order of constructors, hence case_eq doesn't 
-     generate subgoals in the same order.
-
-    To do : first bulletize the proof. 
-    Then use Nat.compare *)
-
-Inductive cmp : Set := Less : cmp | Equal : cmp | Greater : cmp.
-
-Fixpoint three_way_compare (n m:nat) {struct n} : cmp :=
-  match n, m with
-  | O, O => Equal
-  | 0, S _ => Less
-  | S _, 0 => Greater
-  | S n', S m' => three_way_compare n' m'
-  end.
 
 Fixpoint
   update_primes (k:nat) (l: list (nat*nat)) {struct l} : list (nat*nat)*bool :=
@@ -38,10 +8,10 @@ Fixpoint
   | nil => (nil,false)
   | (p,n)::tl => 
     let (l',b) := update_primes k tl in
-    match three_way_compare k n with
-    | Less => ((p, n)::l', b)
-    | Equal => ((p, n+p)::l', true)
-    | Greater => ((p, n+p)::l', b)
+    match Nat.compare  k n with
+    | Lt => ((p, n)::l', b)
+    | Eq => ((p, n+p)::l', true)
+    | Gt => ((p, n+p)::l', b)
     end
   end.
 
@@ -58,8 +28,8 @@ Definition prime_fun (n:nat) : bool :=
   match prime_sieve n with
   | nil => false
   | (p,q)::tl => 
-    match three_way_compare p n with
-    | Equal => true
+    match Nat.compare p n with
+    | Eq => true
     | _ => false
     end
   end.
@@ -70,6 +40,7 @@ Definition prime_fun (n:nat) : bool :=
    also rely on notions that are introduced later, like the inductive
    properties found in chapter 8. *)
  
+
 
 Definition divides (p n:nat) := exists q:nat, n = p*q.
 
@@ -121,66 +92,6 @@ Proof.
 Qed.
 
 
-
-(** Now come the proofs around three_way_compare. *)
-(** Already proved in Stdlib *)
-
-Theorem three_way_compare_Less1 :
-  forall n m:nat, three_way_compare n m = Less -> n < m.
-Proof.
- intros n; elim n; simpl; auto with arith.
- intros m; case m; simpl; auto with arith.
- intros; discriminate.
- intros n0 Hrec m; case m; simpl; auto with arith.
- intros; discriminate.
-Qed.
-
-Theorem three_way_compare_Less2 :
-  forall n m:nat, n < m -> three_way_compare n m = Less.
-Proof.
- intros n; elim n; simpl.
- intros m; case m; simpl; auto.
- intros Hlt_absurd; elim (lt_irrefl 0); assumption.
- intros n0 Hrec m; case m; simpl; auto.
- intros Hlt_absurd; elim (lt_asym (S n0) 0); auto with arith.
- auto with arith.
-Qed.
-
-Theorem three_way_compare_Equal1 :
-  forall n m:nat, three_way_compare n m = Equal -> n=m.
-Proof.
- intros n; elim n.
- intros m; case m; simpl;auto.
- intros; discriminate.
- intros n0 Hrec m; case m; simpl; auto.
- intros; discriminate.
-Qed.
-
-Theorem three_way_compare_Equal2 :
-  forall n, three_way_compare n n = Equal.
-Proof.
- intros n; elim n; simpl; auto.
-Qed.
-
-Theorem three_way_compare_Greater1 :
-  forall n m:nat, three_way_compare n m = Greater -> m < n.
-Proof.
- intros n; elim n; simpl; auto with arith.
- intros m; case m; simpl; auto with arith.
- intros; discriminate.
- intros; discriminate.
- intros n0 Hrec m; case m; simpl; auto with arith.
-Qed.
-
-Theorem three_way_compare_Greater2 :
-  forall n m:nat, m < n -> three_way_compare n m = Greater.
-Proof.
- intros n; elim n; simpl.
- intros m; case m; simpl; auto.
- intros Hlt_absurd; elim (lt_irrefl 0); assumption.
- intros n0 Hlt_absurd; elim (lt_asym (S n0) 0); auto with arith.
- intros n0 Hrec m; case m; simpl; auto with arith.
-Qed.
 
 (** A bunch of generic proofs about the all_list predicate. *)
 
@@ -256,6 +167,7 @@ Proof.
 Qed.
 
 (** Theorems about invariants in update_primes *)
+
 Theorem update_primes_all_list_invariant :
  forall (P:nat->nat->nat->Prop),
  (forall k p n:nat, k = n -> P k p n -> P k p (n+p))->
@@ -269,13 +181,13 @@ Proof.
        rewrite <- Hl'; apply (all_list_nil (P k)).
   -  simpl; intros (p, n) l0 Hrec l' b Hal;
        case_eq (update_primes k l0); intros l'0 b0 Hup0.
-     case_eq (three_way_compare k n); intros Htwc Hup; injection Hup;
+     case_eq (Nat.compare k n); intros Htwc Hup; injection Hup;
        intros Hb Hl'; rewrite <- Hl';
          generalize (Hal nil l0 p n (refl_equal _)); intros HPkpn;
            generalize (Hrec l'0 b0 (all_list_transmit (P k) (p,n) l0 Hal) Hup0);
            intros Hal'; apply all_list_add; auto.
-     +  apply Hp2;[apply three_way_compare_Equal1;auto| auto].
-     + apply Hp3;[apply three_way_compare_Greater1;auto| auto].
+     +  apply Hp2;[apply nat_compare_eq;auto| auto].
+     + apply Hp3;[apply nat_compare_Gt_gt;auto| auto].
 Qed.
 
 (** Now a few proofs about divides and prime *)
@@ -283,51 +195,52 @@ Qed.
 Theorem divides_dec_aux : 
   forall k n p:nat, n <= k -> divides p n \/ ~divides p n.
 Proof.
- intros k; elim k.
- -  intros n p Hle; left; exists 0; rewrite mult_comm; simpl; 
-      symmetry; apply le_n_O_eq; auto.
- - intros k' Hrec n p Hlt; elim (le_lt_or_eq n (S k')).
-   + auto with arith.
-   + intros Heq; rewrite Heq.
-     case p.
-    *  right; intros (q, Heq').
-        discriminate Heq'.
-    *  intros p'; case_eq (three_way_compare (S p') (S k')); intros Htwc.
-      -- 
-        assert (S p' < S k').
-        apply three_way_compare_Less1; auto.
-        elim (Hrec (minus (S k') (S p')) (S p')).
-        ++ intros (q, Heq'); left; exists (S q).
-           rewrite (le_plus_minus (S p') (S k')).
-           ** rewrite Heq'.
-              repeat rewrite (mult_comm (S p')).
-              reflexivity.
-           **  auto with arith.
-        ++  intros Hndiv; right; intros Hdiv.
-            apply Hndiv.
-            elim Hdiv.
-            intros q; case q.
-            **  rewrite mult_comm;  simpl; intros; discriminate.
-            **  intros q' Heq'; exists q'.
-                apply plus_reg_l with (S p').
-                rewrite le_plus_minus_r.
-              { rewrite Heq'.
-                rewrite plus_comm; rewrite mult_n_Sm; reflexivity.
-              }
-              auto with arith.
-       ++ simpl; apply le_minus.
-      --  assert (H:S p' = S k').
-        { apply three_way_compare_Equal1; auto. }
-        left; exists 1; rewrite H.
-        auto with arith.
-      -- assert (Hlt': S k' < S p').
-         { apply three_way_compare_Greater1; auto. }
-         right; intros Hdiv; elim Hdiv; intros q; case q.
-         ++  rewrite mult_comm; simpl; intros; discriminate.
-         ++ intros q' Heq'; elim (lt_not_le _ _ Hlt').
-            rewrite Heq'.
-            rewrite mult_comm; simpl; auto with arith.
-   +  trivial.
+  intros k; elim k.
+  -  intros n p Hle; left; exists 0; rewrite mult_comm; simpl; 
+       symmetry; apply le_n_O_eq; auto.
+  - intros k' Hrec n p Hlt; elim (le_lt_or_eq n (S k')).
+    + auto with arith.
+    + intros Heq; rewrite Heq.
+      case p.
+      *  right; intros (q, Heq').
+         discriminate Heq'.
+      *  intros p'; case_eq (Nat.compare (S p') (S k')); intros Htwc.
+         --  assert (H:S p' = S k').
+             { apply nat_compare_eq; auto. }
+             left; exists 1; rewrite H.
+             auto with arith.
+         -- 
+           assert (S p' < S k').
+           apply nat_compare_Lt_lt; auto.
+           elim (Hrec (minus (S k') (S p')) (S p')).
+           ++ intros (q, Heq'); left; exists (S q).
+              rewrite (le_plus_minus (S p') (S k')).
+              ** rewrite Heq'.
+                 repeat rewrite (mult_comm (S p')).
+                 reflexivity.
+              **  auto with arith.
+           ++  intros Hndiv; right; intros Hdiv.
+               apply Hndiv.
+               elim Hdiv.
+               intros q; case q.
+               **  rewrite mult_comm;  simpl; intros; discriminate.
+               **  intros q' Heq'; exists q'.
+                   apply plus_reg_l with (S p').
+                   rewrite le_plus_minus_r.
+                   { rewrite Heq'.
+                     rewrite plus_comm; rewrite mult_n_Sm; reflexivity.
+                   }
+                   auto with arith.
+           ++ simpl; apply le_minus.
+              
+         -- assert (Hlt': S k' < S p').
+            { apply nat_compare_Gt_gt; auto. }
+            right; intros Hdiv; elim Hdiv; intros q; case q.
+            ++  rewrite mult_comm; simpl; intros; discriminate.
+            ++ intros q' Heq'; elim (lt_not_le _ _ Hlt').
+               rewrite Heq'.
+               rewrite mult_comm; simpl; auto with arith.
+    +  trivial.
 Qed.
 
 
@@ -447,10 +360,10 @@ Proof.
   intros k l1 l2 l3; elim l3.
   - simpl; intros l4 b Heq1; rewrite Heq1; intros Heq2; injection Heq2; auto.
   - simpl; intros (p,n) l; case (update_primes k (l++l1)).
-    intros l4 b Hrec l4' b'; case (three_way_compare k n).
+    intros l4 b Hrec l4' b'; case (Nat.compare k n).
+  + intros Heq1 Heq2; injection Heq2; auto.
   +  intros Heq1 Heq2; injection Heq2.
      intros Heq3 Heq4; rewrite <- Heq3; apply Hrec with l4; auto.
-  + intros Heq1 Heq2; injection Heq2; auto.
   + intros Heq1 Heq2; injection Heq2.
     intros Heq3 Heq4; rewrite <- Heq3; apply Hrec with l4; auto.
 Qed.
@@ -461,34 +374,35 @@ Theorem update_primes_true_imp_div :
     all_multiples l ->
     all_greater_than_one l ->
     forall l1, update_primes k l = (l1, true) ->
-      (exists p:nat, 1< p < k /\ (exists q:nat, k = p*q)).
+               (exists p:nat, 1< p < k /\ (exists q:nat, k = p*q)).
 Proof.
- intros k l; elim l.
- -  simpl; intros; discriminate.
- - intros (p,n) l0 Hrec Haf Ham Hal l1; simpl.
+  intros k l; elim l.
+  -  simpl; intros; discriminate.
+  - intros (p,n) l0 Hrec Haf Ham Hal l1; simpl.
     case_eq (update_primes k l0).
-    intros l2 b Hup; case_eq (three_way_compare k n).
-   + intros Htwc Heq; injection Heq; intros Hb Hl1.
-     * rewrite Hb in Hup; apply Hrec with l2.
-      -- apply all_first_less_than_transmit with (p,n); auto.
-      -- apply all_multiples_transmit with (p,n); auto.
-      --  apply all_greater_than_one_transmit with (p,n); auto.
-      -- auto.
-   +  intros Htwc Heq; generalize (three_way_compare_Equal1 _ _ Htwc).
-      intros Hk; exists p; split.
-      *  split.
-         unfold all_greater_than_one in Hal;
-           apply Hal with (nil (A:=nat*nat)) l0 n; auto.
-         unfold all_first_less_than in Haf;
-           apply Haf with (nil (A:=nat*nat)) l0 n; auto.
-      * unfold all_multiples in Ham.
-        rewrite Hk; apply Ham with (nil (A:=nat*nat)) l0; auto.
-   + intros Htwc Heq; injection Heq; intros Hb Hl1.
-     rewrite Hb in Hup; apply Hrec with l2.
-     * apply all_first_less_than_transmit with (p,n); auto.
-     * apply all_multiples_transmit with (p,n); auto.
-     *  apply all_greater_than_one_transmit with (p,n); auto.
-     *  auto.
+    intros l2 b Hup; case_eq (Nat.compare k n).
+    +  intros Htwc Heq; generalize (nat_compare_eq _ _ Htwc).
+       intros Hk; exists p; split.
+       *  split.
+          unfold all_greater_than_one in Hal;
+            apply Hal with (nil (A:=nat*nat)) l0 n; auto.
+          unfold all_first_less_than in Haf;
+            apply Haf with (nil (A:=nat*nat)) l0 n; auto.
+       * unfold all_multiples in Ham.
+         rewrite Hk; apply Ham with (nil (A:=nat*nat)) l0; auto.
+    + intros Htwc Heq; injection Heq; intros Hb Hl1.
+      * rewrite Hb in Hup; apply Hrec with l2.
+        -- apply all_first_less_than_transmit with (p,n); auto.
+        -- apply all_multiples_transmit with (p,n); auto.
+        --  apply all_greater_than_one_transmit with (p,n); auto.
+        -- auto.
+           
+    + intros Htwc Heq; injection Heq; intros Hb Hl1.
+      rewrite Hb in Hup; apply Hrec with l2.
+      * apply all_first_less_than_transmit with (p,n); auto.
+      * apply all_multiples_transmit with (p,n); auto.
+      *  apply all_greater_than_one_transmit with (p,n); auto.
+      *  auto.
 Qed.
 
 Theorem interval_eq :
@@ -564,7 +478,7 @@ Proof.
          case (update_primes k l2).
          intros l5 b2.
          rewrite Heq''; rewrite Heq3; rewrite Heq4.
-         rewrite three_way_compare_Equal2.
+         rewrite Nat.compare_refl.
          intros Heq5; injection Heq5; intros Heq6 Heq7;
            rewrite Heq6;rewrite Heq7;
              auto with arith.
@@ -628,16 +542,16 @@ Proof.
       case_eq (update_primes k l0); intros l'0 b0 Hup0 Hup l1.
     case l1.
     + unfold all_intervals in Hai.
-      case_eq (three_way_compare k n); simpl; intros Htwc l2 p' n' Heq;
+      case_eq (Nat.compare k n); simpl; intros Htwc l2 p' n' Heq;
         rewrite Htwc in Hup; injection Hup; intros Hb Hl';
           rewrite <- Hl' in Heq; injection Heq; intros Hl2 Hn' Hp';
             rewrite <- Hp'; rewrite <- Hn';
               generalize (Hai nil l0 p n (refl_equal _));
               intros (Hlt, Hle);split; 
-                (generalize (three_way_compare_Less1 _ _ Htwc) ||
-                 generalize (three_way_compare_Equal1 _ _ Htwc) ||
-                 generalize (three_way_compare_Greater1 _ _ Htwc));
-                auto with arith.
+                (generalize (nat_compare_Lt_lt _ _ Htwc) ||
+                 generalize (nat_compare_eq _ _ Htwc) ||
+                 generalize (nat_compare_Gt_gt _ _ Htwc));
+                auto with arith. (* ICI *)
       *  intros Heq2; rewrite Heq2; rewrite plus_comm; rewrite minus_plus;
            auto with arith.
       * intros Heq2; rewrite Heq2; unfold all_greater_than_one in Hal;
@@ -652,7 +566,7 @@ Proof.
       generalize (all_greater_than_one_transmit _ _ Hal); intros Hal'.
       simpl; clear l1; intros fst_elem l1 l2 p' n' Heq; generalize Hup;
         rewrite Heq.
-      case (three_way_compare k n); intros Hup'; injection Hup'; 
+      case (Nat.compare k n); intros Hup'; injection Hup'; 
         intros Hb Hl' _; apply (Hrec Hai' Hal' l'0 b0 Hup0 l1 l2); assumption.
 Qed.
 
@@ -729,43 +643,42 @@ Fixpoint same_first (l1 l2:list(nat*nat)) {struct l1} : bool :=
   match l1, l2 with
     nil, nil => true
   | ((a, _)::l'1), ((b, _)::l'2) =>
-    match three_way_compare a b with
-    | Equal => same_first l'1 l'2
+    match Nat.compare a b with
+    | Eq => same_first l'1 l'2
     | _ => false
     end
   | _, _ => false
   end.
 
 Theorem update_primes_same_first :
- forall k l l' b,
-   update_primes k l = (l', b) ->
-   forall l1 l2 p n,
-   l = l1++(p,n)::l2 -> 
-   (exists l'1 : list(nat*nat),
-     (exists l'2 : list(nat*nat),
-       (exists n': nat,
-         l'=l'1++(p,n')::l'2))).
+  forall k l l' b,
+    update_primes k l = (l', b) ->
+    forall l1 l2 p n,
+      l = l1++(p,n)::l2 -> 
+      (exists l'1 : list(nat*nat),
+          (exists l'2 : list(nat*nat),
+              (exists n': nat,
+                  l'=l'1++(p,n')::l'2))).
 Proof.
- intros k l; elim l.
- - intros l' b Hup l1 l2 p n Heq; elim (absurd_decompose_list _ _ _ _ Heq).
+  intros k l; elim l.
+  - intros l' b Hup l1 l2 p n Heq; elim (absurd_decompose_list _ _ _ _ Heq).
 
- - intros (p,n) l0 Hrec l' b.
-   simpl; case_eq (update_primes k l0); intros l'0 b0 Hup'.
-   case (three_way_compare k n); intros Hup; injection Hup;
- intros Hb Hl'; intros l1; (case l1; [simpl; intros l2 p0 n0 Heq;
- injection Heq; intros Hl2 Hn0 Hp0; rewrite <- Hl'; rewrite <- Hp0;
- exists (nil (A:=nat*nat)); exists l'0 | 
- clear l1; simpl; intros fst_elem l1 l2 p0 n0 Heq; injection Heq;
- intros Hl0 Hfst_elem; rewrite <- Hl';
- elim (Hrec l'0 b0 Hup' l1 l2 p0 n0 Hl0); intros l'1 (l'2, (n', Heq2));
- rewrite Heq2]).
-
- + exists n; reflexivity.
- +  exists ((p,n)::l'1); exists l'2; exists n'; reflexivity.
- +  exists (n+p); reflexivity.
- +  exists ((p,n+p)::l'1); exists l'2; exists n'; reflexivity.
- +  exists (n+p); reflexivity.
- + exists ((p,n+p)::l'1); exists l'2; exists n'; reflexivity.
+  - intros (p,n) l0 Hrec l' b.
+    simpl; case_eq (update_primes k l0); intros l'0 b0 Hup'.
+    case (Nat.compare k n); intros Hup; injection Hup;
+      intros Hb Hl'; intros l1; (case l1; [simpl; intros l2 p0 n0 Heq;
+                                           injection Heq; intros Hl2 Hn0 Hp0; rewrite <- Hl'; rewrite <- Hp0;
+                                           exists (nil (A:=nat*nat)); exists l'0 | 
+                                           clear l1; simpl; intros fst_elem l1 l2 p0 n0 Heq; injection Heq;
+                                           intros Hl0 Hfst_elem; rewrite <- Hl';
+                                           elim (Hrec l'0 b0 Hup' l1 l2 p0 n0 Hl0); intros l'1 (l'2, (n', Heq2));
+                                           rewrite Heq2]).
+    +  exists (n+p); reflexivity.
+    +  exists ((p,n+p)::l'1); exists l'2; exists n'; reflexivity.
+    + exists n; reflexivity.
+    +  exists ((p,n)::l'1); exists l'2; exists n'; reflexivity.
+    +  exists (n+p); reflexivity.
+    + exists ((p,n+p)::l'1); exists l'2; exists n'; reflexivity.
 Qed.
 
 Theorem update_primes_all_prime_in_first :
@@ -912,12 +825,12 @@ Proof.
      case_eq (prime_sieve (S k)).
      +  
        intros; discriminate.
-     + intros (p,n) l Heq; case_eq (three_way_compare p (S k));
+     + intros (p,n) l Heq; case_eq (Nat.compare p (S k));
          try(intros; discriminate; fail).
        intros Htwc _.
        assert (Hap:all_first_prime ((p,n)::l)).
        {  generalize (prime_sieve_invariant k ((p,n)::l) Heq); intuition. }
-       rewrite <- (three_way_compare_Equal1 _ _ Htwc).
+       rewrite <- (nat_compare_eq _ _ Htwc).
        apply (Hap nil l p n); auto.
 Qed.
 
@@ -941,8 +854,8 @@ Proof.
          unfold divides.
          generalize (prime_sieve_invariant k'' (prime_sieve (S k'')));
            intros Hinv.
-         apply (update_primes_true_imp_div (S (S k'')) (prime_sieve (S k''))) with l';
+         apply (update_primes_true_imp_div (S (S k''))
+                                           (prime_sieve (S k''))) with l';
            intuition.
-      * 
-        rewrite (three_way_compare_Equal2 (S (S k''))); auto.
+      *  rewrite (Nat.compare_refl (S (S k''))); auto.
 Qed.
