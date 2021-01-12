@@ -1,7 +1,7 @@
 
 Require Export ZArith.
 Require Export List.
-Require Export Arith.
+Require Export Arith Lia.
 
 Section bad_proof_example_for_Induction1.
 
@@ -22,9 +22,9 @@ Proof.
  rewrite plus_0_r; reflexivity.
 Qed.
 
-Hint Extern 4 (_ <> _) => discriminate : core.
+Global Hint  Extern  4 (_ <> _) => discriminate : core.
 
-Hint Resolve le_S_n : le_base.
+Global Hint Resolve le_S_n : le_base.
 
 Theorem auto_le_example :
  forall n m:nat, S (S (S n)) <= S (S (S m)) ->  n <= m.
@@ -166,6 +166,7 @@ Proof.
 Qed.
 
 Open Scope Z_scope.
+
 Theorem ex_tauto3 : forall x y:Z, x<=y -> ~(x<=y) -> x=3.
 Proof.
  tauto.
@@ -232,26 +233,50 @@ Section primes.
  Definition divides (n m:nat) := exists p:nat, p*n = m.
 
  Lemma divides_O : forall n:nat, divides n 0.
- Admitted. (** Left as an exercise, as well as the next 6 lemmas  *)
+ Proof.
+  exists 0; reflexivity.
+Qed.
 
 
  Lemma divides_plus : forall n m:nat, divides n m -> divides n (n+m).
- Admitted.
+  Proof. intros n m [q Hq]; exists (S q). subst; ring. Qed.
 
- Lemma not_divides_plus : forall n m:nat, ~divides n m -> ~divides n (n+m).
- Admitted.
+  Lemma not_divides_plus : forall n m:nat, ~divides n m -> ~divides n (n+m).
+    intros n m H [q Hq]; apply H; red.
+    destruct q.
+    - exists 0. simpl in *. lia.
+    -   exists q; lia.
+  Qed.
+
 
  Lemma not_divides_lt : forall n m:nat, 0<m -> m<n -> ~divides n m.
- Admitted.
+ Proof.
+   intros n m H H0 [q Hq].
+   subst.
+   destruct q.
+   lia.
+   cbn in H0.
+   lia.
+Qed.
 
- Lemma not_lt_2_divides : forall n m:nat, n<>1 -> n<2 -> 0 < m -> ~divides n m.
- Admitted.
+ Lemma not_lt_2_divides : forall n m:nat, n<>1 -> n<2 -> 0 < m -> ~ divides n m.
+Proof. 
+ intros n m H H0 H1 [q Hq].
+  subst.
+   assert (n = 0) by lia.
+   subst.
+   lia.
+Qed. 
+
 
  Lemma le_plus_minus : forall n m:nat, le n m -> m = n+(m-n).
- Admitted.
+ Proof. intros; lia. Qed.
+
 
  Lemma lt_lt_or_eq : forall n m:nat, n < S m ->  n<m \/ n=m.
- Admitted. 
+ Proof. inversion 1; auto.
+ Qed.
+
 
  Ltac check_not_divides :=
    match goal with

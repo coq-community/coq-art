@@ -1,7 +1,7 @@
 Require Import Arith fib_ind.
 
 
-(* A geralisation of the fibonacci sequence, parameterized by
+(* A generalisation of the fibonacci sequence, parameterized by
    its two first items *)
 
 Fixpoint general_fib (a0 a1 n:nat) {struct n} : nat :=
