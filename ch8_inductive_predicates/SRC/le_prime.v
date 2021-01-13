@@ -4,7 +4,7 @@ Inductive le' : nat -> nat -> Prop :=
   | le'_0_p : forall p:nat, le' 0 p
   | le'_Sn_Sp : forall n p:nat, le' n p -> le' (S n) (S p).
 
-Hint Constructors le' : core.
+#[export] Hint Constructors le' : core.
 
 Lemma le'_n : forall n : nat, le' n n.
 Proof.
@@ -18,7 +18,7 @@ Proof.
   -  intros p Hp; inversion_clear Hp;  auto.
 Qed.
 
-Hint Resolve le'_n le'_n_Sp : core.
+#[export] Hint Resolve le'_n le'_n_Sp : core.
 
 Lemma le_le' : forall n p: nat, le n p -> le' n p.
 Proof.

@@ -16,7 +16,7 @@ Section Sequences.
  Qed.
 
  Hypothesis W : well_founded R.
- Hint Resolve W : core.
+ #[local] Hint Resolve W : core.
 	
  Section seq_intro.
   Variable seq : nat -> A. 

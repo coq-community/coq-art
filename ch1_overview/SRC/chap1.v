@@ -22,7 +22,7 @@ Inductive sorted : list Z -> Prop :=
         z1 <= z2 ->
         sorted (z2 :: l) -> sorted (z1 :: z2 :: l).
 
-Hint Constructors sorted :  sort.
+#[export] Hint Constructors sorted :  sort.
 
 Lemma sort_2357 :
  sorted (2 :: 3 :: 5 :: 7 :: nil).
@@ -101,7 +101,7 @@ Proof.
   simpl; case (H z); auto.
 Qed.
 
-Hint Resolve permutation_cons permutation_refl permutation_transpose : sort.
+#[export] Hint Resolve permutation_cons permutation_refl permutation_transpose : sort.
 
 
 (* insertion of z into l at the right place 

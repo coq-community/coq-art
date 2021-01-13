@@ -159,7 +159,7 @@ Proof.
   intros x v H; generalize (double_div2_le x);  omega.
 Qed.
 
-Hint Resolve div2_le f_lemma double_div2_le : core.
+#[export] Hint Resolve div2_le f_lemma double_div2_le : core.
 
 Definition nested_F :
   forall x:nat, (forall y:nat, y < x -> {v:nat | v <= y}) -> {v:nat | v <= x }.
@@ -234,7 +234,7 @@ Theorem max2_correct : forall n m:nat, m <= max n m.
  intros n m; unfold max; case (le_gt_dec n m); auto with arith.
 Qed.
 
-Hint Resolve max1_correct max2_correct : arith.
+#[export] Hint Resolve max1_correct max2_correct : arith.
 
 Theorem div_it_fix_eqn :
  forall (n m:nat)(h:(0 < m)),

@@ -65,7 +65,7 @@ Definition month_length'' (leap:bool)(m:month) :=
  match m with
  | February => if leap then 29 else 28
  | April  | June  | September | November => 30
- | other => 31
+ | _  => 31
  end.
 
 (** Tests :
@@ -286,7 +286,7 @@ Fixpoint nth_option {A:Type} (n:nat)(l:list A) : option A :=
   match n, l with
   | O, cons a tl => Some a
   | S p, cons a tl => nth_option  p tl
-  | n, nil => None
+  | _, nil => None
   end.
 
 (** Some tests: 

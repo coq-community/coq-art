@@ -33,7 +33,7 @@ Compute is_January_clumsy January.
 Definition is_January (m : month) : Prop :=
  match m with
  | January => True 
- | other_month => False
+ | _ => False
  end.
 
 Remark both_versions_are_convertible : 

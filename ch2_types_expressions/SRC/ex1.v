@@ -27,9 +27,10 @@ Definition add_pair_components (p : nat * nat) :=
 (* The following should return 8 *)
 (* Compute add5 3.*)
 
-(* The following commands make it possible to find pre-defined functions *)
+(* The following commands make it possible to find pre-defined functions
 Search nat.
 Search bool.
+ *)
 
 (* 4/ Write a function swap of type list nat -> list nat such that
   swap (a::b::l) = (b::a::l)  and

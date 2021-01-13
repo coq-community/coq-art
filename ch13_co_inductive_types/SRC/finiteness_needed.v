@@ -2,8 +2,8 @@ Require Import chap13.
 
 Section counter_example.
  Let A : Set := nat.
- Let P l := match l with (LCons 0 l') => True 
-                        | other       => False
+ Let P l := match l with (LCons 0 _) => True 
+                        | _       => False
                     end.
  Let u := omega_repeat 1.
  Let v := LCons 0 LNil.
