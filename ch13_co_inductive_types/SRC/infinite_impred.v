@@ -11,7 +11,7 @@ CoInductive Infinite {A:Type} : LList A -> Prop :=
     Infinite_LCons :
       forall (a:A) (l:LList A), Infinite l -> Infinite (LCons a l).
 
-Hint Constructors Infinite: llists.
+#[export] Hint Constructors Infinite: llists.
 
   
 

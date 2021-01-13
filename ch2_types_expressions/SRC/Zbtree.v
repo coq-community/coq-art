@@ -80,7 +80,6 @@ match t with leaf => true
                               is_searchtree t2 
 end.
 
-Search (Z->Z->comparison).
 
 Fixpoint memb_in_searchtree (n:Z)(t: Zbtree) : bool :=
 match t with 

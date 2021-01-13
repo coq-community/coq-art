@@ -172,7 +172,7 @@ Section minimal_specification_strengthening.
   Proof.
   intro n; exists 1; simpl; auto.
  Qed.
- Hint Resolve divides_refl : core.
+ #[local] Hint Resolve divides_refl : core.
 
  Check (fun E:nat=>  fun n:nat => if prime_test n then n else E).
 
@@ -348,7 +348,7 @@ Open Scope Z_scope.
 
 Fixpoint div_bin (n m:positive){struct n} : Z*Z :=
  match n with
- | 1%positive => match m with 1%positive =>(1,0) | v =>(0,1) end
+ | 1%positive => match m with 1%positive =>(1,0) | _ =>(0,1) end
  | xO n' =>
    let (q',r'):=div_bin n' m in
    match Z_lt_ge_dec (2*r')(Zpos m) with
@@ -404,7 +404,7 @@ Theorem rem_odd_lt_interval :
 Proof.
  intros; omega.
 Qed.
-Hint Resolve rem_odd_ge_interval rem_even_ge_interval
+#[local] Hint Resolve rem_odd_ge_interval rem_even_ge_interval
  rem_odd_lt_interval rem_even_lt_interval rem_1_odd_interval
  rem_1_even_interval rem_1_1_interval : core.
 
@@ -425,10 +425,11 @@ Proof.
  omega.
 Qed.
 
+(*
 SearchRewrite (Zpos (xI _)).
 
 SearchRewrite (Zpos (xO _)).
-
+*)
 
 Theorem div_bin_eq :
  forall n m:positive,

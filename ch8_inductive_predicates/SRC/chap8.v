@@ -33,7 +33,7 @@ Inductive sorted {A:Type}(R:A->A->Prop) : list A -> Prop :=
         sorted  R (y :: l)-> sorted  R (x  ::  y :: l).
 
 
-Hint Constructors sorted :  sorted_base.
+#[export] Hint Constructors sorted :  sorted_base.
 
 Require Export Relations.
 
@@ -337,7 +337,7 @@ Open Scope nat_scope.
 Inductive is_0_1 : nat->Prop :=
   is_0 : is_0_1 0 | is_1 : is_0_1 1.
 
-Hint Resolve is_0 is_1 : core.
+#[export] Hint Resolve is_0 is_1 : core.
 
 Lemma sqr_01 : forall x:nat, is_0_1 x -> is_0_1 (x * x).
 Proof.

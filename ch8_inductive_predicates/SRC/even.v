@@ -5,7 +5,7 @@ Inductive even : nat -> Prop :=
   | plus_2_even : forall n:nat, even n -> even (S (S n)).
 
 
-Hint Constructors even : core.
+#[export] Hint Constructors even : core.
 
 Fixpoint mult2 (n:nat) : nat :=
   match n with
@@ -23,7 +23,7 @@ Proof.
  intros n p Heven_n; induction  Heven_n; simpl; auto.
 Qed.
 
-Hint Resolve sum_even : core.
+#[export] Hint Resolve sum_even : core.
 
 Lemma square_even : forall n:nat, even n -> even (n * n).
 Proof.

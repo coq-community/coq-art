@@ -346,7 +346,7 @@ Fixpoint n_sum_values (t:ntree Z) : Z :=
   | ncons _ t tl => n_sum_values t + n_sum_values_l tl
   end.
 
-Hint Resolve occurs_branches occurs_root Zplus_le_compat : core.
+#[export] Hint Resolve occurs_branches occurs_root Zplus_le_compat : core.
 
 Theorem greater_values_sum :
  forall t:ntree Z,

@@ -2,7 +2,7 @@ Require Import List.
 
 Definition two_first {A:Type}(l:list A) : list A :=
  match l with a :: b :: l' => a :: b :: nil
-            | other => nil
+            | _ => nil
  end.
 
 (** Tests :

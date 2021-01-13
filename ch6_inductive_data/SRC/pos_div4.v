@@ -6,7 +6,7 @@ Definition pos_div4 (n:positive) : Z :=
    | xI (xO p) => Zpos p
    | xO (xI p) => Zpos p
    | xI (xI p) => Zpos p
-   | other => 0%Z
+   | _ => 0%Z
  end.
 
 (** Tests 

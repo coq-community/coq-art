@@ -24,7 +24,7 @@ Inductive occ (n:Z) : Z_btree -> Prop :=
   | occ_r : forall (p:Z) (t1 t2:Z_btree), occ n t2 -> occ n (Z_bnode p t1 t2)
  .
 
-Hint Resolve occ_root occ_l occ_r: searchtrees.
+#[ export ] Hint Resolve occ_root occ_l occ_r: searchtrees.
 
 Derive Inversion_clear OCC_INV with
  (forall (z z':Z) (t1 t2:Z_btree), occ z' (Z_bnode z t1 t2)).
@@ -39,14 +39,14 @@ Proof.
  inversion H using OCC_INV; auto with searchtrees.
 Qed.
 
-Hint Resolve occ_inv: searchtrees.
+#[ export ] Hint Resolve occ_inv: searchtrees.
 
 Lemma not_occ_Leaf : forall z:Z, ~ occ z Z_leaf.
 Proof.
  unfold not; intros z H; inversion_clear H.
 Qed.
 
-Hint Resolve not_occ_Leaf: searchtrees.
+#[ export ] Hint Resolve not_occ_Leaf: searchtrees.
 
 
 (* auxiliary definitions for search, insertion and deletion *)
@@ -55,14 +55,14 @@ Hint Resolve not_occ_Leaf: searchtrees.
 Inductive min (z:Z) (t:Z_btree) : Prop :=
     min_intro : (forall z':Z, occ z' t -> z < z') -> min z t.
 
-Hint Resolve min_intro: searchtrees.
+#[ export ] Hint Resolve min_intro: searchtrees.
 
 (* z is greater than every label in t *)
 Inductive maj (z:Z) (t:Z_btree) : Prop :=
     maj_intro : (forall z':Z, occ z' t -> z' < z) -> maj z t
  .
 
-Hint Resolve maj_intro: searchtrees.
+#[ export ] Hint Resolve maj_intro: searchtrees.
 
 (* search-ness predcate on binary trees *)
 
