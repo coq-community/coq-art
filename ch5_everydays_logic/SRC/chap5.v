@@ -239,7 +239,7 @@ Qed.
 *)
 
 Lemma conditional_rewrite_example' : forall n:nat,
-   8 < n + 6 ->  3 + n < 6 -> n * n = n + n.
+   8 <= n + 6 ->  3 + n < 6 -> n * n = n + n.
 Proof.
  intros n  H H0.
  assert (n = 2) by omega.
