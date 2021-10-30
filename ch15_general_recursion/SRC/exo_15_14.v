@@ -1,4 +1,4 @@
-Require Import Omega.
+Require Import Lia.
 Require Import Wf_nat.
 
 Definition f1_aux :
@@ -17,7 +17,7 @@ Definition f1_aux :
         match rec (S v) _ with
         | (exist _ v' H') => (exist _ (S v') _)
         end
-      end); omega.
+      end); lia.
 Defined.
 
 Definition f1' : forall x, {y:nat | x=0 \/ y<x} :=

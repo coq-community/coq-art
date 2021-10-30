@@ -1,7 +1,6 @@
 (** Binary trees the nodes of which are labelled with type A *)
 
-Require Import Omega
-        Inverse_Image Wellfounded.Inclusion Wf_nat.
+Require Import Lia Inverse_Image Wellfounded.Inclusion Wf_nat.
 
 Section Some_type_A.
 Variable A: Type.
@@ -40,7 +39,7 @@ end.
 
 Lemma subtree_smaller : forall (t t': tree), subtree t t' -> size t < size t'.
 Proof. 
- inversion 1;simpl;omega.
+ inversion 1;simpl;lia.
 Qed.
 
 Lemma well_founded_subtree' : well_founded subtree.

@@ -14,9 +14,9 @@ Fixpoint bdiv_aux (b m n:nat) {struct b} : nat * nat :=
 
 (* Here is the real solution to the exercise.  One of the keys is
   to detect that we are going to prove properties of inequalities
-  that can be decided using Omega. *)
+  that can be decided using lia. *)
 
-Require Export Omega.
+Require Export Lia.
 
 Theorem bdiv_aux_correct2 :
  forall b m n:nat, m <= b -> 0 < n -> snd (bdiv_aux b m n) < n.
@@ -24,7 +24,7 @@ Proof.
  intros b; induction b as [ | b Hrec]; auto with arith.
  { cbn in |- *;   intros m n Hle Hlt; case (le_gt_dec n m).
    -  generalize (Hrec (m - n) n).
-      case (bdiv_aux b (m - n) n); simpl in |- *; intros; omega.
-   - simpl in |- *; intros; omega.
+      case (bdiv_aux b (m - n) n); simpl in |- *; intros; lia.
+   - simpl in |- *; intros; lia.
   }
 Qed.

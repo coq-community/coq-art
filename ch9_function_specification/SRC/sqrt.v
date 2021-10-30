@@ -1,5 +1,6 @@
 Require Export ZArith.
 Require Export ZArithRing Extraction.
+Require Import Lia.
 Open Scope Z_scope.
 
 (* The specification given in the exercise is rather cumbersome, because
@@ -37,7 +38,7 @@ Proof.
  intros p s r [Heq Hlt] Hle; rewrite Zpos_xO; rewrite (Zpos_xO p).
  rewrite Heq;  split.
  - ring.
- - split; omega.
+ - split; lia.
 Qed.
   
 Theorem th_sqrt_4_0_gt :
@@ -50,7 +51,7 @@ Proof.
  intros p s r [Heq Hlt] Hle; rewrite Zpos_xO; rewrite (Zpos_xO p).
  rewrite Heq; split.
  -  ring.
- -  split; omega.
+ -  split; lia.
 Qed.
   
 Theorem th_sqrt_4_2_le :
@@ -63,7 +64,7 @@ Proof.
  intros p s r [Heq Hlt] Hle; rewrite Zpos_xO; rewrite (Zpos_xI p).
  rewrite Heq; split.
  -  ring.
- -  split; omega.
+ -  split; lia.
 Qed.
   
 Theorem th_sqrt_4_2_gt :
@@ -76,7 +77,7 @@ Proof.
  intros p s r [Heq Hlt] Hle; rewrite Zpos_xO; rewrite (Zpos_xI p).
  rewrite Heq; split.
  -  ring.
- -  split; omega.
+ -  split; lia.
 Qed.
   
 Theorem th_sqrt_4_1_le :
@@ -89,7 +90,7 @@ Proof.
  intros p s r [Heq Hlt] Hle; rewrite Zpos_xI; rewrite (Zpos_xO p).
  rewrite Heq; split.
  -  ring.
- -  split; omega.
+ -  split; lia.
 Qed.
   
 Theorem th_sqrt_4_1_gt :
@@ -102,7 +103,7 @@ Proof.
  intros p s r [Heq Hlt] Hle; rewrite Zpos_xI; rewrite (Zpos_xO p).
  rewrite Heq;  split.
  -  ring.
- -  split; omega.
+ -  split; lia.
 Qed.
   
 Theorem th_sqrt_4_3_le :
@@ -115,7 +116,7 @@ Proof.
  intros p s r [Heq Hlt] Hle; rewrite Zpos_xI; rewrite (Zpos_xI p).
  rewrite Heq;  split.
  -  ring.
- -  split; omega.
+ -  split; lia.
 Qed.
   
 Theorem th_sqrt_4_3_gt :
@@ -128,7 +129,7 @@ Proof.
  intros p s r [Heq Hlt] Hle; rewrite Zpos_xI; rewrite (Zpos_xI p).
  rewrite Heq;  split.
  -  ring.
- -  split; omega.
+ -  split; lia.
 Qed.
   
 Fixpoint sqrt_aux (p:positive) :
@@ -204,9 +205,9 @@ Proof.
  exists s; exists r;split.
  - exact Heq.
  - split.
-   + omega.
+   + lia.
    + replace ((s+1)*(s+1)) with (s*s + 2*s +1).
-     * omega.
+     * lia.
      * ring.
 Defined.
 

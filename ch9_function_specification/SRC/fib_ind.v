@@ -27,8 +27,6 @@ Fixpoint fib (n:nat) : nat :=
 Lemma fib_SSn : forall n:nat, fib (S (S n)) = fib n + fib (S n).
 Proof. reflexivity. Qed.
 
-Require Import Omega Arith.
-
 Lemma fib_SSn_p :
  forall n p:nat, fib (S (S p) + n) = fib (S n) * fib (S p) + fib n * fib p.
 Proof.
@@ -45,4 +43,3 @@ Proof.
      rewrite HSn; rewrite (fib_SSn (S n)); rewrite (fib_SSn n).
     ring.  
 Qed.
-

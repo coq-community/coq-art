@@ -1,6 +1,6 @@
 Require Export Arith.
 Require Export ArithRing.
-Require Export Omega.
+Require Export Lia.
 Require Export log2_it.
  
 Inductive log_domain : nat ->  Prop :=
@@ -34,7 +34,7 @@ Theorem spec_2:
   ( exp2 (S v') <= S (S p) < 2 * exp2 (S v') ).
 Proof.
 intros p v' H; (cbv zeta iota beta delta [exp2]; fold exp2).
-elim (div2_eq (S (S p))); intros; omega.
+elim (div2_eq (S (S p))); intros; lia.
 Qed.
  
 Definition log_well_spec:

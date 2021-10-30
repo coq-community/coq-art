@@ -4,8 +4,7 @@ Require Import List  ZArith  Bool.
 Open Scope Z_scope.
 Require Import Relations  Setoid  Morphisms  RelationClasses.
 Require Import EMonoid.
-
-
+Require Import Lia.
 
 (** Types for representing routes in the dicrete  plane *)
 
@@ -270,7 +269,7 @@ Proof.
      transitivity ((d1::nil)++(d::r1)).
      rewrite app_comm; reflexivity.
       simpl;rewrite opposite_cons;[reflexivity|trivial].
- -  subst r; repeat (simpl;repeat  rewrite app_length); omega.
+ -  subst r; repeat (simpl;repeat  rewrite app_length); lia.
 Qed.
 
 
@@ -295,35 +294,3 @@ Qed.
 Instance AbelianRoute : Abelian_EMonoid Route. 
   split;  apply app_comm.
 Qed.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-  
-
-

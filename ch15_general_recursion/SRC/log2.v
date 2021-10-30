@@ -1,6 +1,6 @@
 Require Export Arith.
 Require Export ArithRing.
-Require Export Omega.
+Require Export Lia.
 Require Export fib_ind.
  
 Fixpoint exp2 (n : nat) : nat :=
@@ -30,12 +30,12 @@ Qed.
  
 Theorem half_smaller0: forall n x, 2 * x = S n ->  (x < S n).
 Proof.
- intros; omega.
+ intros; lia.
 Qed.
  
 Theorem half_smaller1: forall n x, 2 * x + 1 = n ->  (x < n).
 Proof.
- intros; omega.
+ intros; lia.
 Qed.
  
 Definition log2_F:
@@ -51,11 +51,11 @@ Proof.
       * simpl; intros. subst; discriminate.
       * intros x' Heqx'; assert (Hn0: S x' <> 0) by auto with arith.
         subst x;  destruct (log2 (S x') (half_smaller0 _ _ e) Hn0) as [v Heqv].
-        exists (S v); simpl;rewrite <- e;omega.
+        exists (S v); simpl;rewrite <- e;lia.
     + intros [x].  destruct x; simpl.
       *  rewrite <- e.  exists 0; simpl; auto with arith.
       * rewrite <- e. 
         assert (Hn0: S x <> 0) by auto with arith.
-        destruct (log2 (S x)) as [a Ha];[ omega | auto | ].
-        exists (S a).  simpl.  omega.
+        destruct (log2 (S x)) as [a Ha];[ lia | auto | ].
+        exists (S a).  simpl.  lia.
 Qed.

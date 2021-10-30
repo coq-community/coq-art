@@ -1,5 +1,4 @@
 Require Import Arith.
-Require Import Omega.
 Require Import RelationClasses.
 Import Relations.
 
@@ -117,19 +116,3 @@ Qed.
 
 
 Compute max  cmp 5 8.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-

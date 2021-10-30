@@ -1,7 +1,7 @@
 Require Export ZArith.
 Require Export List.
 Require Export Arith.
-Require Export Omega.
+Require Export Lia.
 Require Export Zwf.
 Require Export Inverse_Image Extraction.
 
@@ -155,7 +155,7 @@ Definition loop1' :
      | right h => t
      end).
  generalize (Zgt_cases (x t) 0); rewrite h; intros; cbn.
- unfold Zwf; omega.
+ unfold Zwf; lia.
 Defined.
 
 Definition loop1 : tuple->tuple :=
@@ -248,5 +248,5 @@ refine
                   _ _) _
          end
        | right _ => t
-       end)); cbn; try (unfold Zwf); omega. 
+       end)); cbn; try (unfold Zwf); lia. 
 Defined.

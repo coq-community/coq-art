@@ -1,4 +1,3 @@
-
 Require Export ZArith.
 Require Export List.
 Require Export Arith Lia.
@@ -113,26 +112,24 @@ Proof.
   trivial.
 Qed.
 
-Require Omega.
-
-Theorem omega_example1 :
+Theorem lia_example1 :
   forall x y z t:Z, x <= y <= z /\  z <= t <= x -> x = t.
 Proof.
-  intros x y z t H; omega.
+  intros x y z t H; lia.
 Qed.
 
-Theorem omega_example2 :
+Theorem lia_example2 :
   forall x y:Z,
     0 <= square x -> 3*(square x) <= 2*y -> square x <= y.
 Proof.
-  intros x y H H0; omega.
+  intros x y H H0; lia.
 Qed.
 
-Theorem omega_example3 :
+Theorem lia_example3 :
   forall x y:Z,
     0 <= x*x -> 3*(x*x) <= 2*y -> x*x <= y.
 Proof.
-  intros x y H H0; omega.
+  intros x y H H0; lia.
 Qed.
 
 Check (fun (X y:Z) => 0 <= X -> 3*X <= 2*y  ->  X < y).
@@ -324,7 +321,7 @@ Theorem clear_example_thm :
   forall (x y z:nat), x<z->z=2*x->0<x->x=2*y->y<z->x>y.
 Proof.
   intros x y z H H1 H2 H3.
-  generalize H1 H2 H3; clear_all; intros; omega.
+  generalize H1 H2 H3; clear_all; intros; lia.
 Qed.
 
 Theorem S_to_plus_one : forall n:nat, S n = n+1.

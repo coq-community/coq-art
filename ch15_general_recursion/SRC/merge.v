@@ -1,5 +1,5 @@
 Require Export List.
-Require Export Omega.
+Require Export Lia.
 
 Module Type Comparable_data.
 Parameter A : Type.
@@ -171,7 +171,7 @@ Proof.
           inversion Hsorted1; repeat constructor || assumption.
           intros Hsorted' Hsorted1 Hsorted2 Hale.
           inversion Hsorted2; repeat constructor || assumption.
-          simpl in |- *; omega.
+          simpl in |- *; lia.
           eapply sorted_inv; eauto.
        * elim (Hrec (a :: l) l'); auto.
          intros Hsorted' Hfep.
@@ -181,7 +181,7 @@ Proof.
          inversion Hsorted1; repeat constructor || assumption.
          intros Hsorted' Hsorted1 Hsorted2 Hale.
          inversion Hsorted2; repeat constructor || assumption.
-         simpl in |- *; omega.
+         simpl in |- *; lia.
          eapply sorted_inv; eauto.
 Qed.
 
@@ -243,7 +243,7 @@ Proof.
       *  intros Hle Has; inversion Has; assumption.
       *  simpl in |- *; intros l2 tl' Hle Has; apply IHb.
          simpl in |- *.
-         generalize (sort_aux1_shorter tl'); intros; omega.
+         generalize (sort_aux1_shorter tl'); intros; lia.
          inversion Has; clear Has.
          match goal with
            | id:(all_sorted _) |- _ => inversion id
@@ -320,7 +320,7 @@ Proof.
         apply permutation_same_head.
         apply permutation_transitive with (l ++ a' :: l').
         apply (Hrec l (a' :: l')).
-        simpl in |- *; omega.
+        simpl in |- *; lia.
         apply permutation_app_cons.
         constructor.
         apply permutation_symmetric.
@@ -329,7 +329,7 @@ Proof.
          apply permutation_transitive with (a' :: a :: l ++ l').
          apply permutation_same_head.
          apply (Hrec (a :: l) l').
-         simpl in |- *; omega.
+         simpl in |- *; lia.
          apply permutation_transitive with (a :: a' :: l ++ l').
          constructor.
          apply permutation_same_head.
@@ -422,7 +422,7 @@ Proof.
         (app_all (sort_aux1 (l1 :: l2 :: tl'))).
         apply Hrec.
         simpl in Hle; generalize (sort_aux1_shorter tl').
-        simpl in |- *; intros Hle'; omega.
+        simpl in |- *; intros Hle'; lia.
         apply sort_aux1_permutation.
 Qed.
 

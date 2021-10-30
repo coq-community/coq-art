@@ -1,4 +1,4 @@
-Require Import List  Arith Omega.
+Require Import List Arith Lia.
 
 Section mirror.
 
@@ -113,7 +113,7 @@ intro n; pattern n; apply fib_ind.
            apply H3.
            rewrite Hx in H6.
            rewrite length_app in H6.
-           simpl in H6; omega.
+           simpl in H6; lia.
 Qed.
 
 

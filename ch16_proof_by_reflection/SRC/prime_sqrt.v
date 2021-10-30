@@ -1,4 +1,4 @@
-Require Import ZArith Arith Bool Omega.
+Require Import ZArith Arith Bool Lia.
 
 Open Scope Z_scope.
 
@@ -15,22 +15,22 @@ Proof.
  elim (Z_lt_le_dec (Z.sqrt n) m); 
  elim (Z_lt_le_dec (Z.sqrt n) p).
  -  intros Hltm Hltp.
-    assert (Hlem : (Z.sqrt n)+1 <= m) by  omega.
-    assert (Hlep : (Z.sqrt n)+1 <= p) by  omega.
+    assert (Hlem : (Z.sqrt n)+1 <= m) by  lia.
+    assert (Hlep : (Z.sqrt n)+1 <= p) by  lia.
     elim (Z.lt_irrefl n).
     apply Z.lt_le_trans with (((Z.sqrt n)+1)*((Z.sqrt n)+1)).
-    assert (Hposn : 0 <= n) by  omega.
+    assert (Hposn : 0 <= n) by  lia.
     generalize (Z.sqrt_spec n Hposn);cbv zeta;intro H23.
     intuition. 
     pattern n at 3; rewrite Heq.
-    apply Zmult_le_compat; try omega.
+    apply Zmult_le_compat; try lia.
     generalize (Z.sqrt_nonneg n).
-    omega.
+    lia.
     generalize (Z.sqrt_nonneg n).
-    omega.
+    lia.
  - intros Hple _; right; split; auto.
    apply Zmult_lt_0_reg_r with m; try tauto.
-   rewrite Zmult_comm; omega.
+   rewrite Zmult_comm; lia.
  -  intros _ Hmle; left; split; tauto.
  -  intros _ Hmle; left; split; tauto.
 Qed.
@@ -110,7 +110,7 @@ Qed.
 Theorem Z_of_nat_le :
   forall x y, Z_of_nat x <= Z_of_nat y -> (x <= y)%nat.
 Proof.
- intros; omega.
+ intros; lia.
 Qed.
 
 
@@ -122,7 +122,7 @@ Theorem test_odds_correct :
 Proof.
  induction n.
  -  intros x p Hp1 H1ltx Hn q Hint.
-    elimtype False;  omega.
+    elimtype False;  lia.
   - intros x p Hp H1ltx; simpl (test_odds (S n) p (Z_of_nat x));
     intros Htest q (H1ltq, Hqle).
     case_eq (test_odds n (p -2) (Z_of_nat x)).
@@ -131,11 +131,11 @@ Proof.
       unfold divides_bool in Htest.
       elim (le_lt_or_eq q (2*S n + 1)%nat Hqle).
       *  intros Hqlt.
-         assert (Hqle': (q <= (2* S n))%nat) by  omega.
+         assert (Hqle': (q <= (2* S n))%nat) by  lia.
          elim (le_lt_or_eq q (2 * S n)%nat Hqle').
          replace (2*S n)%nat with (2*n +2)%nat.
          intros Hqlt'.
-         assert (Hqle'' : (q <= 2*n +1)%nat) by omega.
+         assert (Hqle'' : (q <= 2*n +1)%nat) by lia.
          apply (IHn x (p - 2)); auto with zarith arith;
          try (rewrite Hp; rewrite inj_S; unfold Z.succ); ring.
          ring.
@@ -146,8 +146,8 @@ Proof.
         rewrite Hp; rewrite Hq; rewrite inj_plus; rewrite inj_mult; auto.
         rewrite Hp' in Htest; rewrite (verif_divide x q) in Htest.
         simpl in Htest; discriminate.
-        omega.
-        omega.
+        lia.
+        lia.
         elim Hex; intros y Hdiv; exists y; rewrite Hdiv; ring.
     + intros Htest'; rewrite Htest' in Htest; simpl in Htest; discriminate.
 Qed.
@@ -159,16 +159,16 @@ Axiom divisor_smaller :
 Theorem lt_Zpos : forall p:positive, 0 < Zpos p.
 Proof.
  intros p; elim p.
- -  intros; rewrite Zpos_xI; omega.
- -  intros; rewrite Zpos_xO; omega.
+ -  intros; rewrite Zpos_xI; lia.
+ -  intros; rewrite Zpos_xO; lia.
  -  auto with zarith.
 Qed.
 
 Theorem Zneg_lt : forall p:positive, Zneg p < 0.
 Proof.
  intros p; elim p.
- -  intros; rewrite Zneg_xI; omega.
- -  intros; rewrite Zneg_xO; omega.
+ -  intros; rewrite Zneg_xI; lia.
+ -  intros; rewrite Zneg_xO; lia.
  -  auto with zarith.
 Qed.
 
@@ -189,38 +189,38 @@ Proof.
        case_eq (Z.sqrt (Z_of_nat n)).
        intros Hsqrt_eq.
        elim (Zlt_asym 1 (Z_of_nat n)).
-       omega.
+       lia.
        lapply (Z.sqrt_spec (Z_of_nat n)).
        rewrite Hsqrt_eq; simpl.
-       omega.
-       omega.
+       lia.
+       lia.
        intros p Hsqrt_eq Htest_eq (k, (Hn1, (Hnn, (q,Heq)))).
-       assert (H0ltn:(0 < n)%nat) by  omega.
+       assert (H0ltn:(0 < n)%nat) by  lia.
        assert (Hkltn:(k < n)%nat).
        assert (Heq' : n=(k*q)%nat).
        rewrite Heq; ring.
        generalize (divisor_smaller n q H0ltn k Heq'). 
-       omega.
+       lia.
        assert (Hex: exists k':nat, (1 < (Z_of_nat k') <= (Z.sqrt (Z_of_nat n))) /\
                (exists q':nat, n=(k'*q')%nat)).
        elim (div_Zsqrt (Z_of_nat k) (Z_of_nat n) (Z_of_nat q)).
        intros Hint1; exists k;split.
-       omega.
+       lia.
        exists q; rewrite Heq; ring.
        intros Hint2; exists q; split.
        split.
        elim (Zle_or_lt (Z_of_nat q) 1); auto.
        intros hqle1;  assert (Hq1: q = 1%nat).
-       omega.
+       lia.
        rewrite Hq1 in Heq; simpl in Heq; elim Hnn; rewrite Heq; ring.
        tauto.
        exists k; auto.
        split.
        case_eq k.
        intros Hk0; rewrite Hk0 in Heq; rewrite Heq in H1ltn;
-       rewrite mult_0_r in H1ltn; omega.
+       rewrite mult_0_r in H1ltn; lia.
        intros; unfold Z.lt; simpl; auto.
-       omega.
+       lia.
        rewrite Zmult_comm; rewrite <- inj_mult; rewrite Heq;auto.
        elim Hex; intros k' ((H1ltk', Hk'ltsqrt), Hex'); clear Hex.
        case_eq p.
@@ -235,7 +235,7 @@ Proof.
        repeat rewrite Zminus_0_r in Htest_eq.
        rewrite Hp; auto.
        split.
-       omega.
+       lia.
        apply Z_of_nat_le.
        rewrite inj_plus.
        rewrite inj_mult.
@@ -252,22 +252,22 @@ Proof.
        with k'.
        rewrite Z_to_nat_and_back.
        rewrite Hp; rewrite Zpos_xO; ring.
-       generalize (lt_Zpos p'); intros; omega.
+       generalize (lt_Zpos p'); intros; lia.
        auto.
        rewrite <- Hp in Htest_eq; auto.
-       split; try omega.
+       split; [lia|].
        apply Z_of_nat_le.
        rewrite inj_plus.
        rewrite inj_mult.
        rewrite Z_to_nat_and_back.
        simpl (Z_of_nat 2); simpl (Z_of_nat 1).
        rewrite <- Zpos_xO.
-       rewrite <- Hp; omega.
+       rewrite <- Hp; lia.
        auto with zarith.
        auto.
        intros Hp; rewrite Hp in Hsqrt_eq.
        rewrite Hsqrt_eq in Hk'ltsqrt.
-       omega.
+       lia.
        intros p Hsqrt_eq.
        elim (Zle_not_lt 0 (Z.sqrt (Z_of_nat n))).
        apply Z.sqrt_nonneg.

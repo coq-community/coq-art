@@ -1,6 +1,5 @@
 Require Export Arith.
 Require Export ArithRing.
-Require Export Omega.
 Require Export Wf_nat.
 
 Section div_it_assumed.

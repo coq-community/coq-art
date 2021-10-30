@@ -1,6 +1,6 @@
 Require Export Arith.
 Require Export ArithRing.
-Require Export Omega.
+Require Export Lia.
 Require Export Wf_nat.
  
 Definition div8_spec:
@@ -13,21 +13,21 @@ refine
          match div8 x with existT _ q' (exist _ r (conj Heq Hlt)) => _ end
        | _ => _
      end).
-exists 0; exists 0; omega.
-exists 0; exists 1; omega.
-exists 0; exists 2; omega.
-exists 0; exists 3; omega.
-exists 0; exists 4; omega.
-exists 0; exists 5; omega.
-exists 0; exists 6; omega.
-exists 0; exists 7; omega.
-exists (S q'); exists r; omega.
+exists 0; exists 0; lia.
+exists 0; exists 1; lia.
+exists 0; exists 2; lia.
+exists 0; exists 3; lia.
+exists 0; exists 4; lia.
+exists 0; exists 5; lia.
+exists 0; exists 6; lia.
+exists 0; exists 7; lia.
+exists (S q'); exists r; lia.
 Qed.
 
 (* We use a different inequality to express that the cubic root we provide is
   not an underestimation, but we will produce a more intuitive specification
   in the final function.  The specication we use here should make the proofs by
-  omega easier. *)
+  lia easier. *)
  
 Definition cubic_F:
  forall n,
@@ -47,9 +47,9 @@ refine (fun n cubic =>
             | existT _ 0 (exist _ 0 (conj Heq _)) => _
             | existT _ 0 (exist _ (S n') (conj Heq Hlt)) => _
           end).
-- exists 0; exists 0; rewrite Heq; omega.
-- exists 1; exists n'; rewrite Heq; omega.
-- omega.
+- exists 0; exists 0; rewrite Heq; lia.
+- exists 1; exists n'; rewrite Heq; lia.
+- lia.
 - exists (2 * c' + 1),  ((8 * r + r8) - ((12 * (c' * c') + 6 * c') + 1)).
 rewrite Heq.
 replace
@@ -66,7 +66,7 @@ with
    apply plus_le_reg_l with ((12 * (c' * c') + 6 * c') + 1).
    rewrite le_plus_minus_r.
    replace ((2 * c' + 1) * (2 * c' + 1)) with ((4 * (c' * c') + 4 * c') + 1).
-   omega.
+   lia.
    ring.
    exact Hle.
    exact Hle.
@@ -74,7 +74,7 @@ with
 - exists (2 * c'); exists (8 * r + r8); split.
   rewrite Heq; rewrite Heqc; ring.
   replace ((2 * c') * (2 * c')) with (4 * (c' * c')).
-  omega.
+  lia.
   ring.
 Qed.
  
@@ -94,6 +94,5 @@ intros c [r [Heq Hle]].
 exists c; exists r; split; trivial.
 replace (((c + 1) * (c + 1)) * (c + 1))
      with ((((c * c) * c + 3 * (c * c)) + 3 * c) + 1) by ring.
-omega.
+lia.
 Qed.
-

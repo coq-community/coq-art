@@ -1,6 +1,6 @@
 Require Export Arith.
 Require Export ArithRing.
-Require Export Omega.
+Require Export Lia.
 Require Export Recdef.
  
 Fixpoint exp2 (n : nat) : nat :=
@@ -25,7 +25,7 @@ Lemma div2_double : forall n, div2 (2 * n) = n.
 Proof.   
   induction n as [ | n IHn].
  -   simpl;auto.
- -  replace (2 * S n) with (S (S (2 * n))) by omega.
+ -  replace (2 * S n) with (S (S (2 * n))) by lia.
     simpl in *; now rewrite IHn.
 Qed.
 
@@ -83,7 +83,7 @@ Proof.
       intro H.
       case_eq (exp2 p).
       * intro H0; destruct (exp2_positive p);auto.
-      * intros n H0;  rewrite H0 in H; elimtype False; omega.   
+      * intros n H0;  rewrite H0 in H; elimtype False; lia.   
  - intros p H;  destruct p. 
    +  simpl in H;  subst n;    contradiction. 
    +  simpl in H; rewrite (IHn0 p); auto. 

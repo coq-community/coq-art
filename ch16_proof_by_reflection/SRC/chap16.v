@@ -1,7 +1,7 @@
 Require Export ZArith.
 Require Export List.
 Require Export Arith.
-Require Export Omega.
+Require Export Lia.
 Require Export Zwf.
 Require Export Relations.
 Require Export Inverse_Image.
@@ -19,7 +19,7 @@ Proof.
  replace (Z_of_nat q * Z_of_nat p)%Z with (0 + Z_of_nat q * Z_of_nat p)%Z;
     try ring.
  rewrite Z_mod_plus; auto.
- omega.
+ lia.
 Qed.
 
 Theorem divisor_smaller :
@@ -138,7 +138,7 @@ Proof.
       *  apply verif_divide.
          replace 0 with (Z.abs_nat 0%Z).
          apply Zabs_nat_lt.
-         omega.
+         lia.
          simpl; auto.
          auto with arith.
          exists q.
@@ -146,7 +146,7 @@ Proof.
          rewrite <- H';auto.
       *   unfold check_range in H2.
          rewrite Hmod in H2; discriminate H2.
-      *  omega.
+      *  lia.
       *  unfold check_range in H2; fold check_range in H2.
          case_eq ((v mod rz)%Z).
          intros Heqmod.
@@ -172,7 +172,7 @@ Proof.
          rewrite inj_S.
          unfold Z.succ.
          generalize (Zle_0_nat (S r')).
-         intros; omega.
+         intros; lia.
 Qed.
 
 Theorem nat_of_P_Psucc : 
@@ -211,7 +211,7 @@ Proof.
       apply divisor_smaller with (2:= Heq); auto.
    + case_eq k.
      intros Heq'; rewrite Heq' in Heq; simpl in Heq; discriminate Heq.
-     intros; omega.
+     intros; lia.
  -  intros p' Hlep' Hrec; unfold check_primality.
     assert (H':(exists p'':nat, p' = (S p''))).
     +  inversion Hlep'.
@@ -222,7 +222,7 @@ Proof.
        intros Hcr Hex.
        elim check_range_correct with (3:= Hcr).
        rewrite inj_S; generalize (Zle_0_nat (S p'')).
-       intros; omega.
+       intros; lia.
        auto.
        elim Hex; intros k (Hne1, (HneSSp'', (q, Heq))); exists k.
        split.
@@ -231,7 +231,7 @@ Proof.
          auto with arith.
          rewrite mult_comm.
          assumption.
-       *  omega.
+       *  lia.
        * split.
          assumption.
          exists q; now rewrite nat_to_Z_and_back.
@@ -592,4 +592,3 @@ Theorem reflection_test4 : forall x y z:Z, (x+(y+z) = (z+x)+y)%Z.
 Proof.
  intros x y z. comm_eq' Z Zplus Zplus_assoc Zplus_comm.
 Qed.
-

@@ -222,7 +222,7 @@ Open Scope nat_scope.
 
 Theorem le_lt_S_eq : forall n p:nat, n <= p -> p < S n -> n = p.
 Proof.
- intros; omega.
+ intros; lia.
 Qed.
 
 Lemma conditional_rewrite_example : forall n:nat,
