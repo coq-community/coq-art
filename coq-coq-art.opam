@@ -17,10 +17,10 @@ and its underlying theory, the Calculus of Inductive Constructions.
 This project contains the Coq sources of all examples and the solution to 170
 out of over 200 exercises from the book."""
 
-build: [make "-j%{jobs}%" ]
+build: [make "-j%{jobs}%"]
 install: [make "install"]
 depends: [
-  "coq" {>= "8.12" & < "8.14~"}
+  "coq" {>= "8.12" & < "8.15~"}
 ]
 
 tags: [
