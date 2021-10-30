@@ -1,7 +1,7 @@
 Require Export ZArith.
 Require Export List.
 Require Export Arith.
-Require Export Omega.
+Require Export Lia.
 Require Export Zwf.
 
 
@@ -78,7 +78,7 @@ Theorem not_sorted_132 :  ~ sorted le (1::3::2::nil).
 Proof.
  intros H; generalize  (sorted1_inv   H); intro H0. 
  generalize (sorted2_inv H0).
- omega.
+ lia.
 Qed.
 
 (** Tests :
@@ -244,7 +244,7 @@ Theorem fact_def_pos : forall x y:Z, Pfact x y ->  0 <= x.
 Proof.
  intros x y H; induction  H.
  -  auto with zarith.
- -  omega.
+ -  lia.
 Qed.
 
 
@@ -259,8 +259,8 @@ Proof.
  intros x; induction  x using (well_founded_ind (Zwf_well_founded 0)).
  intros  Hle; destruct  (Zle_lt_or_eq  _ _ Hle).
  - destruct (H (x-1)).
-   +  unfold Zwf; omega.
-   +  omega.
+   +  unfold Zwf; lia.
+   +  lia.
    + exists (x*x0); apply Pfact1; auto with zarith.
  -  subst x; exists 1; constructor.
 
@@ -398,4 +398,3 @@ Proof.
  -  discriminate.
  -  intros H0 ; injection H0; intro; now subst n0.
 Qed.
-

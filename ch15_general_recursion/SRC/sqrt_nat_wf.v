@@ -1,6 +1,6 @@
 Require Export Arith.
 Require Export ArithRing.
-Require Export Omega.
+Require Export Lia.
 Require Export Compare_dec.
 Require Export Wf_nat.
  
@@ -13,11 +13,11 @@ refine (fix
                 match div4_spec x' with existT _ q' (exist _ r' H) => _ end
              | _ => _
            end); clear div4_spec.
-- exists 0, 0; omega.
-- exists 0, 1; omega.
-- exists 0, 2; omega.
-- exists 0,  3; omega.
-- exists (S q'), r'; omega.
+- exists 0, 0; lia.
+- exists 0, 1; lia.
+- exists 0, 2; lia.
+- exists 0,  3; lia.
+- exists (S q'), r'; lia.
 Qed.
  
 Definition sqrt_nat_F:
@@ -31,11 +31,11 @@ refine (fun n sqrt_nat =>
             | existT _ 0 (exist _ (S r') (conj Heq Hle)) => _
             | existT _ (S q') (exist _ r' (conj Heq Hle)) => _
            end).
-- clear sqrt_nat;exists 0, 0; omega.
+- clear sqrt_nat;exists 0, 0; lia.
 - exists 1, r';rewrite Heq; split.
   + ring.
-  + omega.
- - assert (Hlt: S q' < n) by omega.
+  + lia.
+ - assert (Hlt: S q' < n) by lia.
    destruct (sqrt_nat (S q') Hlt) as [s' [r'' [Heq' Hlt']]].
    case (le_lt_dec (4 * s' + 1) (4 * r'' + r')).
    + intros Hle'';
@@ -56,7 +56,7 @@ refine (fun n sqrt_nat =>
         assumption.
         ring.
       }
-      omega.
+      lia.
       ring.
       ring.
    + intros Hlt''; exists (2 * s'),  (4 * r'' + r');
@@ -65,7 +65,7 @@ refine (fun n sqrt_nat =>
      * ring.
      * replace (4 * (s' * s' + r'') + r') with ((4 * s') * s' + (4 * r'' + r')).
        replace ((2 * s' + 1) * (2 * s' + 1)) with ((4 * s') * s' + (4 * s' + 1)).
-       omega.
+       lia.
        ring.
        ring.
 Qed.

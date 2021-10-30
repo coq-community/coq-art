@@ -1,6 +1,6 @@
 Require Export Arith.
 Require Export ArithRing.
-Require Export Omega.
+Require Export Lia.
 Require Export Wf_nat.
  
 Fixpoint div2 (n : nat) : nat :=
@@ -17,7 +17,7 @@ Qed.
  
 Theorem div2_lt: forall n,  (div2 (S n) < S n).
 Proof.
-intros; elim n  using div2_ind; simpl; intros; omega.
+intros; elim n  using div2_ind; simpl; intros; lia.
 Qed.
  
 Definition log2_it_F (log2 : nat ->  nat) (n : nat) : nat :=
@@ -39,20 +39,20 @@ Proof.
  intros n; elim n  using (well_founded_induction lt_wf); clear n.
  intros n; case n.
  - intros; exists 0, 0;  intros k; case k.
-   + intros; omega.
+   + intros; lia.
    + intros k' g _; simpl; auto.
  - intros n'; case n'.
    + intros; exists 0; exists 0; intros k; case k.
-     * intros; omega.
+     * intros; lia.
      * intros k' g_; simpl; auto.
    + intros p f; assert (Hlt: div2 (S (S p)) < S (S p))
                  by apply div2_lt.
      destruct (f (div2 (S (S p))) Hlt) as [v Hex];exists (S v).
      destruct Hex as [p' Heq];exists (S p').
      intros k g; case k.
-     * intros; omega.
+     * intros; lia.
      * intros k' Hltk;rewrite <- (Heq k' g); auto.
-       omega.
+       lia.
 Qed.
  
 Definition log2 (n : nat) : nat :=
@@ -73,14 +73,13 @@ Proof.
      intros v' [p' Heq'];
      rewrite <- (Heq (S (S (p + p'))) log2),
              <- (Heq' (S (p + p')) log2); auto.
-     omega.
-     omega.
+     lia.
+     lia.
 Qed.
  
 Theorem div2_eq: forall n,  2 * div2 n = n \/ 2 * div2 n + 1 = n.
 Proof.
-intros n; elim n  using div2_ind; simpl; (try omega).
-intros n' [Heq|Heq]; omega.
+intros n; elim n  using div2_ind; simpl; lia.
 Qed.
  
 Fixpoint exp2 (n : nat) : nat :=
@@ -91,7 +90,7 @@ Theorem log2_power:
 Proof. 
 intros n; elim n  using (well_founded_ind lt_wf).
 intros x; case x.
-- simpl; intros; omega.
+- simpl; intros; lia.
 - intros x'; case x'.
   + rewrite (log2_fix_eqn 1); simpl; auto with arith.
   + intros p Hrec; elim (Hrec (div2 (S (S p)))).
@@ -101,13 +100,13 @@ intros x; case x.
       apply le_trans with (2 * div2 (S (S p))).
       auto with arith.
       elim (div2_eq (S (S p))).
-      omega.
-      omega.
+      lia.
+      lia.
       apply le_lt_trans with (2 * div2 (S (S p)) + 1).
       elim (div2_eq (S (S p))).
-      omega.
-      omega.
-      omega.
+      lia.
+      lia.
+      lia.
     * apply div2_lt; simpl; auto with arith.
     *  simpl; auto with arith.
 Qed.

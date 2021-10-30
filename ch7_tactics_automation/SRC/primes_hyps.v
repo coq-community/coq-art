@@ -1,4 +1,4 @@
-Require Import Arith Omega.
+Require Import Arith Lia.
 
 Definition divides (n m:nat) := exists p:nat, p*n = m.
 
@@ -21,12 +21,11 @@ Proof.
  intro H2; apply H.
  cut (m=0).
  intro H3; rewrite H3; apply divides_O.
- Require Omega.
- omega.
+ lia.
  intros n0 Hn0.
  apply H.
  exists n0.
- omega.
+ lia.
 Qed.
 
 Lemma not_divides_lt : forall n m:nat, 0<m ->  m<n -> ~ divides n m.
@@ -53,16 +52,15 @@ Proof.
  intros n0 Hn0 H1.
  elim H1; intros q Hq.
  rewrite mult_0_r in Hq; discriminate Hq.
-Require Import Omega.  
- omega.
+ lia.
 Qed.
   
 Lemma le_plus_minus : forall n m:nat, le n m -> m = n+(m-n).
 Proof.
- intros; omega.
+ intros; lia.
 Qed.
 
 Lemma lt_lt_or_eq : forall n m:nat, n < S m ->  n<m \/  n=m.
 Proof.
- intros; omega. 
+ intros; lia. 
 Qed.

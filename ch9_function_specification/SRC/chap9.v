@@ -1,7 +1,7 @@
 Require Export ZArith.
 Require Export List.
 Require Export Arith.
-Require Export Omega.
+Require Export Lia.
 Require Export Zwf.
 
 (** multiplication by two *)
@@ -122,7 +122,7 @@ Defined.
 Theorem pred_strong2_th1 :
  forall n p:nat, 2 <= n -> n = S p -> p <> 0.
 Proof.
- intros; omega.
+ intros; lia.
 Qed.
 
 Theorem pred_th1 : forall n p q:nat, n = S p -> p = S q -> n = S (S q).
@@ -247,7 +247,6 @@ Qed.
 Require Import Program.
 Program  Definition pred_strong2''' (n:nat)(H:2<=n):{v:nat|n = S (S v)} :=
     pred  (pred n ).
-Require Import Omega.
 Next Obligation.
 (*
 
@@ -259,7 +258,7 @@ Next Obligation.
    n = S (S (pred (pred n)))
 
 *)
-omega.
+lia.
 Defined.
 
 
@@ -297,7 +296,7 @@ Qed.
 Lemma double_div2_le : forall x:nat, div2 x + div2 x <= x.
 Proof.
  intro n; induction n using div2_rect; simpl; auto with arith. 
- omega.
+ lia.
 Qed.
 
 Fixpoint div2'_aux (n:nat) : nat*nat :=
@@ -366,7 +365,7 @@ Fixpoint div_bin (n m:positive){struct n} : Z*Z :=
 
 Theorem rem_1_1_interval : 0 <= 0 < 1.
 Proof.
- omega.
+ lia.
 Qed.
 
 Theorem rem_1_even_interval : forall m:positive,  0 <= 1 < Zpos (xO m).
@@ -384,25 +383,25 @@ Qed.
 Theorem rem_even_ge_interval :
  forall m r:Z, 0 <= r < m ->  2*r >= m -> 0 <= 2*r - m < m.
 Proof.
- intros; omega.
+ intros; lia.
 Qed.
 
 Theorem rem_even_lt_interval :
  forall m r:Z, 0 <= r < m -> 2*r < m -> 0 <= 2*r < m.
 Proof.
- intros; omega.
+ intros; lia.
 Qed.
 
 Theorem rem_odd_ge_interval :
  forall m r:Z, 0 <= r < m -> 2*r + 1 >= m -> 2*r + 1 - m <  m.
 Proof.
- intros; omega.
+ intros; lia.
 Qed.
 
 Theorem rem_odd_lt_interval :
  forall m r:Z, 0 <= r < m -> 2*r + 1 < m -> 0 <= 2*r + 1 < m.
 Proof.
- intros; omega.
+ intros; lia.
 Qed.
 #[local] Hint Resolve rem_odd_ge_interval rem_even_ge_interval
  rem_odd_lt_interval rem_even_lt_interval rem_1_odd_interval
@@ -422,7 +421,7 @@ Theorem div_bin_rem_lt :
  forall n m:positive, 0 <= snd (div_bin n m) < Zpos m.
 Proof.
  intros n m; div_bin_tac n m; unfold snd; auto.
- omega.
+ lia.
 Qed.
 
 (*
@@ -453,7 +452,7 @@ Definition div_bin2 : forall n m:positive, div_data n m.
     auto. 
   + split with  (2*q+1)(2*r + 1 - (Zpos m)).
     rewrite Zpos_xI; rewrite H_eq; ring.
-    omega.
+    lia.
  - intros n' [q r H_eq H_int].
    case (Z_lt_ge_dec (Zmult 2 r)(Zpos m)).
    split with (Zmult 2 q)(Zmult 2 r).
@@ -515,4 +514,3 @@ Definition div_bin3 : forall n m:positive, div_data n m.
       try rewrite H_eq; auto with zarith; try (ring; fail);
  try (split;[auto with zarith | compute; auto]).
 Defined.
-

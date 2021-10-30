@@ -1,7 +1,6 @@
 Require Export ZArith.
 Require Export List.
 Require Export Arith.
-Require Export Omega.
 Require Export Zwf.
 Require Export Relations.
 Require Export Inverse_Image.

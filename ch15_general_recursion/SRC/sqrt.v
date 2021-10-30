@@ -1,6 +1,6 @@
 Require Export Arith.
 Require Export ArithRing.
-Require Export Omega.
+Require Export Lia.
  
 Ltac CaseEq f := generalize (refl_equal f); 
     pattern f at -1 in |- *; case f.
@@ -58,12 +58,12 @@ Proof.
 Qed.
 (* Since 4 is a constant, we can use div4_exact to
    obtain a linear equality in the sense of Presburger arithmetic
-  and the Omega decision procedure can cope with the formula.*)
+  and the lia decision procedure can cope with the formula.*)
  
 Theorem div4_lt : forall n:nat, let (q, r) := div4 n in 0 < q -> q < n.
 Proof.
  intros n; generalize (div4_exact n); case (div4 n).
- intros q r Heq; omega.
+ intros q r Heq; lia.
 Qed.
  
 Theorem div4_lt_rem : forall n:nat, let (q, r) := div4 n in r < 4.
@@ -143,8 +143,8 @@ Proof.
    there is no need to generalize hypotheses to perform
   the case analysis on this function call. *)
     case (le_gt_dec (4 * s' + 1) (4 * r' + r)).
-    apply bsqrt_exact_lemma_le with (S q'); auto; omega.
-    apply bsqrt_exact_lemma_gt with (S q'); auto; omega.
+    apply bsqrt_exact_lemma_le with (S q'); auto; lia.
+    apply bsqrt_exact_lemma_gt with (S q'); auto; lia.
 Qed.
  
 Theorem bsqrt_rem :
@@ -177,13 +177,13 @@ Proof.
     auto with arith.
      replace ((2 * s' + 1 + 1) * (2 * s' + 1 + 1)) with
      (4 * ((s' + 1) * (s' + 1))).
-     abstract omega.
+     abstract lia.
      ring.
  *  intros Hgt Heq'; rewrite Heq'.
     match goal with
       |  |- (?X1 < ?X2) => ring_simplify X1; ring_simplify X2
     end.
-    abstract omega.
+    abstract lia.
 Qed.
  
 
@@ -201,4 +201,3 @@ Proof. reflexivity.  Qed.
 
 Example test2 : bsqrt 49 49 = (7,0).
 Proof. reflexivity.  Qed.
-

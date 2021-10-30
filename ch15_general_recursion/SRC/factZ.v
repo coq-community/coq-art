@@ -1,6 +1,7 @@
 Require Export ZArith.
 Require Export Zwf.
 Require Export Zcompare.
+Require Import Lia.
 Check Zwf.
 Check Zwf_well_founded.
 Open Scope Z_scope.
@@ -15,5 +16,5 @@ refine (fun x fact =>
                  | right Hne => x * fact (x - 1) _
                 end
            end).
-unfold Zwf; omega.
+unfold Zwf; lia.
 Qed.

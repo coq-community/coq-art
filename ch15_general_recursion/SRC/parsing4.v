@@ -1,4 +1,4 @@
-Require Export Arith Omega List.
+Require Export Arith Lia List.
 Require Export Wellfounded.
 Require Export parsing.
 
@@ -102,7 +102,7 @@ Definition parse_nest_aux_open :
 
  (* check that the second recursive call to the parser is done on a
     structurally smaller string. *)
- simpl in Hl; omega.
+ simpl in Hl; lia.
 
  match goal with
  | id:parse_rel _ (close::_) _ |- _ => 
@@ -187,5 +187,3 @@ intros l; elim (parse_nest_aux2 l).
 - intros (l'', (t, (Hp, Hl))); left; exists l''; exists t; exact Hp.
 - intros Hnp; right; exact Hnp.
 Defined.
-
- 

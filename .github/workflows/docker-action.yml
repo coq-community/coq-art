@@ -17,6 +17,7 @@ jobs:
     strategy:
       matrix:
         image:
+          - 'coqorg/coq:8.14'
           - 'coqorg/coq:8.13'
           - 'coqorg/coq:8.12'
       fail-fast: false

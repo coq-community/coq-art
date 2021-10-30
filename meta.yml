@@ -40,10 +40,11 @@ license:
   identifier: MIT
 
 supported_coq_versions:
-  text: 8.10 or later (use the corresponding release for other Coq versions)
-  opam: '{>= "8.12" & < "8.14~"}'
+  text: 8.12 or later (use the corresponding release for other Coq versions)
+  opam: '{>= "8.12" & < "8.15~"}'
 
 tested_coq_opam_versions:
+- version: '8.14'
 - version: '8.13'
 - version: '8.12'
 

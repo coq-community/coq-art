@@ -2,6 +2,7 @@ Require Export Arith.
 Require Export ArithRing.
 Require Export Wf_nat.
 Require Export fib_ind fib_positive.
+Require Import Lia.
 
 (* The preliminary theorems are already in the exercise fib_positive. *)
  
@@ -27,12 +28,12 @@ Qed.
  
 Theorem half_smaller0: forall n x, 2 * x = S n ->  (x < S n).
 Proof.
-intros; omega.
+intros; lia.
 Qed.
  
 Theorem half_smaller1: forall n x, 2 * x + 1 = n ->  (x < n).
 Proof.
-intros; omega.
+intros; lia.
 Qed.
  
 Definition fib_log_F:

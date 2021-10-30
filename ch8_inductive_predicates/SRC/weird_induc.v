@@ -1,5 +1,5 @@
 Require Import Arith.
-Require Import Omega.
+Require Import Lia.
 
 Section weird_induc_proof.
  Variable P : nat -> Prop.
@@ -25,7 +25,7 @@ Section weird_induc_proof.
  -   auto with arith.
  - assert (H0: iterate  f n 0 < iterate  f (S n) 0).
    +  clear  IHn; induction n;simpl;auto.
-   +  omega.
+   +  lia.
  Qed.
 
  Lemma f_le : forall i j:nat, i <= j -> P j -> P i.

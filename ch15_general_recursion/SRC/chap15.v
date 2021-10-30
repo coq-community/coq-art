@@ -1,7 +1,7 @@
 Require Export ZArith.
 Require Export List.
 Require Export Arith.
-Require Export Omega.
+Require Export Lia.
 Require Export Zwf.
 Require Export Relations.
 Require Export Inverse_Image.
@@ -34,7 +34,7 @@ Proof.
     intros Hle; generalize (Hrec (m-n) n);
     case (bdiv_aux b' (m-n) n); simpl; intros q r Hrec'.
     rewrite <- plus_assoc; rewrite <- Hrec'; auto with arith.
-    omega. 
+    lia. 
 Qed.
 
 Lemma  bdiv_aux_correct2 :
@@ -44,7 +44,7 @@ Proof.
  intros b' Hrec m n Hleb Hlt; case (le_gt_dec n m); simpl; auto.
  intros Hle; generalize (Hrec (m-n) n);
  case (bdiv_aux b' (m-n) n); simpl; intros q r Hrec'.
- apply Hrec'; [omega | auto].
+ apply Hrec'; [lia | auto].
 Qed.
 
 
@@ -156,7 +156,7 @@ Open Scope nat_scope.
 Lemma f_lemma :
   forall x v:nat, v <= div2 x -> div2 x + v <= x.
 Proof.
-  intros x v H; generalize (double_div2_le x);  omega.
+  intros x v H; generalize (double_div2_le x);  lia.
 Qed.
 
 #[export] Hint Resolve div2_le f_lemma double_div2_le : core.
@@ -311,7 +311,7 @@ Lemma log2_domain_non_zero : forall x:nat, log2_domain x -> x <> 0.
 Proof.
  induction 1.
  -  discriminate.
- - generalize (div2_le x); intro;omega.
+ - generalize (div2_le x); intro;lia.
 Qed.
 
 Theorem log2_domain_invert :
@@ -352,7 +352,7 @@ Proof.
  lazy beta iota zeta delta [two_power log_domain_inv log];
   fold log two_power.
  apply le_trans with (2 * S (div2 p)); auto with arith.
- generalize (double_div2_le (S (S p))); simpl;intro;omega.
+ generalize (double_div2_le (S (S p))); simpl;intro;lia.
 Qed.
 
 End proof_on_log.

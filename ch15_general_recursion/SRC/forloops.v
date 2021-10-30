@@ -1,4 +1,3 @@
-
 Require Export ZArith.
 Require Export Zwf.
 Require Export Inverse_Image.
@@ -322,7 +321,7 @@ Arguments Some [A] _.
 Require Export List.
 Require Export Arith.
 Require Export Compare_dec.
-Require Export Omega.
+Require Export Lia.
 
 Inductive aExp : Set :=
   | aPlus : aExp -> aExp -> aExp
@@ -502,7 +501,7 @@ Proof.
           inversion Hevgt1.
           generalize H23; 
             case (Z_le_gt_dec n 0); simpl in |- *; try (intros; discriminate).
-          intros; omega.
+          intros; lia.
        *  simpl in |- *; auto.
  - repeat constructor.
    apply aForLoop with (aVar 0).
@@ -519,7 +518,7 @@ Proof.
         generalize Hevgt; lazy beta iota zeta delta [evalA] in |- *.
         rewrite Hlk.
         case (Z_le_gt_dec z 0); simpl in |- *; try (intros; discriminate).
-        unfold Zwf in |- *; intros; omega.
+        unfold Zwf in |- *; intros; lia.
         intros; discriminate.
      * simpl in |- *; auto.
 + repeat constructor.
@@ -535,5 +534,3 @@ Definition value :=
   evaluating inside Coq *)
 
 Extraction "execute_loops" execute_loops2 fact3 value.
-
- 

@@ -1,10 +1,7 @@
 (* A utiliser pour prouver une propriété envoyée par pascal Molin *)
 
-
-
-
 Require Import Arith.
-Require Import Omega.
+Require Import Lia.
 
 Section weird_induc_proof.
  Variable P : nat -> Prop.
@@ -35,7 +32,7 @@ Section weird_induc_proof.
   intros.
 
   clear P_Sn_n f_strict_mono f_1 f_P.
-  omega.
+  lia.
   elim i;simpl;auto.
  Qed.
 

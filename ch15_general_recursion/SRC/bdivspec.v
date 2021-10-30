@@ -1,9 +1,9 @@
 Require Export Arith.
-Require Export Omega.
+Require Export Lia.
 Require Export ArithRing.
  
 Lemma sub_decrease : forall b n m:nat, n <= S b -> 0 < m -> n - m <= b.
-Proof. intros; omega. Qed.
+Proof. intros; lia. Qed.
 
 Ltac remove_minus :=
   match goal with

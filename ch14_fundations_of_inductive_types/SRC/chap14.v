@@ -1,8 +1,6 @@
-
 Require Export ZArith.
 Require Export List.
 Require Export Arith.
-Require Export Omega.
 Require Export Zwf.
 Require Export Relations.
 Require Export Inverse_Image.
@@ -393,6 +391,3 @@ Fixpoint ltree_ind2 (t:ltree A) : P t :=
   end.
 
 End correct_ltree_ind.
-
-
-

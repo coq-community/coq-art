@@ -1,4 +1,4 @@
-Require Import Arith Omega.
+Require Import Arith Lia.
 
 Definition Even (n:nat) : Prop :=
  exists p:nat, n = 2*p. 
@@ -10,7 +10,7 @@ Definition Odd (n:nat) : Prop :=
  Lemma Even_not_Odd : forall n, Even n -> ~ Odd n. 
  Proof.
   intros n [p Hp] [q Hq]; rewrite Hp in Hq. 
-  omega.
+  lia.
  Qed.
 
 (** Specification of a boolean test for even-ness 
@@ -49,7 +49,7 @@ Qed.
    
 Lemma even_spec_SS : forall n b, even_spec n b -> even_spec (S (S n)) b.
 Proof.
-  intros n p [[q Hq] | [q Hq]]; constructor;exists (S q);omega.
+  intros n p [[q Hq] | [q Hq]]; constructor;exists (S q);lia.
 Qed.
 
 Lemma even_bool_correct : even_test_ok  even_bool. 
@@ -81,10 +81,3 @@ Proof.
 -  split;try discriminate;intro;destruct (Even_not_Odd n);auto.
 - tauto. 
 Qed.
-
-
-
-
-
-
-
