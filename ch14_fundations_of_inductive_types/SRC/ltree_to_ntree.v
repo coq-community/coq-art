@@ -13,6 +13,8 @@ Scheme
 ntree_ind2 := Induction for ntree Sort Prop
    with
    nforest_ind2 := Induction for nforest Sort Prop.
+Arguments ntree_ind2 A P P0 : rename.
+Arguments nforest_ind2 A P P0 : rename.
  
 Section correct_ltree_ind.
 Variables (A : Type) (P : ltree A ->  Prop) (Q : list (ltree A) ->  Prop).
