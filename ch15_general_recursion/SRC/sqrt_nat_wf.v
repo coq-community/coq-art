@@ -68,7 +68,7 @@ refine (fun n sqrt_nat =>
        lia.
        ring.
        ring.
-Qed.
+Defined.
  
 Definition sqrt_nat' :
   forall n,  ({s : nat & {r : nat | n = s * s + r /\ n < (s + 1) * (s + 1)}}) :=
@@ -76,3 +76,7 @@ Definition sqrt_nat' :
     lt_wf
     (fun n => {s : nat & {r : nat | n = s * s + r /\ n < (s + 1) * (s + 1)}})
     sqrt_nat_F.
+
+
+
+

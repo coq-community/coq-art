@@ -73,9 +73,11 @@ Proof.  intros r r' H p; symmetry;apply H. Qed.
 Lemma route_equiv_trans : transitive _ route_equiv.
 Proof.  intros r r' r'' H H' p; rewrite H; apply H'. Qed.
 
-Instance route_equiv_Equiv : Equivalence  route_equiv.
+#[local] Instance route_equiv_Equiv : Equivalence  route_equiv.
 Proof.
-split;  [apply route_equiv_refl |  apply route_equiv_sym |  apply route_equiv_trans].
+  split;
+    [apply route_equiv_refl | apply route_equiv_sym |
+      apply route_equiv_trans].
 Qed.
 
 
@@ -90,7 +92,7 @@ Example Ex2 :  South::East::North::West::South::East::nil =r= South::East::nil.
 Proof. apply route_cons;apply Ex1. Qed.
 
 
-Instance cons_route_Proper (d:direction): 
+#[local] Instance cons_route_Proper (d:direction): 
     Proper (route_equiv ==> route_equiv) (cons d) .
 Proof.
  intros r r' H ; now apply route_cons.
@@ -107,7 +109,8 @@ Proof.
 Qed.
 
 
-Instance move_Proper  : Proper (route_equiv ==> @eq Point ==> @eq Point) move . 
+#[local] Instance move_Proper  :
+  Proper (route_equiv ==> @eq Point ==> @eq Point) move . 
 Proof.
  intros r r' Hr_r' p q Hpq; rewrite Hpq; apply Hr_r'.
 Qed.
@@ -128,8 +131,9 @@ Proof.
 Qed.
 
 
-Instance app_route_Proper : Proper (route_equiv==>route_equiv ==> route_equiv)
- (@app direction).
+#[local] Instance app_route_Proper :
+  Proper (route_equiv==>route_equiv ==> route_equiv)
+    (@app direction).
 Proof.
  intros r r' H r'' r''' H' P.
  repeat rewrite route_compose; rewrite H, H';reflexivity.
@@ -275,7 +279,7 @@ Qed.
 
 (** Monoid structure on routes *)
 
-Instance Route : EMonoid route_equiv (@app _)  nil .
+#[local] Instance Route : EMonoid route_equiv (@app _)  nil .
 Proof.
 split.
 - apply route_equiv_Equiv.
@@ -291,6 +295,6 @@ Proof.
  rewrite IHp; route_eq_tac.
 Qed.
 
-Instance AbelianRoute : Abelian_EMonoid Route. 
+#[local] Instance AbelianRoute : Abelian_EMonoid Route. 
   split;  apply app_comm.
 Qed.
