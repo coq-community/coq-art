@@ -442,7 +442,8 @@ Infix "*" := ring_mult.
 Notation "0" := ring_zero.
 Notation "1" := ring_one.
 
-#[global] Typeclasses Transparent RingPlus RingMult RingOne RingZero.
+#[global]
+  Typeclasses Transparent RingPlus RingMult RingOne RingZero.
 
 Class Distribute `{Equiv A} (f g: A -> A -> A): Prop :=
   { distribute_l a b c: f a (g b c) == g (f a b) (f a c)
