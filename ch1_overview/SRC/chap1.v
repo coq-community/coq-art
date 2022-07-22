@@ -154,6 +154,4 @@ Definition sort :
     +  now apply insert_sorted. 
 Defined.
 
-Extraction "insert-sort" insert sort.
-
-
+Extraction "insert_sort" insert sort.
