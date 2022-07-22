@@ -322,8 +322,6 @@ Scheme ntree_ind2 :=
    Induction for ntree Sort Prop
  with nforest_ind2 :=
    Induction for nforest Sort Prop.
-Arguments ntree_ind2 A P P0 : rename.
-Arguments nforest_ind2 A P P0 : rename.
 
 Inductive occurs (A:Type)(a:A) : ntree A -> Prop :=
 | occurs_root : forall l, occurs A a (nnode A a l)
