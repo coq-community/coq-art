@@ -33,10 +33,8 @@ For Build_Monoid: Argument scopes are [type_scope _ _ _ _ _]
 
 Open Scope Z_scope.
 
-Instance ZMult : Monoid  Zmult 1.
-Proof. 
-  split;intros;ring.
-Qed.
+#[global] Instance ZMult : Monoid  Zmult 1.
+Proof. split;intros;ring. Qed.
 
 
 
@@ -105,7 +103,7 @@ Qed.
 
 End M2_def.
 
-Instance M2Z : Monoid  _ _ := M2_Monoid Zth.
+#[global] Instance M2Z : Monoid  _ _ := M2_Monoid Zth.
 
 (** Tests: 
 Compute power (Build_M2  1 1 1 0) 40.
@@ -244,10 +242,8 @@ For Build_Abelian_Monoid: Argument scopes are [type_scope _ _ _ _]
 
 *)
 
-Instance ZMult_Abelian : Abelian_Monoid ZMult.
-Proof.
-  split; exact Zmult_comm.
-Qed.
+#[global] Instance ZMult_Abelian : Abelian_Monoid ZMult.
+Proof. split; exact Zmult_comm. Qed.
 
 
 Section Power_of_dot.

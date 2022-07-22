@@ -20,13 +20,13 @@ Compute power 2 40.
      : Z
 *)
 
-
+Search Nat.Even. 
 Program
 Fixpoint binary_power_mult (acc x:Z) (n:nat) {measure n} : Z
   (* acc * (power x n) *) :=
   match n with 
     | 0%nat => acc
-    | _ => if Even.even_odd_dec n
+    | _ => if Nat.even n
            then binary_power_mult acc (x * x) (div2 n)
            else binary_power_mult (acc * x) (x * x) (div2 n)
   end.

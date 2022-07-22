@@ -32,7 +32,7 @@ Lemma fib_SSn_p :
 Proof.
  intro n; induction  n  as [ | | n Hn HSn] using fib_ind.
  -  cbn;intros;
-     repeat rewrite  plus_0_r; rewrite plus_comm; auto.
+     repeat rewrite  Nat.add_0_r; rewrite Nat.add_comm; auto.
  -  intro p; replace (S (S p) + 1) with (S (S (S p))) by ring.
     rewrite (fib_SSn (S p)); simpl (fib 2); simpl (fib 1);
     rewrite (fib_SSn p); ring.

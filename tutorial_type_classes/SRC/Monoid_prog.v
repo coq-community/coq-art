@@ -46,10 +46,8 @@ Expands to: Constant Top.one_left
 
 Open Scope Z_scope.
 
-Instance ZMult : Monoid  Zmult 1.
-Proof.
-  split;intros;ring.
-Qed.
+#[global] Instance ZMult : Monoid  Zmult 1.
+Proof. split;intros;ring. Qed.
 
 
 
@@ -143,7 +141,7 @@ Qed.
 
 End M2_def.
 
-Instance M2Z : Monoid  _ _ := M2_Monoid Zth.
+#[global] Instance M2Z : Monoid  _ _ := M2_Monoid Zth.
 
 (** Tests : 
 
@@ -268,10 +266,8 @@ Print Abelian_Monoid.
 *)
 
 
-Instance ZMult_Abelian : Abelian_Monoid ZMult.
-Proof. 
- split; exact Zmult_comm.
-Qed.
+#[global] Instance ZMult_Abelian : Abelian_Monoid ZMult.
+Proof. split; exact Zmult_comm. Qed.
 
 
 Section Power_of_dot.
