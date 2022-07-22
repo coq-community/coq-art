@@ -55,6 +55,7 @@ ch15_general_recursion/SRC/forloops.v
 ch15_general_recursion/SRC/exo_15_13.v
 ch15_general_recursion/SRC/merge.v
 ch15_general_recursion/SRC/btreewf.v
+ch15_general_recursion/SRC/sqrt_compute.v
 ch14_fundations_of_inductive_types/SRC/factor.v
 ch14_fundations_of_inductive_types/SRC/chap14.v
 ch14_fundations_of_inductive_types/SRC/update_eq.v

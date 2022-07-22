@@ -2,8 +2,8 @@ Makefile.coq
 Makefile.coq.conf
 execute_loops.ml
 execute_loops.mli
-insert-sort.ml
-insert-sort.mli
+insert_sort.ml
+insert_sort.mli
 pplus.ml
 pplus.mli
 .lia.cache

@@ -1,0 +1,2 @@
+clean::
+	$(HIDE)rm -f execute_loops.ml execute_loops.mli insert_sort.ml insert_sort.mli pplus.ml pplus.mli
