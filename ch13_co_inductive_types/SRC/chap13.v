@@ -210,7 +210,7 @@ Proof.
   case v; cbn in |- *; auto.
 Qed.
 
-#[global] Hint Rewrite  LAppend_LNil LAppend_LCons : llists.
+#[export] Hint Rewrite  LAppend_LNil LAppend_LCons : llists.
 
 Lemma from_unfold : forall n:nat, from n = LCons n (from (S n)).
 Proof.
