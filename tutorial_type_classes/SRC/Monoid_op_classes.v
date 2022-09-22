@@ -121,7 +121,12 @@ Fixpoint power_mult `{M : Monoid }
 Definition tail_recursive_power  `{M : Monoid}(x:A)(n:nat) :=
      power_mult one x n.
 
+(* Todo:  Fix Div2 deprecation *)
+
 Require Import Recdef  Div2.
+
+
+
 
 Function binary_power_mult (A:Type)(dot:monoid_binop A)(one:A) 
     (M: @Monoid A dot one) (acc x:A)(n:nat){measure (fun i=>i) n} : A 

@@ -37,7 +37,7 @@ Definition binary_power (x:Z)(n:nat) := binary_power_mult 1 x n.
 
 (**  Tests:
 
-Compute bunary_power 2 40.
+Compute binary_power 2 40.
  = 1099511627776
      : Z
 *)
