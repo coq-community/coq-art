@@ -57,7 +57,7 @@ Search bool.
     p2 n = 2 ^ n *)
 
 (* 9/ Write a function salt of type nat -> nat -> nat such that
-   salt x n = x ^ n - x^ (n+1) + x^(n-2) .... + 1 or -1, if x <> 0,
+   salt x n = x ^ n - x^ (n-1) + x^(n-2) .... + 1 or -1, if x <> 0,
    depending on the parity of n, thus
    salt x 3 = x^3 - x^2 + x - 1
    salt x 4 = x^4 - x^3 + x^2 - x + 1
