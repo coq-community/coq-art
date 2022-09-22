@@ -40,7 +40,7 @@ out of over 200 exercises from the book.
   - Yves Bertot ([**@ybertot**](https://github.com/ybertot))
   - Pierre Castéran ([**@Casteran**](https://github.com/Casteran))
 - License: [MIT License](LICENSE)
-- Compatible Coq versions: 8.12 or later (use the corresponding release for other Coq versions)
+- Compatible Coq versions: 8.15 or later (use the corresponding release for other Coq versions)
 - Additional dependencies: none
 - Coq namespace: `coqart`
 - Related publication(s):
