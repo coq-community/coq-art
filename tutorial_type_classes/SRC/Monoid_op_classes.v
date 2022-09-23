@@ -3,7 +3,6 @@
 (* Some comments by Matthieu *)
 
 
-
 Set Implicit Arguments.
 
 Require Import ZArith  Div2  Recdef  Mat.
@@ -38,9 +37,9 @@ Compute (@monoid_op _ Zmult 5 6).
 *)
 
 
-Instance Zmult_op : monoid_binop Z | 17:= Zmult.
+#[export] Instance Zmult_op : monoid_binop Z | 17:= Zmult.
 
-Instance ZMult : Monoid   Zmult_op  1 | 22.
+#[export] Instance ZMult : Monoid   Zmult_op  1 | 22.
 Proof.
   split;intros; unfold Zmult_op, monoid_op; ring. 
 Defined.
@@ -63,10 +62,10 @@ Section matrices.
 
  Add  Ring Aring : rt.
 
-Global Instance M2_mult_op :  monoid_binop (M2 A) := (M2_mult  plus mult ) . 
+#[export] Instance M2_mult_op :  monoid_binop (M2 A) := (M2_mult  plus mult ) . 
 
 
-Global Instance M2_Monoid : Monoid  M2_mult_op (Id2  0 1).
+#[export] Instance M2_Monoid : Monoid  M2_mult_op (Id2  0 1).
 Proof.
   split.
   - destruct x;destruct y;destruct z;unfold monoid_op;simpl.
@@ -82,9 +81,12 @@ End matrices.
 Generalizable Variables A dot one.
 
 
-Instance M2_Z_op : monoid_binop (M2 Z) := M2_mult Zplus Zmult . 
+#[export]
+  Instance M2_Z_op : monoid_binop (M2 Z) := M2_mult Zplus Zmult . 
 
-Instance M2_mono_Z : Monoid (M2_mult_op _ _)  (Id2  _ _):=  M2_Monoid Zth.
+#[export]
+  Instance M2_mono_Z : Monoid (M2_mult_op _ _)  (Id2  _ _):=
+  M2_Monoid Zth.
 
 (** Tests :
 
@@ -119,7 +121,12 @@ Fixpoint power_mult `{M : Monoid }
 Definition tail_recursive_power  `{M : Monoid}(x:A)(n:nat) :=
      power_mult one x n.
 
+(* Todo:  Fix Div2 deprecation *)
+
 Require Import Recdef  Div2.
+
+
+
 
 Function binary_power_mult (A:Type)(dot:monoid_binop A)(one:A) 
     (M: @Monoid A dot one) (acc x:A)(n:nat){measure (fun i=>i) n} : A 
@@ -269,7 +276,7 @@ Compute fibonacci 20.
 Class Abelian_Monoid `(M:Monoid):= {
   dot_comm : forall x y, (x * y = y * x)%M}.
 
-Instance ZMult_Abelian : Abelian_Monoid ZMult.
+#[export] Instance ZMult_Abelian : Abelian_Monoid ZMult.
 Proof. 
   split. 
   - exact Zmult_comm.
@@ -339,7 +346,7 @@ Fixpoint Epower `{M : EMonoid }(a:A)(n:nat):A :=
   end.
 
 
-Global Instance  Epower_Proper `(M: EMonoid):
+#[export] Instance  Epower_Proper `(M: EMonoid):
   Proper (equiv ==> Logic.eq ==> equiv) Epower.
 Proof.
   intros x y H n p e;subst p;induction n.
@@ -349,7 +356,7 @@ Qed.
 
 
 
-Program Instance monoid_op_params : Params (@monoid_op) 2.
+#[export] Program Instance monoid_op_params : Params (@monoid_op) 2.
 
 Lemma Epower_x_plus `(M: EMonoid) : 
    forall x n p,  (Epower x (n + p)) == 
@@ -395,22 +402,23 @@ Section Definitions.
    intros f g h H H0 x; rewrite H;rewrite H0;reflexivity. 
  Qed.
   
- (* Global instances are not forgotten at the end of sections and keep their visibility. *)
+ (* Export instances are not forgotten at the end of sections and keep their visibility. *)
 
- Global Instance fun_ext_equiv : Equivalence   fun_ext.
+ #[export] Instance fun_ext_equiv : Equivalence   fun_ext.
   Proof.
     split; [ apply fun_ext_refl| apply fun_ext_sym| apply fun_ext_trans].
   Qed.
 
 End Definitions.
 
-Instance fun_ext_op A : Equiv (A->A) := @fun_ext A.
+#[export] Instance fun_ext_op A : Equiv (A->A) := @fun_ext A.
 
 (* Comp is proper for extensional equality of functions *)
-Global Instance comp_proper A : Proper (equiv ==> equiv ==> equiv) (@comp A).
+#[export] Instance comp_proper A :
+  Proper (equiv ==> equiv ==> equiv) (@comp A).
 Proof. reduce; unfold comp; rewrite H, H0; reflexivity. Qed.
 
-Instance Rels (A:Type) : EMonoid equiv (@comp  A) (@id A).
+#[export] Instance Rels (A:Type) : EMonoid equiv (@comp  A) (@id A).
 Proof.
  split.
  - apply fun_ext_equiv.  
@@ -439,7 +447,8 @@ Infix "*" := ring_mult.
 Notation "0" := ring_zero.
 Notation "1" := ring_one.
 
-Typeclasses Transparent RingPlus RingMult RingOne RingZero.
+#[export]
+  Typeclasses Transparent RingPlus RingMult RingOne RingZero.
 
 Class Distribute `{Equiv A} (f g: A -> A -> A): Prop :=
   { distribute_l a b c: f a (g b c) == g (f a b) (f a c)
@@ -640,9 +649,9 @@ Proof. reflexivity. Qed.
 
 (** Let us build a new instance with priority 1 *)
 
-Instance Zplus_op : monoid_binop Z | 7 := Zplus.
+#[export] Instance Zplus_op : monoid_binop Z | 7 := Zplus.
 
-Instance : Monoid   Zplus_op  0 | 1.
+#[export] Instance : Monoid   Zplus_op  0 | 1.
 split;intros;  unfold  monoid_op, Zplus_op; simpl; ring. 
 Defined.
 

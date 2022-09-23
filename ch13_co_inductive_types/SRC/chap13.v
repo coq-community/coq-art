@@ -210,7 +210,7 @@ Proof.
   case v; cbn in |- *; auto.
 Qed.
 
-Hint Rewrite  LAppend_LNil LAppend_LCons : llists.
+#[export] Hint Rewrite  LAppend_LNil LAppend_LCons : llists.
 
 Lemma from_unfold : forall n:nat, from n = LCons n (from (S n)).
 Proof.
@@ -283,7 +283,8 @@ Proof.
   intros a u; LList_unfold (general_omega LNil (LCons a u)); trivial.
 Qed.
 
-Hint Rewrite  omega_LNil general_omega_LNil general_omega_LCons : llists.
+#[global] Hint Rewrite
+  omega_LNil general_omega_LNil general_omega_LCons : llists.
 
 Lemma general_omega_shoots_again  (A:Type) :
   forall (v:LList A), general_omega LNil v = general_omega v v.
@@ -461,21 +462,24 @@ Proof.
   intros  a a' u u' H; inversion H; auto.
 Qed.
 
-Instance bisimilar_refl (A:Type) : Reflexive  (bisimilar (A:=A)).
+#[global]
+  Instance bisimilar_refl (A:Type) : Reflexive  (bisimilar (A:=A)).
 Proof.
   cofix H.
   intros  u; case u; [ left | right ]; apply H.
 Qed.
 
 
-Instance bisimilar_sym (A: Type) : Symmetric  (bisimilar (A:=A)).
+#[global]
+  Instance bisimilar_sym (A: Type) : Symmetric  (bisimilar (A:=A)).
 Proof.
   cofix H.
   intros x y; case x; case y; (left || inversion 1).
   -  right; auto.
 Qed.
 
-Instance  bisimilar_trans  (A: Type): Transitive  (bisimilar (A:=A)).
+#[global]
+  Instance  bisimilar_trans (A: Type): Transitive  (bisimilar (A:=A)).
 Proof.
   cofix  H; intros x y; case x, y.
   -  auto.
@@ -487,7 +491,8 @@ Proof.
        right. apply H with y;auto. 
 Qed.
 
-Instance  bisimilar_equiv (A:Type) : Equivalence (bisimilar (A:=A)).
+#[global]
+  Instance  bisimilar_equiv (A:Type) : Equivalence (bisimilar (A:=A)).
 Proof.
   split.
   - apply bisimilar_refl.   

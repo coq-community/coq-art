@@ -2,7 +2,7 @@
 
 Set Implicit Arguments.
 
-Require Import ZArith  Div2  Program.
+Require Import ZArith  Arith  Program.
 
 Open Scope Z_scope.
 
@@ -26,17 +26,18 @@ Fixpoint binary_power_mult (acc x:Z) (n:nat) {measure n} : Z
   (* acc * (power x n) *) :=
   match n with 
     | 0%nat => acc
-    | _ => if Even.even_odd_dec n
-           then binary_power_mult acc (x * x) (div2 n)
-           else binary_power_mult (acc * x) (x * x) (div2 n)
+    | _ => if Nat.even n
+           then binary_power_mult acc (x * x) (Nat.div2 n)
+           else binary_power_mult (acc * x) (x * x) (Nat.div2 n)
   end.
- Solve Obligations with program_simpl; intros; apply lt_div2; auto with arith.
+Solve Obligations with
+  program_simpl; intros; apply Nat.lt_div2; auto with arith.
 
 Definition binary_power (x:Z)(n:nat) := binary_power_mult 1 x n.
 
 (**  Tests:
 
-Compute bunary_power 2 40.
+Compute binary_power 2 40.
  = 1099511627776
      : Z
 *)

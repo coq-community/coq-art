@@ -62,17 +62,17 @@ Definition permutation (l l':list Z) : Prop :=
 
 (* permutation is an equivalence ! *)
 
-Instance permutation_refl : Reflexive permutation.
+#[global] Instance permutation_refl : Reflexive permutation.
 Proof.
  intro x; red; trivial.
 Qed.
 
-Instance  permutation_sym : Symmetric permutation.
+#[global] Instance  permutation_sym : Symmetric permutation.
 Proof.
  intros x y Hxy ; unfold permutation; auto.
 Qed.
 
-Instance permutation_trans : Transitive permutation.
+#[global] Instance permutation_trans : Transitive permutation.
 Proof.
  intros l l' l'' H H0 z; rewrite H; now apply H0.
 Qed.
@@ -86,7 +86,7 @@ Proof.
 Qed.
 
 
-Instance cons_proper : Proper (eq ==> permutation ==> permutation) (@cons Z).
+#[global] Instance cons_proper : Proper (eq ==> permutation ==> permutation) (@cons Z).
 Proof.
  intros x y Hxy l l' Hll'; subst y; now apply permutation_cons.
 Qed.

@@ -23,7 +23,7 @@ Qed.
 Lemma div3_le : forall n, div3 n <= n.
 Proof. 
 induction n using nat_ind3; auto.
- - simpl; apply le_trans with (S n);auto with arith.
+ - simpl; apply Nat.le_trans with (S n);auto with arith.
 Qed.
 
 
