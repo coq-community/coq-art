@@ -57,13 +57,12 @@ make   # or make -j <number-of-cores-on-your-machine>
 ## Documentation
 
 For more information, see the [book website][book-url]
-and the [publisher's website][publisher-url].
-
-This repository is also used as the source for the following [web site][community-url].
-
-The repository is structured as follows.
+and the [publisher's website][publisher-url]. The repository
+is also used as the source for [this website][community-url].
 
 ### Book chapters
+
+The repository is structured as follows.
 
 1. [A Brief Presentation of Coq](ch1_overview)
 2. [Gallina: Coq as a Programming Language](ch2_types_expressions)
