@@ -521,8 +521,8 @@ Proof.
  rewrite IHt2.
  repeat rewrite assoc; rewrite (comm (nth n l def)); auto.
  simpl.
- intros n0; case (nat_le_bool n n0); auto.
- rewrite comm; auto.
+ intros n0.
+ case (nat_le_bool n n0); auto; try rewrite comm; auto.
 Qed.
 
 Theorem sort_eq : forall (l:list A)(def:A)(t:bin),
