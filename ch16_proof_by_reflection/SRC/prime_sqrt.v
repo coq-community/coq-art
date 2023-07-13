@@ -122,7 +122,7 @@ Theorem test_odds_correct :
 Proof.
  induction n.
  -  intros x p Hp1 H1ltx Hn q Hint.
-    elimtype False;  lia.
+    assert (FF: False) by lia; destruct FF.
   - intros x p Hp H1ltx; simpl (test_odds (S n) p (Z_of_nat x));
     intros Htest q (H1ltq, Hqle).
     case_eq (test_odds n (p -2) (Z_of_nat x)).
