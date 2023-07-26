@@ -1,0 +1,89 @@
+%%% ======================================================================
+%%%  @LaTeX-style-file{
+%%%     filename        = "marginote.sty",
+%%%     version         = "2.0",
+%%%     date            = "1 July 1993",
+%%%     time            = "09:07:08 CDT",
+%%%     author          = "George D. Greenwade",
+%%%     address         = "Department of Economics and Business Analysis
+%%%                        College of Business Administration
+%%%                        P. O. Box 2118
+%%%                        Sam Houston State University
+%%%                        Huntsville, Texas, USA 77341-2118",
+%%%     email           = "bed_gdg@SHSU.edu (Internet)
+%%%                        BED_GDG@SHSU     (BITNET)
+%%%                        SHSU::BED_GDG    (THENET)",
+%%%     telephone       = "(409) 294-1266",
+%%%     FAX             = "(409) 294-3712",
+%%%     supported       = "yes",
+%%%     archived        = "SHSU*",
+%%%     keywords        = "LaTeX, marginal notes",
+%%%     codetable       = "ISO/ASCII",
+%%%     abstract        = "Create command \marginote{text} to use marginal
+%%%                        notes in a document.  Each marginal note is
+%%%                        denoted by the fnsymbol sequence and does not
+%%%                        alter any know counters other than those created.
+%%%                        Original version September 12, 1989.",
+%%%     modifications   = "Modified 1 July 1993 in response to report from
+%%%                        Bradley C. Kuszmaul <bradley@theory.lcs.mit.edu>
+%%%                        via David M. Jones <dmjones@theory.lcs.mit.edu>
+%%%                        that a `gratuitous space' was introduced in the
+%%%                        \stepcounter{marginalnote} (dumb mistake on my
+%%%                        part!).  Also added this file header and added
+%%%                        \endinput at the end of the file.",
+%%%     checksum        = "11442 75 385 3712",
+%%%     docstring       = "The checksum field above contains a CRC-16
+%%%                        checksum as the first value, followed by the
+%%%                        equivalent of the standard UNIX wc (word
+%%%                        count) utility output of lines, words, and
+%%%                        characters.  This is produced by Robert
+%%%                        Solovay's checksum utility."
+%%% }
+%%% ======================================================================
+\typeout{LaTeX document substyle 'marginote.sty'  July 1, 1993 (GDG)}
+
+\DeclareOption{nonote}{ % pierre option pour ne pas afficher les notes
+\typeout{Option 'nonote'}
+\newcommand{\marginote}[1]{}
+}
+
+\DeclareOption{note}{ % pierre: option pour afficher les notes
+\typeout{Option 'marginote'}
+\topmargin 0pt                       %% this code from FULLPAGE.STY
+\advance \topmargin by -\headheight  %%
+\advance \topmargin by -\headsep     %%
+
+%\textheight 8.9in                    %%
+
+%%\oddsidemargin 0pt                   %%
+%%\evensidemargin \oddsidemargin      %%
+%%\oddsidemargin 15pt
+\evensidemargin 10pt                 %% Pierre
+\marginparwidth .9in                %% changed (+.6in) to allow for notes
+
+%%\textwidth 5.9in                     %% changed (-.6in) to allow for notes
+%\textwidth 15.5cm                     %% Pierre
+%                                     %% end of FULLPAGE.STY
+
+\newcounter{marginalnote}
+\def\themarginalnote{\fnsymbol{marginalnote}}
+\newcount\marginalnotecounter
+\marginalnotecounter=0
+
+\def\marginote#1{\ifmmode %% Can't use \marginpar in math mode, thus ...
+\typeout{ }
+\typeout{\string \marginote \space error.  Cannot use \string \marginote \space
+in math mode. Ignoring text.}
+\typeout{ }
+\else \ifnum \marginalnotecounter=9 \setcounter{marginalnote}{0}
+\marginalnotecounter= 0 \fi  %% fnsymbol only goes to 9
+\stepcounter{marginalnote}%  -- line split -- GDG 1-JUL-1993
+\global\advance\marginalnotecounter 1 %patch Pierre bug sinon
+{$^{\themarginalnote}\!\!$\marginpar{\raggedright
+                                %pierre:\!\!%pour moins d'espace après le signe
+ 
+\footnotesize $\themarginalnote~$ #1}}      %% better in such a small space
+\fi}
+}
+\ProcessOptions
+\endinput % -- added -- GDG 1-JUL-1993
