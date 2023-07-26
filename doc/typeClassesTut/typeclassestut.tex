@@ -221,7 +221,7 @@ The complete definitons and proof scripts are structured as follows:
    $x\in \mathbb{Z},\;n\in\mathbb{N}\mapsto x^n$ (naÔve and binary algorithm).
 \item[Matrices.v] A data type for $2\times 2$ matrices.
 \item[Monoid.v] The \texttt{Monoid} type class; proof of equivalence of
-  the naÔve and the binary power functions in any monoÔd. The abelian
+  the naive and the binary power functions in any monoid. The abelian
   (a.k.a. commutative) monoid structure.
 \item[Monoid\_op\_classes.v]
   Same contents as \texttt{Monoid.v}, but with operational type classes.
@@ -232,10 +232,8 @@ The complete definitons and proof scripts are structured as follows:
 \item[Trace\_Monoid.v] The trace monoid (a.k.a. partial commutation monoid).
 \end{description}
 
-A tar file of these scripts (for Coq V8.4) is available 
-at the following address:
-
-\href{http://www.labri.fr/perso/casteran/CoqArt/TypeClassesTut/src-V8.4.tar.gz}{http://www.labri.fr/perso/casteran/CoqArt/TypeClassesTut/src-V8.4.tar.gz}
+These scripts are available at
+\href{https://github.com/coq-community/coq-art/tree/master/tutorial_type_classes/SRC}{Coq-community's site}.
 
 \section{A little history}
 
@@ -320,7 +318,7 @@ Compute binary_power 2 40.\color{answercolor}\it
 \end{alltt}
 
 We want now to \emph{prove} \texttt{binary\_power}'s correctness, \emph{i.-e.}
-that this function and the naÔve \texttt{power} function are pointwise
+that this function and the naive \texttt{power} function are pointwise
 equivalent.
 
 Proving this equivalence in {\coq} may require a lot of work. 
