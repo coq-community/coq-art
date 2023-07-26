@@ -1,0 +1,1732 @@
+\documentclass[a4]{report}
+\usepackage[utf8x]{inputenc}
+
+\usepackage{fontspec}
+%\usepackage{multind}
+\usepackage{alltt}   
+\usepackage{verbatim}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{theorem}
+\usepackage[dvips]{epsfig}
+%\usepackage{epic}
+%\usepackage{eepic}
+\usepackage{pict2e}
+\usepackage{qtree}
+\usepackage{moreverb} 
+\usepackage{color}
+\usepackage{pifont}
+\usepackage{xr}
+\usepackage{url}
+\usepackage{varioref}
+\usepackage[note]{marginote} 
+%[nonote] pour supprimer toutes les notes de marge
+\usepackage{natbib}
+\usepackage{hyperref}
+
+
+\newcommand{\variantspringer}[1]{#1}
+\newcommand{\marginok}[1]{\marginpar{\raggedright OK:#1}}
+\newcommand{\tab}{{\null\hskip1cm}}
+\newcommand{\Ltac}{\mbox{\emph{$\cal L$}tac}}
+\newcommand{\coq}{\mbox{\emph{Coq}}}
+\newcommand{\lcf}{\mbox{\emph{LCF}}}
+\newcommand{\hol}{\mbox{\emph{HOL}}}
+\newcommand{\pvs}{\mbox{\emph{PVS}}}
+\newcommand{\isabelle}{\mbox{\emph{Isabelle}}}
+\newcommand{\prolog}{\mbox{\emph{Prolog}}}
+\newcommand{\goalbar}{\tt{}============================\it}
+\newcommand{\gallina}{\mbox{\emph{Gallina}}}
+\newcommand{\joker}{\texttt{\_}}
+\newcommand{\eprime}{\(\e^{\prime}\)}
+\newcommand{\Ztype}{\citecoq{Z}}
+\newcommand{\propsort}{\citecoq{Prop}}
+\newcommand{\setsort}{\citecoq{Set}}
+\newcommand{\typesort}{\citecoq{Type}}
+\newcommand{\ocaml}{\mbox{\emph{OCAML}}}
+\newcommand{\haskell}{\mbox{\emph{Haskell}}}
+\newcommand{\why}{\mbox{\emph{Why}}}
+\newcommand{\Pascal}{\mbox{\emph{Pascal}}}
+
+\newcommand{\ml}{\mbox{\emph{ML}}}
+
+\newcommand{\scheme}{\mbox{\emph{Scheme}}}
+\newcommand{\lisp}{\mbox{\emph{Lisp}}}
+
+\newcommand{\implarrow}{\mbox{$\Rightarrow$}}
+\newcommand{\metavar}[1]{?#1}
+\newcommand{\notincoq}[1]{#1}
+\newcommand{\coqscope}[1]{\%#1}
+\newcommand{\arrow}{\mbox{$\rightarrow$}}
+\newcommand{\fleche}{\arrow}
+\newcommand{\funarrow}{\mbox{$\Rightarrow$}}
+\newcommand{\ltacarrow}{\funarrow}
+\newcommand{\coqand}{\mbox{\(\wedge\)}}
+\newcommand{\coqor}{\mbox{\(\vee\)}}
+\newcommand{\coqnot}{\mbox{\(\neg\)}}
+\newcommand{\hide}[1]{}
+\newcommand{\hidedots}[1]{...}
+\newcommand{\sig}[3]{\texttt{\{}#1\texttt{:}#2 \texttt{|} #3\texttt{\}}}
+\renewcommand{\neg}{\sim}
+%\renewcommand{\marginpar}[1]{}
+
+\addtocounter{secnumdepth}{1}
+\providecommand{\og}{´}
+\providecommand{\fg}{ª}
+\definecolor{light}{rgb}{0.9,0.9,0.9}
+
+\newcommand{\hard}{\mbox{\small *}}
+\newcommand{\xhard}{\mbox{\small **}}
+\newcommand{\xxhard}{\mbox{\small ***}}
+
+%%% Operateurs, etc.
+\newcommand{\impl}{\mbox{$\rightarrow$}}
+\newcommand{\appli}[2]{\mbox{\tt{#1 #2}}}
+\newcommand{\applis}[1]{\mbox{\texttt{#1}}}
+\newcommand{\abst}[3]{\mbox{\tt{fun #1:#2 \funarrow #3}}}
+\newcommand{\coqle}{\mbox{$\leq$}}
+\newcommand{\coqge}{\mbox{$\geq$}}
+\newcommand{\coqdiff}{\mbox{$\neq$}}
+\newcommand{\coqiff}{\mbox{$\leftrightarrow$}}
+\newcommand{\prodsym}{\mbox{\(\forall\,\)}}
+\newcommand{\exsym}{\mbox{\(\exists\,\)}}
+
+\newcommand{\substsign}{/}
+\newcommand{\subst}[3]{\mbox{#1\{#2\substsign{}#3\}}}
+\newcommand{\anoabst}[2]{\mbox{\tt[#1]#2}}
+\newcommand{\letin}[3]{\mbox{\tt let #1:=#2 in #3}}
+\newcommand{\prodep}[3]{\mbox{\tt \(\forall\,\)#1:#2,$\,$#3}}
+\newcommand{\prodplus}[2]{\mbox{\tt\(\forall\,\)$\,$#1,$\,$#2}}
+\newcommand{\dom}[1]{\textrm{dom}(#1)} % domaine d'un contexte (log function)
+\newcommand{\norm}[1]{\textrm{n}(#1)} % forme normale (log function)
+\newcommand{\coqZ}[1]{\mbox{\tt{`#1`}}}
+\newcommand{\coqnat}[1]{\mbox{\tt{#1}}}
+\newcommand{\coqcart}[2]{\mbox{\tt{#1*#2}}}
+\newcommand{\alphacong}{\mbox{$\,\cong_{\alpha}\,$}} % alpha-congruence
+\newcommand{\betareduc}{\mbox{$\,\rightsquigarrow_{\!\beta}$}\,} % beta reduction
+%\newcommand{\betastar}{\mbox{$\,\Rightarrow_{\!\beta}^{*}\,$}} % beta reduction
+\newcommand{\deltareduc}{\mbox{$\,\rightsquigarrow_{\!\delta}$}\,} % delta reduction
+\newcommand{\dbreduc}{\mbox{$\,\rightsquigarrow_{\!\delta\beta}$}\,} % delta,beta reduction
+\newcommand{\ireduc}{\mbox{$\,\rightsquigarrow_{\!\iota}$}\,} % delta,beta reduction
+
+
+% jugement de typage
+\newcommand{\these}{\boldsymbol{\large \vdash}}
+\newcommand{\disj}{\mbox{$\backslash/$}}
+\newcommand{\conj}{\mbox{$/\backslash$}}
+%\newcommand{\juge}[3]{\mbox{$#1 \boldsymbol{\vdash} #2 : #3 $}}
+\newcommand{\juge}[4]{\mbox{$#1,#2 \these #3 \boldsymbol{:} #4 $}}
+\newcommand{\smalljuge}[3]{\mbox{$#1 \these #2 \boldsymbol{:} #3 $}}
+\newcommand{\goal}[3]{\mbox{$#1,#2 \these^{\!\!\!?} #3  $}}
+\newcommand{\sgoal}[2]{\mbox{$#1\these^{\!\!\!\!?} #2 $}}
+\newcommand{\reduc}[5]{\mbox{$#1,#2 \these #3 \rhd_{#4}#5 $}}
+\newcommand{\convert}[5]{\mbox{$#1,#2 \these #3 =_{#4}#5 $}}
+\newcommand{\convorder}[5]{\mbox{$#1,#2 \these #3\leq _{#4}#5 $}}
+\newcommand{\wouff}[2]{\mbox{$\emph{WF}(#1)[#2]$}}
+
+
+%\newcommand{\mthese}{\underset{M}{\vdash}}
+\newcommand{\mthese}{\boldsymbol{\vdash}_{\!\!M}}
+\newcommand{\type}{\boldsymbol{:}}
+
+% jugement absolu
+
+%\newcommand{\ajuge}[2]{\mbox{$ \boldsymbol{\vdash} #1 : #2 $}}
+\newcommand{\ajuge}[2]{\mbox{$\these #1 \boldsymbol{:} #2 $}}
+
+%%% logique minimale
+\newcommand{\propzero}{\mbox{$P_0$}} % types de Fzero
+
+%%% logique propositionnelle classique
+\newcommand {\ff}{\boldsymbol{f}} % faux
+\newcommand {\vv}{\boldsymbol{t}} % vrai
+
+\newcommand{\verite}{\mbox{$\cal{B}$}} % {\ff,\vv}
+\newcommand{\sequ}[2]{\mbox{$#1 \vdash #2 $}} % sequent
+\newcommand{\strip}[1]{#1^o} % enlever les variables d'un contexte
+
+
+
+%%% tactiques
+\newcommand{\decomp}{\delta} % decomposition
+\newcommand{\recomp}{\rho} % recomposition
+
+%%% divers
+\newcommand{\cqfd}{\mbox{\textbf{cqfd}}}
+\newcommand{\fail}{\mbox{\textbf{F}}}
+\newcommand{\succes}{\mbox{$\blacksquare$}}
+%%% Environnements
+
+
+%% Fzero
+\newcommand{\con}{\mbox{$\cal C$}}
+\newcommand{\var}{\mbox{$\cal V$}}
+
+\newcommand{\atomzero}{\mbox{${\cal A}_0$}} % types de base de Fzero
+\newcommand{\typezero}{\mbox{${\cal T}_0$}} % types de Fzero
+\newcommand{\termzero}{\mbox{$\Lambda_0$}} % termes de Fzero 
+\newcommand{\conzero}{\mbox{$\cal C_0$}} % contextes de Fzero 
+
+\newcommand{\buts}{\mbox{$\cal B$}} % buts
+
+\definecolor{metavarcolor}{rgb}{0.5,0.0,1.0}
+\definecolor{darkgreen}{rgb}{0.1,0.7,0.1}
+\definecolor{answercolor}{rgb}{1.0,0.0,0.0}
+\definecolor{normalcolor}{rgb}{0.0,0.0,0.0}
+\definecolor{exbluecolor}{rgb}{0.1,0.1,0.9}
+\definecolor{dontlookcolor}{rgb}{0.5,0.5,0.5}
+\definecolor{termcolor}{rgb}{0.0,0.1,0.9}
+\definecolor{lookcolor}{rgb}{0.8,0.2,0.0}
+\definecolor{prooftermcolor}{rgb}{0.3,0.1,1.0}
+\definecolor{typecolor}{rgb}{1.0,0.6,0.0}
+\definecolor{taccolor}{rgb}{0.70,0.10,0.0}
+\definecolor{pink}{rgb}{0.8,0.6,0.6}
+\definecolor{darkmagenta}{rgb}{0.4,0.0,0.6}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{darkgray}{rgb}{0.4,0.4,0.4}
+%%%% scripts coq
+\newcommand{\prompt}{\mbox{\sl Coq $<\;$}}
+\newcommand{\natquicksort}{\texttt{nat\_quicksort}}
+\newcommand{\citecoq}[1]{\mbox{\texttt{#1}}}
+\newcommand{\safeit}{\it}
+\newtheorem{exercice}{Exercise}[chapter]
+\newtheorem{remarque}{Remark}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+\newenvironment{newversion}{%
+  \begin{trivlist}\item \color{red}\textbf{2012:}}%
+  {\end{trivlist}}
+
+\title{A Gentle Introduction to Type Classes and Relations in \coq{}}
+\author{Pierre Castéran\\Univ. Bordeaux, LaBRI, UMR 5800, F-33400 Talence, France.\\
+CNRS, LaBRI, UMR 5800, F-33400 Talence, France.\\
+\\
+Matthieu Sozeau\\INRIA Paris \& PPS, Univ. Paris Diderot}
+\date{(original 2012 version)}
+
+\begin{document}
+\maketitle
+
+\chapter{Introduction}
+
+This document aims to give a small introduction to two important and
+rather new features of the {\coq} proof assistant~\citep{Coq, coqart} : type classes and user defined
+relations. We will mainly use examples for introducing these concepts, and 
+the reader should consult \coq's reference manual for further information.
+
+Type classes are presented in Chapter 18 ``Type Classes''  of {\coq}'s reference manual, and user defined relations in Chapter 25.
+
+The complete definitons and proof scripts are structured as follows:
+\begin{description}
+\item[Power\_mono.v] Sadly monomorphic definitions of function
+   $x\in \mathbb{Z},\;n\in\mathbb{N}\mapsto x^n$ (naÔve and binary algorithm).
+\item[Matrices.v] A data type for $2\times 2$ matrices.
+\item[Monoid.v] The \texttt{Monoid} type class; proof of equivalence of
+  the naive and the binary power functions in any monoid. The abelian
+  (a.k.a. commutative) monoid structure.
+\item[Monoid\_op\_classes.v]
+  Same contents as \texttt{Monoid.v}, but with operational type classes.
+\item[Alternate\_defs.v] Dicussion about various possible representations of
+        the monoid mathematical structure.
+\item[Lost\_in\_NY.v] An introduction to user defined relations, and rewriting.
+\item[EMonoid.v]  Monoids with respect to an equivalence relation.
+\item[Trace\_Monoid.v] The trace monoid (a.k.a. partial commutation monoid).
+\end{description}
+
+These scripts are available at
+\href{https://github.com/coq-community/coq-art/tree/master/tutorial_type_classes/SRC}{Coq-community's site}.
+
+\section{A little history}
+
+Type classes were first introduced in {\haskell} by \citet{WadlerBlott89} and the {\isabelle} proof
+assistant \citep{DBLP:conf/fpca/NipkowS91} at the begining of the
+90's, to handle ad-hoc polymorphism
+elegantly. \cite{DBLP:conf/tphol/SozeauO08} adapted the design to
+{\coq}, making use of the powerful type system of {\coq} to integrate a
+lightweight version of type classes which we'll introduce here.
+
+The purpose of type class systems is to allow a form of generic
+programming for a \emph{class} of types. Classes are presented as an
+interface comprised of functions specific to a type, and in the case of
+{\isabelle} and {\coq}, proofs about those functions as well. One can
+write programs that are polymorphic over any type which has an instance
+of the class, and later on, instantiate those to a specific type and
+implementation (called \emph{instance}) of the class. Polymorphism is
+ad-hoc as opposed to the parametric polymorphism found in e.g. ML:
+while parametrically polymorphic functions behave uniformly for any
+instantiation of the type, ad-hoc polymorphic functions have
+type-specific behaviors. 
+
+\chapter{An Introductory Example: Computing $x^n$}
+\section{A Monomorphic Introduction}
+Let us consider a simple arithmetic operation: raising some integer $x$ to
+
+the $n$-th power, where $n$ is a natural number.
+
+The following function definition is a direct translation of the mathematical
+concept:
+\begin{alltt}
+Require Import ZArith.
+Open Scope Z_scope.
+
+Fixpoint power (x:Z)(n:nat) :=
+  match n with 0\%nat => 1
+             | S p =>  x * power x p
+  end.
+
+Compute power 2 40.\it\color{answercolor}
+    =  1099511627776
+     : Z
+\end{alltt}
+
+This definition can be considered as a very na\"{\i}ve way of programming,
+since computing $x^n$ requires $n$ multiplications. 
+ Nevertheless, this definition is 
+very simple to read, and everyone can admit that it is  correct 
+with respect to the mathematical definition of raising $x$ to the $n$-th power.
+Thus, we can consider it as a \emph{specification}: when we write 
+more efficient but less readable functions for exponentiation,
+% \cite{DBLP:journals/ita/BrlekCHM95},
+ we should be able
+to prove their correctness by proving in \coq{} their equivalence\footnote{\emph{i.e.} extensional equality} 
+with the na\"{\i}ve \texttt{power} function.
+
+For instance the following function allows one to compute $x^n$, 
+with a number of multiplications proportional to $\textrm{log}_2(n)$:
+
+
+  \begin{alltt}
+{Function} binary_power_mult (acc x:Z){(n:nat)}
+                \{measure (fun i=>i) n\} : Z
+{(* acc * (power x n) *)} :=
+ match {{n}} with 0\%nat => acc
+             | _ => if Even.even_odd_dec n
+                    then  binary_power_mult  
+                          acc (x * x) {(div2 n)}
+                    else  binary_power_mult 
+                         (acc * x) (x * x) {(div2 n)}
+  end.{
+Proof.
+  intros;apply lt_div2; auto with arith.
+  intros;apply lt_div2; auto with arith.}
+Defined.
+
+Definition binary_power (x:Z)(n:nat) := 
+        binary_power_mult 1 x n.
+
+Compute binary_power 2 40.\color{answercolor}\it
+1099511627776: Z
+\end{alltt}
+
+We want now to \emph{prove} \texttt{binary\_power}'s correctness, \emph{i.-e.}
+that this function and the naive \texttt{power} function are pointwise
+equivalent.
+
+Proving this equivalence in {\coq} may require a lot of work. 
+Thus it is not worth at all writing  a proof dedicated only to powers of
+integers. In fact, the correctness of \texttt{binary\_power} with respect to
+\texttt{power} holds in any structure composed of an associative binary 
+operation on some†domain, that admits a neutral element.
+For instance, we can compute powers of square matrices  using the most efficient of both algorithms.
+
+
+Thus, let us throw away our previous definition, and try do define them
+in a more generic framework.
+
+\begin{alltt}
+Reset power. 
+\end{alltt}
+
+
+\section{On Monoids}\label{on-monoids}
+
+\begin{definition}
+A \emph{monoid} is a mathematical structure composed of:
+\begin{itemize}
+\item A carrier $A$ 
+\item A binary, associative  operation $\circ$ on $A$
+\item A neutral element $1\in A$ for $\circ$
+\end{itemize}
+\end{definition}
+
+Such a mathematical structure can be defined in {\coq} as
+a \emph{type class}~\citep{DBLP:conf/tphol/SozeauO08, math-classes, DBLP:journals/corr/abs-1106-3448}. In the following definition, parameterized by
+a type $A$ (implicit), a binary operation \texttt{dot} and a neutral element 
+\texttt{unit}, three fields describe the properties that \texttt{dot} and
+\texttt{unit} must satisfy.
+
+
+\begin{alltt}
+Class Monoid \{A:Type\}(dot : A -> A -> A)(one : A) : Prop := \{
+ dot_assoc : forall x y z:A, 
+     dot x (dot y z) = dot (dot x y) z;
+ unit_left : forall x, dot one x = x;
+ unit_right : forall x, dot x one = x \}.
+\end{alltt}
+
+
+Note that other definitions could have been given for representing this mathematical structure. See Sect~\ref{alternate} for more details.
+
+
+From an implementational point of view, such a type class is just a record type,
+\emph{i.e.} an inductive type with a single constructor \texttt{Build\_Monoid}.
+
+\begin{alltt}
+Print Monoid.\it\color{red}
+
+Record Monoid (A : Type) (dot : A -> A -> A) (one : A) : Prop := Build_Monoid
+  \{ dot_assoc : forall x y z : A, dot x (dot y z) = dot (dot x y) z;
+    one_left : forall x : A, dot one x = x;
+    one_right : forall x : A, dot x one = x \}
+
+For Monoid: Argument A is implicit and maximally inserted
+For Build_Monoid: Argument A is implicit
+For Monoid: Argument scopes are [type_scope _ _]
+For Build_Monoid: Argument scopes are [type_scope _ _ _ _ _]
+\end{alltt}
+\label{ClassVsRecords}
+Nevertheless, the implementation of type classes by M. Sozeau provides several specific tools 
+---dedicated tactics for instance ---, and we advise the reader not to replace
+the \texttt{Class} keyword with \texttt{Record} or \texttt{Inductive}.
+
+
+With the command \texttt{About}, we can see the polymorphic type of
+the fields of the class \texttt{Monoid}:
+
+\begin{alltt}
+About one_left.\it\color{red}
+one_left :
+forall (A : Type) (dot : A -> A -> A) (one : A),
+Monoid dot one -> forall x : A, dot one x = x
+
+Arguments A, dot, one, Monoid are implicit and maximally inserted
+Argument scopes are [type_scope _ _ _ _]
+one_left is transparent  
+\end{alltt}
+
+\subsection{Classes and Instances}
+Members of a given class are called \emph{instances} of this class.
+Instances are defined to the {\coq} system through the \texttt{Instance} keyword. Our first example is a definition of the monoid structure on the set
+$\mathbb{Z}$ of integers, provided with integer multiplication, with $1$ as 
+a neutral element. Thus we give these parameters to the \texttt{Monoid} class
+(note that \texttt{Z} is implicitely given).
+
+\begin{alltt}
+Instance ZMult : Monoid  Zmult 1.
+\end{alltt}
+
+For this instance to be created, we need to prove that the binary operation
+\texttt{Zmult} is associative and admits $1$†as neutral element.
+Applying the constructor \texttt{Build\_Monoid} --- for instance with the tactic \texttt{split} --- generates three subgoals.
+ 
+
+\begin{alltt}
+split.\it\color{answercolor}
+3 subgoals
+  ============================
+   forall x y z : Z, x * (y * z) = x * y * z
+
+subgoal 2 is:
+ forall x : Z, 1 * x = x
+subgoal 3 is:
+ forall x : Z, x * 1 = x\tt\color{black}
+\end{alltt}
+
+ Each subgoal is easily solved by \textcolor{taccolor}{intros; ring}.
+
+When the proof is finished, we register our instance with a simple \texttt{Qed}.
+Note that we used \texttt{Qed} because we consider a class of sort \texttt{Prop}. In some cases where instances must store some informative constants, ending
+an instance construction with \texttt{Defined} may be necessary.
+
+%We can look at the type of   \texttt{ZMult}:
+
+\begin{alltt}
+Check Zmult.\it\color{red}
+ZMult : Monoid Zmult 1
+\end{alltt}
+
+ We explained \vpageref{ClassVsRecords} why it is better to use
+the \texttt{Class} keyword than \texttt{Record} or \texttt{Inductive}.
+For the same reason, the definition of an instance of some class should
+be written using \texttt{Instance} and not \texttt{Lemma}, \texttt{Theorem},
+\texttt{Example}, etc., nor \texttt{Definition}.
+
+\subsection{A generic definition of \texttt{power}}
+
+We are now able to give a definition of the function \texttt{power} that
+can be applied with any instance of class \texttt{Monoid}:
+
+A first definition could be:
+
+\begin{alltt}
+Fixpoint power \{A:Type\}\{dot:A->A->A\}\{one:A\}\{M: Monoid  dot one\}
+               (a:A)(n:nat) :=
+  match n with 0%nat => one
+             | S p => dot a (power a p)
+  end.
+
+Compute power 2 10.\it\color{red}
+= 1024 : Z
+\end{alltt}
+
+Happily, we can make the declaration of the three first  arguments implicit, by using the
+\texttt{Generalizable Variables} command:
+
+\begin{alltt}
+Reset power.
+
+Generalizable Variables A dot one.
+
+Fixpoint power `\{M: Monoid A dot one\}(a:A)(n:nat) :=
+  match n with 0%nat => one
+             | S p => dot a (power a p)
+  end.
+
+Compute power 2 10.\it\color{red}
+= 1024 : Z
+\end{alltt}
+
+The variables \texttt{A dot one} appearing in the binder for \texttt{M}
+are implicitly bound before the binder for \texttt{M} and their types
+are infered from the \texttt{Monoid A dot one} type. This syntactic sugar
+helps abbreviate bindings for classes with parameters. The resulting
+internal {\coq} term is exactly the same as the first definition above.
+
+\subsection{Instance Resolution}
+
+The attentive reader has certainly noticed that in the last computation, the
+the binary operation \texttt{Zmult} and the neutral element $1$ need not to be
+given explicitely\footnote{This is quite different from the basic implicit arguments mechanism, already able to infer the type \texttt{Z} from the type of $2$.}.
+The mechanism that allows {\coq} to infer all the arguments needed by the \texttt{power} function to be applied is called \emph{instance resolution}.
+
+
+
+In order to understand how it operates, let's have a look at \texttt{power}'s type:
+  \begin{alltt}
+About power.\it\color{answercolor}
+power :
+forall (A : Type) (dot : A -> A -> A) (one : A),
+Monoid dot one -> A -> nat -> A
+
+Arguments A, dot, one, M are implicit and maximally inserted
+\tt\color{black}
+Compute power 2 100.\it\color{answercolor}
+ = 1267650600228229401496703205376 : Z\tt\color{black}
+
+Set Printing Implicit.
+Check power 2 100.\it\color{answercolor}
+@power Z Zmult 1 {\color{blue}ZMult}  2 100 : Z \tt\color{black}
+Unset Printing Implicit.
+\end{alltt}
+
+We see that the \emph{instance} \texttt{ZMult} has been 
+inferred from the type of $2$. We are in the simple case where only one monoid
+of carrier \texttt{Z} has been declared as an instance of the \texttt{Monoid} class.
+
+The implementation of type classes in {\coq} can retrieve the instance \texttt{ZMult}
+from the type \texttt{Z}, then filling the arguments   \texttt{Zmult} and $1$ from
+\texttt{ZMult}'s definition.
+
+       
+
+\subsection{More Monoids}
+\subsubsection{Matrices over some ring}\label{matring}
+We all know that multiplication of square matrices is associative and admits
+identity matrices as neutral elements. For simplicity's sake let us restrict our study
+to $2 \times 2$ matrices over some ring.
+
+We first load the \texttt{Ring} library, the open a section with some useful declarations and notations. The reader may consult \coq's documentation about the \texttt{Ring} library.
+
+\begin{alltt}
+Require Import Ring.
+
+Section matrices.
+ Variables (A:Type)
+           (zero one : A) 
+           (plus mult minus : A -> A -> A)
+           (sym : A -> A).
+ Notation "0" := zero.  Notation "1" := one.
+ Notation "x + y" := (plus x y).  
+ Notation "x * y " := (mult x y).
+
+ Variable rt : ring_theory  zero one plus mult minus sym (@eq A).
+
+ Add Ring Aring : rt.  
+\end{alltt}
+
+
+We can now define a carrier type for $2\times 2$-matrices, as well as matrix multiplication and the identity matrix:
+
+\begin{alltt}
+Structure M2 : Type := \{c00 : A;  c01 : A;
+                        c10 : A;  c11 : A\}.
+
+Definition Id2 : M2 := Build_M2 1 0 0 1.
+
+Definition M2_mult (m m':M2) : M2 :=
+ Build_M2 (c00 m * c00 m' + c01 m * c10 m')
+          (c00 m * c01 m' + c01 m * c11 m')
+          (c10 m * c00 m' + c11 m * c10 m')
+          (c10 m * c01 m' + c11 m * c11 m').
+\end{alltt}
+
+As for multiplication of integers, we can now define an instance of 
+\texttt{Monoid} for the type \texttt{M2}.
+
+\begin{alltt}
+Global Instance M2_Monoid : Monoid M2_mult Id2. \it\color{red}
+(*  Proof skipped *) \tt\color{black}
+Qed.
+
+End matrices.
+\end{alltt}
+
+
+We want now to play with $2\times 2$ matrices over $\mathbb{Z}$.
+We declare an instance \texttt{M2Z} for this purpose, and can use directly
+the function \texttt{power}.
+
+\begin{alltt}
+Instance M2Z : Monoid  _ _ := M2_Monoid Zth.
+
+Compute power (Build_M2 1 1 1 0) 40.\it\color{red}
+   = \{|
+       c00 := 165580141;
+       c01 := 102334155;
+       c10 := 102334155;
+       c11 := 63245986 |\}
+     : M2 Z\tt\color{black}
+
+Definition fibonacci (n:nat) :=
+  c00 (power (Build_M2 1 1 1 0) n).
+
+Compute fibonacci 20.\it\color{red}
+= 10946
+ :Z
+\end{alltt}
+
+
+\section{Reasoning within a Type Class}
+
+We are now able to consider again the equivalence between two functions for computing
+powers.
+Let us define the binary algorithm for any monoid:
+
+First, we define an auxiliary function. We use the \texttt{Program}
+extension to define an efficient version of exponentiation using an
+accumulator. The function is defined by well-founded recursion on the
+exponent \texttt{n}:
+
+% \begin{alltt}
+% Program
+% Fixpoint binary_power_mult (A:Type) (dot:A->A->A) (one:A)
+%                            (M: @Monoid A dot one)
+%      (acc x:A)(n:nat){measure  n} : A 
+%   (* acc * (x ** n) *) :=
+%   match n with 0%nat => acc
+%              | _ => 
+%               if  Even.even_odd_dec n
+%               then binary_power_mult  _   acc (dot x x) (div2 n)
+%               else binary_power_mult   _ (dot acc  x) (dot  x  x) (div2 n)
+%   end.
+
+
+% Solve Obligations using program_simpl; intros; apply lt_div2; auto with arith.
+% \end{alltt}
+\begin{alltt}
+Function binary_power_mult (A:Type) (dot:A->A->A) (one:A) (M: @Monoid A dot one)
+    (acc x:A)(n:nat)\{measure (fun i=>i) n\} : A 
+  (* acc * (x ** n) *) :=
+  match n with
+  | 0\%nat => acc
+  | _ => if  Even.even_odd_dec n
+          then binary_power_mult  _   acc (dot x x) (div2 n)
+          else binary_power_mult   _ (dot acc  x) (dot  x  x) (div2 n)
+  end.
+intros;apply lt_div2; auto with arith.
+intros; apply lt_div2; auto with arith.
+Defined.
+
+Definition binary_power `\{M:Monoid\} x n := binary_power_mult M one x n.
+
+Compute binary_power 2 100.\it\color{red}
+= 1267650600228229401496703205376
+     : Z
+\end{alltt}
+
+\subsection{The Equivalence Proof}\label{equiv-proof}
+
+The proof of equivalence between \texttt{power} and \texttt{binary\_power} is quite
+long, and can be split in several lemmas. 
+Thus, it is useful to open a section, in which we fix some arbitrary monoid $M$.
+Such a declaration is made with the \texttt{Context} command, which can be considered
+as a version of \texttt{Variables} for declaring arbitrary instances of a given class.
+
+\begin{alltt}
+Section About_power.
+
+Require Import Arith.
+  Context `\{M:Monoid A dot one\}.
+\end{alltt}
+
+It is a good practice to define locally some specialized notations and tactics.
+
+\begin{alltt}
+  Ltac monoid_rw :=
+    rewrite (@one_left A dot one M) || 
+    rewrite (@one_right A dot one M)|| 
+    rewrite (@dot_assoc A dot one M).
+
+  Ltac monoid_simpl := repeat monoid_rw.
+
+  Local Infix "*" := dot.
+  Local Infix "**" := power (at level 30, no associativity).
+\end{alltt}
+
+\subsection{Some Useful Lemmas About power}
+
+We start by proving some well-known equalities about powers in a monoid.
+Some of these equalities are integrated later in simplification tactics. 
+
+\begin{alltt}
+  Lemma power_x_plus : forall x n p, x ** (n + p) =  x ** n *  x ** p.
+  Proof.
+    induction n as [| p IHp];simpl.
+     intros; monoid_simpl;trivial.
+    intro q;rewrite (IHp q);  monoid_simpl;trivial. 
+  Qed.
+
+  Ltac power_simpl := repeat (monoid_rw || rewrite <- power_x_plus).
+
+  Lemma power_commute : forall x n p,  
+               x ** n * x ** p = x ** p * x ** n. 
+  {\it\color{red}(* Proof skipped *)}
+
+  Lemma power_commute_with_x : forall x n ,  
+        x * x ** n = x ** n * x.
+  {\it\color{red} (* Proof skipped *)}                            
+ 
+  Lemma power_of_power : forall x n p,  (x ** n) ** p = x ** (p * n).
+  {\it\color{red} (* Proof skipped *) }     
+
+  Lemma power_S : forall x n, x *  x ** n = x ** S n.
+  {\it\color{red} (* Proof skipped *)} 
+
+  Lemma sqr : forall x, x ** 2 =  x * x.
+  {\it\color{red} (* Proof skipped *)}
+
+  Ltac factorize := repeat (
+                rewrite <- power_commute_with_x ||
+                rewrite  <- power_x_plus  ||
+                rewrite <- sqr ||
+                rewrite power_S ||
+                rewrite power_of_power).
+
+  Lemma power_of_square : forall x n, (x * x) ** n = x ** n * x ** n.
+  {\it\color{red}(* Proof skipped *)}
+\end{alltt}
+
+\subsection{Final Steps}
+We are now able to prove that the auxiliary function \texttt{binary\_power\_mult}
+satiisfies its intuitive meaning. The proof --- partly skipped --- uses well-founded induction and the lemmas proven in the previous section:
+
+\begin{alltt}
+  Lemma binary_power_mult_ok :
+    forall n a x, binary_power_mult M a x n = a * x ** n.
+  Proof.
+    intro n; pattern n; apply lt_wf_ind.
+    {\it\color{red}(* Proof skipped *)}
+\end{alltt}
+
+Then the main theorem follows immediately:
+
+\begin{alltt}
+  Lemma binary_power_ok : forall (x:A)(n:nat), binary_power x n = x ** n.
+  Proof.
+    intros n x;unfold binary_power;rewrite binary_power_mult_ok;
+    monoid_simpl;auto.
+  Qed.  
+\end{alltt}
+
+
+
+\subsection{Discharging the Context}
+
+It is time to close the section we opened for writing our proof of equivalence.
+The theorem \texttt{binary\_power\_ok} is now provided with an universal
+quantification over all the parameters of any monoid.
+
+\begin{alltt}
+End About_power.
+
+About binary_power_ok.\it\color{red}
+binary_power_ok :
+forall (A : Type) (dot : A -> A -> A) (one : A) (M : Monoid dot one) 
+  (x : A) (n : nat), binary_power x n = power x n
+
+Arguments A, dot, one, M are implicit and maximally inserted
+Argument scopes are [type_scope _ _ _ _ nat_scope]
+binary_power_ok is opaque
+Expands to: Constant Top.binary_power_ok\tt\color{black}
+
+Check binary_power_ok 2 20.\it\color{red}
+binary_power_ok 2 20
+     : binary_power 2 20 = power 2 20\tt\color{black}
+
+Let Mfib := Build_M2 1 1 1 0.
+
+Check binary_power_ok Mfib 56.\it\color{red}
+
+ binary_power_ok Mfib 56
+     : binary_power Mfib 56 = power Mfib 56
+
+\end{alltt}
+
+
+\subsection{Subclasses}
+We could prove many useful equalities in the section \texttt{about\_power}.
+Nevertheless, we couldn't prove the equality $(xy)^n = x^n\,y^n$, because it is false
+in general --- consider for instance the free monoid of strings, or simply
+matrix multiplication. Nevertheless, this equality holds in every commutative
+(a.k.a. \emph{abelian}) monoid.
+
+Thus we say that abelian monoids form a \emph{subclass} of the class 
+of monoids, and prove this equality in a context declaring an arbitrary
+instance of this subclass.
+
+Structurally, we parameterize the new class \texttt{Abelian\_Monoid}
+by an arbitrary instance $M$ of \texttt{Monoid}, and add a new field
+stating the commutativity of \texttt{dot}. Please keep in mind that
+we declared \texttt{A}, \texttt{dot} and \texttt{one} as
+\emph{generalizable variables}, hence we can use the backquote symbol here:
+
+\begin{alltt}
+Class Abelian_Monoid `(M:Monoid A dot one) := \{
+  dot_comm : forall x y, dot x y = dot y x\}.
+\end{alltt}
+
+A quick look at the representation of \emph{Abelian\_Monoid} as a record type
+helps us understand how this class is implemented.
+
+  \begin{alltt}
+Print Abelian_Monoid.\it\color{red}
+Record Abelian_Monoid (A : Type) (dot : A -> A -> A) 
+(one : A) (M : Monoid dot one) : Prop := Build_Abelian_Monoid
+  \{ dot_comm : forall x y : A, dot x y = dot y x \}
+
+For Abelian_Monoid: Arguments A, dot, one are implicit and maximally inserted
+For Build_Abelian_Monoid: Arguments A, dot, one are implicit
+For Abelian_Monoid: Argument scopes are [type_scope _ _ _]
+For Build_Abelian_Monoid: Argument scopes are [type_scope _ _ _ _]
+\end{alltt}
+
+
+For building an instance of \texttt{Abelian\_Monoid}, we can start 
+from \texttt{ZMult}, the monoid on \texttt{Z}, adding a proof that
+integer multiplication is commutative.
+
+\begin{alltt}
+Instance ZMult_Abelian : Abelian_Monoid ZMult.
+Proof.
+  split. 
+  exact Zmult_comm.
+Defined.
+\end{alltt}
+
+We can now prove our equality by building an appropriate context.
+Note that we can specify just the parameters of the monoid here in the
+binder of the abelian monoid, an instance of monoid on those same
+parameters is automatically generalized. Superclass parameters are
+automatically generalized inside quoted binders. Again, this is simply
+syntactic sugar.
+
+\begin{alltt}
+Section Power_of_dot.
+  Context `\{AM:Abelian_Monoid A dot one\}.
+
+  Theorem power_of_mult : forall n x y, 
+      power (dot x y) n = dot (power x n) (power y n). 
+  Proof.
+    induction n;simpl.
+    rewrite one_left;auto.
+    intros; rewrite IHn; repeat rewrite dot_assoc.
+    rewrite <- (dot_assoc x y (power x n)); rewrite (dot_comm y (power x n)).
+    repeat rewrite dot_assoc;trivial.
+  Qed.
+
+End Power_of_dot.
+
+Check power_of_mult 3 4 5.\it\color{red}
+power_of_mult 3 4 5
+     : power (4 * 5) 3 = power 4 3 * power 5 3
+\end{alltt} 
+
+\chapter{Relations and rewriting}
+
+\section{Introduction: Lost in Manhattan}
+
+Assume you are lost in Manhattan, or in any city with the same geometry:
+square blocks, square blocks, and so on.
+
+You ask some by-passer how to go to some other place, and you probably will get
+an answer like that:
+\begin{quote}
+``go two blocks northward, then one block eastward, then three
+blocks southward, and finally two blocks westward''.   
+\end{quote}
+
+
+You thank this kind person, and you go one block southward, then one block
+westward.
+
+If we represent such routes by lists of directions, you will consider
+that the two considered routes 
+\begin{itemize}
+\item \texttt{North::North::East::South::South::South::West::West::nil}
+\item \texttt{South::West::nil}
+\end{itemize}
+
+are not \emph{equal}  --- because the former route is much longer than the other one ---, but \emph{equivalent}, which means that they both 
+lead to the same point.
+
+Then you notice that the route \texttt{West::North::East::South::nil}
+is equivalent to \texttt{nil} (which means ``don't move!'').
+
+From both previous equivalences you want to infer simply that the long
+route 
+\begin{alltt}
+(North::North::East::South::South::South::West::West::nil)++
+(West::North::East::South::nil)
+\end{alltt}
+ is equivalent to \texttt{South::West::nil}.
+
+
+Moreover, you can consider this equivalence as a \emph{congruence} w.r.t.
+route concatenation. For instance, one can easily show that the above
+routes are equivalent using a lemma stating that if 
+the route \texttt{r} is equivalent to \texttt{r'}, and \texttt{s} is
+equivalent to \texttt{s'} then \texttt{r++s} is equivalent to
+\texttt{r'++s'}. We will say that list concatenation is
+a \emph{proper} function with respect to the equivalence between routes.
+
+The {\coq} system provides now some useful tools for considering relations
+and proper functions, allowing to use the \texttt{rewrite} tactics for 
+relations that are weaker than the Leibniz equality. Examples of such relations
+include route-equivalence, non-canonical representation of finite sets, 
+partial commutation monoids, etc.
+
+Let us now start with our example.
+
+\section{Data Types and Definitions}
+
+We first load some useful modules, for representing directions, routes, and 
+the discrete plane on which routers operate:
+
+
+\begin{alltt}
+Require Import List ZArith Bool.
+Open Scope Z_scope.
+
+Inductive direction : Type := North | East | South | West.
+
+Definition route := list direction.
+
+Record Point : Type :=
+  \{Point_x : Z; Point_y : Z\}.
+
+Definition Point_O := Build_Point 0 0.
+\end{alltt}
+
+\section{Route Semantics}
+A route is just a ``program'' for moving from some point to another one.
+The function \texttt{move} associates to any route a function from \texttt{Point} to \texttt{Point}.
+
+\begin{alltt}
+Definition translate (dx dy:Z) (P : Point) :=
+  Build_Point (Point_x P + dx) (Point_y P + dy).
+
+Fixpoint move (r:route) (P:Point) : Point :=
+ match r with
+ | nil => P
+ | North :: r' => move r' (translate 0 1 P)
+ | East :: r' => move r' (translate 1 0 P) 
+ | South :: r' => move r' (translate 0 (-1) P)
+ | West :: r' => move r' (translate (-1) 0 P)
+ end.
+
+Definition Point_eqb (P P':Point) :=
+   Zeq_bool (Point_x P) (Point_x P') \&\&
+   Zeq_bool (Point_y P) (Point_y P').
+
+Lemma Point_eqb_correct : forall p p', Point_eqb p p' = true <->
+                                       p = p'.
+\it Proof skipped.\tt
+Qed.
+\end{alltt}
+
+We consider that two routes are "equivalent" if they define
+the same moves. For instance, the routes
+\texttt{East::North::West::South::East::nil} and \texttt{East::nil}
+are equivalent.
+
+\begin{alltt}
+Definition route_equiv : relation route :=
+  fun r r' => forall P, move r P = move r' P.
+Infix "=r=" := route_equiv (at level 70):type_scope.
+
+Example Ex1 : East::North::West::South::East::nil =r=  East::nil.
+Proof.
+  intro P;destruct P;simpl.
+  unfold route_equiv,translate;simpl;f_equal;ring.
+Qed.
+\end{alltt}
+
+\section{On Route Equivalence}
+
+It is easy to study some abstract properties of the relation \texttt{route\_equiv}. First, we prove that this relation is reflexive, symmetric and transitive:
+
+\begin{alltt}
+Lemma route_equiv_refl : Reflexive route_equiv.
+Proof.
+ intros r p;reflexivity.
+Qed.
+
+Lemma route_equiv_sym : Symmetric route_equiv.
+Proof.
+ intros r r' H p; symmetry;apply H.
+Qed.
+
+Lemma route_equiv_trans : Transitive route_equiv.
+Proof.
+ intros r r' r'' H H' p; rewrite H; apply H'.
+Qed.
+\end{alltt}
+
+Note that, despite these properties, the tactics \texttt{reflexivity},
+\texttt{symmetry}, and \texttt{transitivity} are not directly usable
+on the type \texttt{route}.
+
+\begin{alltt}
+Goal forall r, route_equiv r r.
+intro; reflexivity.\it\color{red}
+Toplevel input, characters 40-51:
+Error: Tactic failure: The relation route_equiv is not a 
+  declared reflexive relation.
+   Maybe you need to require the Setoid library.
+\end{alltt}
+
+The last error message comes from the fact that the tactic 
+\texttt{reflexivity} consults a base of registered instance of a class
+named \texttt{Reflexive}. There exists also classes named \texttt{Symmetric},
+\texttt{Transitive}, and \texttt{Equivalence}.
+This last class gathers the properties of reflexivity, symmetry and transitivity.
+Thus, we can register an instance of the \texttt{Equivalence} class (and
+not as a lemma as above).
+
+\begin{alltt}
+Instance route_equiv_Equiv : Equivalence  route_equiv.
+Proof. split;
+  [apply route_equiv_refl | 
+   apply route_equiv_sym | 
+   apply route_equiv_trans].
+Qed.
+\end{alltt}
+
+The tactics \texttt{reflexivity}, etc.  can now be applied to the 
+relation \texttt{route\_equiv}.
+
+\begin{alltt}
+Goal forall r, r =r= r.
+Proof. intro; reflexivity. Qed.
+\end{alltt}
+
+Note that it is possible to consider relations that are not equivalence 
+relations, but are only transitive, or reflexive and transitive, etc. by
+using the right type classes.
+
+\section{Proper Functions}
+
+Since routes are represented as lists of directions, we wish to prove 
+some route equivalences by composition of already proven equivalences,
+using some lemmas on consing and appending routes.
+
+For instance, we can prove that if we add the same direction in front of
+two equivalent routes, the routes we obtain are still equivalent:
+
+\begin{alltt}
+Lemma route_cons : forall r r' d, r =r= r' -> d::r =r= d::r'.
+Proof.
+ intros r r' d H P;destruct d;simpl;rewrite H;reflexivity.
+Qed.
+\end{alltt}
+
+This lemma can be applied  to re-use our previous example \texttt{Ex1}.
+
+\begin{alltt}
+Goal (South::East::North::West::South::East::nil) =r= (South::East::nil).
+Proof. apply route_cons;apply Ex1. Qed.
+\end{alltt}
+
+Note that the proof of \texttt{route\_cons} contains a case analysis on $d$. Let us try to have a more
+direct proof:
+
+\begin{alltt}
+Lemma route_cons' : forall r r' d, r =r= r' -> d::r =r= d::r'.
+Proof.
+  intros r r' d H;rewrite H.\it\color{red}
+
+Toplevel input, characters 80-89:
+Error: Found no subterm matching "move r ?17869" in the current goal. \tt\color{black}
+Abort. 
+\end{alltt}
+
+What we really need is to tell to the \texttt{rewrite} tactic how to
+use \texttt{route\_cons} for using an equivalence \texttt{$r$ =r= $r'$}
+for replacing $r$ with $r'$ in a term of the form \texttt{cons $d$ $r$}
+for proving directly the equivalence \texttt{cons $d$ $r$ =r= cons $d$ $r'$}.
+In other words, we say that \texttt{cons $d$} is \emph{proper} w.-r.-t.
+the relation \texttt{route\_equiv}.
+
+In {\coq} this fact can be declared as an instance of:
+\begin{alltt}
+   Proper (route\_equiv ==> route\_equiv) (cons d)
+\end{alltt}
+
+This notation, which requires the library \texttt{Morphisms} to be loaded,
+expresses that if two routes $r$ and $r'$ are related through 
+\texttt{route\_equiv}, then the routes \texttt{$d$::r} and \texttt{$d$::r'}
+are also related by \texttt{route\_equiv}.
+
+In the notation used by \texttt{Proper} the first occurrence of
+\texttt{route\_equiv} refers to the arguments of \texttt{cons $d$}, and the second one 
+to the result of this consing. The user must require and import 
+the \texttt{Morphisms} module to use this notation.
+\begin{alltt}
+Require Import Morphisms.
+
+Instance cons_route_Proper (d:direction) : 
+    Proper (route_equiv ==> route_equiv) (cons d).
+Proof.
+  intros r r' H ;apply route_cons;assumption.
+Qed.
+\end{alltt}
+
+We can now use \texttt{rewrite} to replace some 
+term by an equivalent one, provided the context is made by applications of
+one or several functions of the form \texttt{cons $d$}:
+
+\begin{alltt}
+Goal forall r r', r =r= r' -> South::West::r =r= South::West::r'.
+Proof.
+  intros r r' H. \it\color{red}
+
+1 subgoal
+  
+  r : route
+  r' : route
+  H : r =r= r'
+  ============================
+   South :: West :: r =r= South :: West :: r'
+\end{alltt}
+
+Since the context of the  
+variable \texttt{r} is composed of applications of proper function
+ calls, the tactic \texttt{rewrite H} can be used to replace the occurrence of
+\texttt{r} by \texttt{r'}:
+
+\begin{alltt}
+  rewrite H;reflexivity.
+Qed.
+\end{alltt}
+
+\section{Some Other instances of \texttt{Proper}}
+
+
+We prove also that the function \texttt{move} 
+is proper with respect to route equivalence and Leibniz equality on points:
+
+
+\begin{alltt}
+Instance move_Proper : Proper (route_equiv ==> eq ==> eq) move. 
+Proof.
+  intros r r' Hr_r' p q Hpq. rewrite Hpq; apply Hr_r'.
+Qed.
+\end{alltt}
+
+
+Let us prove now that list concatenation is proper w.r.t.
+\texttt{route\_equiv}.
+
+First, a technical lemma, that relates \texttt{move} and list concatenation:
+
+
+\begin{alltt}
+Lemma route_compose : forall r r' P, move (r++r') P = move r' (move r P).
+Proof.
+  induction r as [|d s IHs]; simpl;
+    [auto | destruct d; intros;rewrite IHs;auto].
+Qed.
+\end{alltt}
+
+Then the proof itself:
+\begin{alltt}
+Instance app_route_Proper : 
+  Proper (route_equiv ==> route_equiv ==> route_equiv) (@app direction).
+Proof.
+  intros r r' H r'' r''' H' P.
+  repeat rewrite route_compose.\it\color{red}
+
+1 subgoal
+  
+  r : route
+  r' : route
+  H : r =r= r'
+  r'' : route
+  r''' : route
+  H' : r'' =r= r'''
+  P : Point
+  ============================
+    move r'' (move r P) = move r''' (move r' P)\tt\color{black}
+
+  now rewrite H, H'.
+Qed.
+\end{alltt}
+
+We are now able to compose proofs of route equivalence:
+
+\begin{alltt}
+Example Ex2 : forall r, North::East::South::West::r =r= r.
+Proof. intros r P;destruct P;simpl. 
+  unfold route_equiv, translate;simpl;do 2 f_equal;ring.
+Qed.
+
+Example Ex3 : forall r r', r =r= r' -> 
+                North::East::South::West::r =r= r'.
+Proof. intros r r' H. now rewrite Ex2. Qed.
+
+Example Ex4 : forall r r',  r++ North::East::South::West::r' =r= r++r'.
+Proof. intros r r'. now rewrite Ex2. Qed.
+\end{alltt}
+
+This generalized rewriting principle applies to equivalence relations,
+but also to e.g. order relations and can be used to rewrite under
+binders, where the usual \texttt{rewrite} tactic fails. It is presented
+in more detail in the reference manual and the article by \cite{sozeauJFR09}.
+
+
+\subsection*{A non proper function}
+It is easy to give an example of a non-proper function. Two routes may be
+equivalent, but have different lengths.
+
+\begin{alltt}
+Example length_not_Proper : ~Proper (route_equiv ==> @eq nat) (@length _).
+Proof. intro H.
+  generalize (H (North::South::nil) nil);simpl;intro H0.
+  discriminate H0.
+  intro P;destruct P; simpl;unfold translate; simpl;f_equal;simpl;ring.
+Qed
+\end{alltt}
+
+\section{Deciding Route Equivalence}
+Proofs of examples like \texttt{Ex2} may seem too complex for proving
+that some routes are equivalent. It is better to define a simple boolean
+function for deciding equivalence, and use reflection in case we have
+closed terms of type $route$.
+
+We first define a boolean function :
+\begin{alltt}
+Definition route_eqb r r' : bool :=
+   Point_eqb (move r Point_O) (move r' Point_O).
+\end{alltt}
+
+Some technical lemmas proved in \texttt{Lost\_in\_NY} lead us to prove 
+the following equivalence, that allows us to prove some path equivalences
+through a simple computation:
+
+\begin{alltt}
+Lemma route_equiv_equivb : forall r r', route_equiv r r' <->
+                                        route_eqb r r' = true.
+
+Ltac route_eq_tac := rewrite route_equiv_equivb;reflexivity.
+
+Example Ex1' : route_equiv (East::North::West::South::East::nil) (East::nil).
+Proof. route_eq_tac. Qed.
+\end{alltt}
+
+\section{Monoids and Setoids}
+We would like to prove that route concatenation is associative, and admits
+the empty route \texttt{nil} as a neutral element, making the type 
+\texttt{route} the carrier of some monoid.
+ 
+The \texttt{Monoid} class type defined in Sect.~\ref{Monoid-def} cannot be
+used for this purpose, since the properties of associativity and
+being a neutral element are defined in terms of Leibniz equality.
+
+We give below a definition of a new class \texttt{EMonoid} parameterized by
+an equivalence relation:
+
+\begin{alltt}
+Class EMonoid {A:Type}(E_eq :relation A)(dot : A->A->A)(one : A):=\{
+  E_rel :> Equivalence E_eq; 
+  dot_proper :> Proper (E_eq ==> E_eq ==> E_eq) dot; 
+  E_dot_assoc : forall x y z : A, E_eq (dot x (dot y z)) (dot (dot x y) z);
+  E_one_left : forall x, E_eq (dot one x) x;
+  E_one_right : forall x, E_eq (dot x one) x \}.
+
+Fixpoint Epower `\{M: EMonoid A E_eq dot one\}(a:A)(n:nat) :=
+  match n with 
+  | 0%nat => one
+  | S p => dot a (Epower a p)
+  end.
+\end{alltt}
+
+We register an instance of \texttt{EMonoid}:
+
+\begin{alltt}
+Instance Route : EMonoid route_equiv (@app _) nil .
+Proof. split.
+  apply route_equiv_Equiv.
+  apply app_route_Proper.
+  intros x y z P;repeat rewrite route_compose; trivial.
+  intros x P;repeat rewrite route_compose; trivial.
+  intros x P;repeat rewrite route_compose; trivial.
+Qed.
+\end{alltt}
+
+We can readily compute exponentiation of routes using this monoid:
+\begin{alltt}
+Goal forall n, Epower (South::North::nil) n =r= nil.
+Proof. induction n; simpl.
+  reflexivity.
+  rewrite IHn.
+  route_eq_tac.
+Qed.
+\end{alltt}
+
+
+\paragraph{Exercise}
+It seems that route concatenation is commutative as far as route equivalence is
+concerned. Is this true? In this case, define a subclass of \texttt{EMonoid}
+that handles commutativity, and build an instance of this class for route
+concatenation and equivalence.
+
+\section{Advanced Features of Type Classes}
+
+\subsection{Alternate definitions of the class \texttt{Monoid}}
+\label{alternate}
+Note that \texttt{A}, \texttt{dot} and \texttt{one} are \emph{parameters}
+of this definition, whilst they could have been defined as \emph{fields}
+of a structure.
+
+The following variant is correct too:
+\begin{alltt}
+Class Monoid'  : Type := \{
+  carrier: Type;
+  dot : carrier -> carrier -> carrier; 
+  one : carrier;
+  dot_assoc : forall x y z:carrier, dot x (dot y z)= dot (dot x y) z;
+  one_left : forall x, dot one x = x;
+  one_right : forall x, dot x one = x\}.
+\end{alltt}
+
+However, there is a flaw in the definition of \texttt{Monoid'}: if for some
+reason one needs to consider two monoid structures ${\cal M}$ and
+${\cal M'}$ on the same carrier, the sharing of the considered carrier would
+be very clumsy to express and to reason about.
+
+\begin{alltt}
+Section TwoMonoids.
+ Variables M M' : Monoid'.
+ Hypothesis same_carrier : @carrier M = @carrier M'.
+ Hypothesis same_one : @one M = @one M'.\it\color{red}
+Toplevel input, characters 52-59:
+Error:
+In environment
+M : Monoid'
+M' : Monoid'
+same_carrier : carrier = carrier
+The term "one" has type "carrier" while it is expected to have type
+ "carrier".
+\end{alltt}
+
+A possible solution would be using JM equality, but we don't get the
+simplicity of the approach of Sect~\ref{on-monoids}.
+ \begin{alltt}
+ Require Import JMeq.
+ Hypothesis same_one : JMeq (@one M) (@one M').
+\end{alltt}
+
+Any definition using both monoids in the same expression will be filled
+with coercions between the propositionally equal but not definitionally
+equal carriers and operations, so this is an unworkable solution. 
+
+A second variant could be to consider the carrier $A$ as the only parameter of
+the definition and to leave the binary operation and neutral element as fields
+of the class:
+\begin{alltt}
+Class Monoid' (A:Type) := \{
+ dot : A ->  A -> A;
+ one : A;
+ dot_assoc : forall x y z:A, dot x (dot y z)= dot (dot x y) z;
+ one_left : forall x, dot one x = x;
+ one_right : forall x, dot x one = x\}.
+\end{alltt}
+
+It is possible to define the subclass of abelian monoids with this representation:
+\begin{alltt}
+Class AbelianMonoid' (A:Type) := \{
+ underlying_monoid :> Monoid' A;
+ dot_comm : forall x y, dot x y = dot y x \}.
+
+Section Foo.
+  Variable A : Type.
+  Context (AM : AbelianMonoid' A).
+
+  Goal forall x y z, dot x (dot y z) = dot y (dot x z).
+  Proof. intros x y z.
+    repeat rewrite dot_assoc.
+    now rewrite (dot_comm x y).
+  Qed.
+End Foo.
+
+Require Import Arith.
+
+Instance Mnat : Monoid' nat.
+Proof. split with plus 0;auto with arith. Defined.
+
+Instance AMnat : AbelianMonoid' nat.
+Proof. split with Mnat. unfold dot;auto with arith. Defined.
+
+Goal dot 3 4 = 7.
+Proof. reflexivity. Qed.
+\end{alltt}
+
+Nevertheless,  the reader will find in a paper by~\citet{math-classes}
+arguments for disregarding this variant:
+In short, some clumsiness would appear if we want to make \texttt{Monoid'}
+a member of new classes like \texttt{Group}, \texttt{Ring}, etc.
+
+
+
+\subsection{Operational Type Classes}
+Let us come back to the definitions of section Sect.~\ref{on-monoids}
+Let us assume we wish to write functions and mathematical statements
+with a syntax as close as possible to the standard mathematical notation. 
+For instance, nested applications of the \texttt{dot} operation should
+be written with the help of an infix operator.
+
+The \texttt{Infix} command cannot be used directly, since \texttt{dot}
+is not declared as a global constant. 
+
+\begin{alltt}
+Infix "*" := dot (at level 50, left associativity):M_scope. \it 
+Error: The reference dot was not found in the current environment.
+\end{alltt}
+ A solution from ibid. consists in declaring a \emph{singleton type class} for representing binary operators:
+
+\begin{alltt}
+Class monoid_binop (A:Type) := monoid_op : A -> A -> A.   
+\end{alltt}
+
+\emph{Nota: }Unlike multi-field class types, \texttt{monoid\_op} is not a constructor,
+but a transparent constant such that \texttt{monoid\_op $f$} can be
+$\delta\beta$-reduced into $f$. 
+
+It is now possible to declare an infix notation:
+\begin{alltt}
+Delimit Scope M_scope with M.
+Infix "*" := monoid_op: M_scope.
+Open Scope M_scope.
+\end{alltt}
+
+\label{Monoid-def}
+We can now give a new definition of \texttt{Monoid}, using the type
+\texttt{monoid\_binop $A$} instead of $A\arrow A \arrow A$, and the
+infix notation \texttt{x * y} instead of \texttt{monoid\_op x y}:
+
+\begin{alltt}
+Class Monoid (A:Type)(dot : monoid_binop  A)(one : A) : Type := {
+  dot_assoc : forall x y z : A, x * (y * z)=  x * y * z;
+  one_left : forall x, one * x = x;
+  one_right : forall x,  x * one = x}.
+\end{alltt}
+
+For building monoids like \texttt{ZMult} or \texttt{M2\_Monoid}, we 
+first declare instances of \texttt{monoid\_binop}.
+
+\begin{alltt}
+Instance Zmult_op : monoid_binop Z := Zmult. 
+
+Instance ZMult : Monoid Zmult_op 1.
+Proof. split;intros; unfold Zmult_op, monoid_op; ring. Defined.
+
+Section matrices. 
+  Variables (A:Type)
+            (zero one : A) 
+            (plus mult minus : A -> A -> A)
+            (sym : A -> A).
+  {\color{blue}(* Definitions skipped, see section \ref{matring} *) }
+
+  Global Instance M2_mult_op : monoid_binop M2 := M2_mult.
+
+  Global Instance M2_Monoid : Monoid M2_mult_op Id2. 
+  Proof. (* Proof skipped *) Defined.
+End matrices.
+\end{alltt}
+
+For dealing with matrices on \texttt{Z}, we may instantiate the parameters
+\texttt{A}, \texttt{zero}, etc.
+
+\begin{alltt}
+Instance M2_Z_op : monoid_binop (M2 Z) := M2_mult Zplus Zmult . 
+Instance M2_mono_Z : Monoid (M2_mult_op _ _)  (Id2 _ _):=  M2_Monoid Zth.  
+
+Compute ((Build_M2 1 1 1 0) * (Build_M2 1 1 1 0))%M.\it\color{red}
+     = \{| c00 := 2; c01 := 1; c10 := 1; c11 := 1 |\}\tt\color{black}
+     : M2 Z
+Compute ((Id2 0 1) * (Id2 0 1))%M.\it\color{red}
+   = \{| c00 := 1; c01 := 0; c10 := 0; c11 := 1 |\}\tt\color{black}
+     : M2 Z
+\end{alltt}
+
+
+
+It is now easy to use the infix notation \texttt{*} in the definition of
+functions like \texttt{power}:
+\begin{alltt}
+Generalizable Variables A dot one.
+
+Fixpoint power `\{M : Monoid A dot one\}(a:A)(n:nat) :=
+  match n with 
+  | 0\%nat => one
+  | S p => (a * power a p)\%M
+  end.
+
+Infix "**" := power (at level 30, no associativity):M_scope.
+
+Compute  (2 ** 5) ** 2.\it
+= 1024 :Z\tt
+Compute (Build_M2  1 1 1  0) ** 40.\it
+    = \{|
+       c00 := 165580141;
+       c01 := 102334155;
+       c10 := 102334155;
+       c11 := 63245986 |\}
+     : M2 Z
+\end{alltt}
+
+
+All the techniques we used in Sect.~\ref{equiv-proof} can be applied with
+operational type classes. The main section of this proof is as follows:
+
+\begin{alltt}
+Section About_power.
+  Context `(M:Monoid A).
+  Open Scope M_scope.
+  
+  Ltac monoid_rw :=
+    rewrite one_left || rewrite one_right || rewrite dot_assoc.
+  Ltac monoid_simpl := repeat monoid_rw.
+
+  Lemma power_x_plus : forall x n p, x ** (n + p) = x ** n * x ** p.
+  Proof. (* Proof skipped *) Qed.
+End About_power.
+\end{alltt}
+
+Notice that, when the section is closed, theorem statements keep the
+notations of \texttt{M\_scope}:
+
+\begin{alltt}
+Open Scope M_scope.
+About power_of_power.\it\color{red}
+
+power_of_power :
+forall (A : Type) (dot : monoid_binop A) (one : A) 
+  (M : Monoid dot one) (x : A) (n p : nat), 
+        (x ** n) ** p = x ** (p * n)
+\end{alltt}
+
+
+If we want to consider monoids w.r.t. some equivalence relation, 
+it is possible to associate an operational type class to the considered relation:
+
+\begin{alltt}
+Require Import Setoid Morphisms.
+
+Class Equiv A := equiv : relation A.
+Infix "==" := equiv (at level 70):type_scope.
+
+Open Scope M_scope.
+Class EMonoid (A:Type)(E_eq :Equiv A)
+              (E_dot : monoid_binop A)(E_one : A):= \{
+  E_rel :> Equivalence equiv; 
+  dot_proper :> Proper (equiv ==> equiv ==> equiv) E_dot; 
+  E_dot_assoc : forall x y z:A,
+      x * (y * z) == x * y * z;
+  E_one_left : forall x, E_one * x == x;
+  E_one_right : forall x, x * E_one == x\}.
+\end{alltt}
+
+The overloaded \texttt{==} notation will refer to the appropriate
+equivalence relation on the type of the arguments. One can develop in
+this fashion a hierarchy of structures. In the following we define
+the structure of semirings starting from a refinement of \texttt{EMonoid}.
+
+\begin{alltt}
+(* Overloaded notations *)
+Class RingOne A := ring_one : A.
+Class RingZero A := ring_zero : A.
+Class RingPlus A := ring_plus :> monoid_binop A.
+Class RingMult A := ring_mult :> monoid_binop A.
+Infix "+" := ring_plus.
+Infix "*" := ring_mult.
+Notation "0" := ring_zero.
+Notation "1" := ring_one.
+
+Typeclasses Transparent RingPlus RingMult RingOne RingZero.
+
+Class Distribute `\{Equiv A\} (f g: A -> A -> A): Prop :=
+  \{ distribute_l a b c: f a (g b c) == g (f a b) (f a c)
+  ; distribute_r a b c: f (g a b) c == g (f a c) (f b c) \}.
+
+Class Commutative \{A B\} `\{Equiv B\} (m: A -> A -> B): Prop := 
+  commutativity x y : m x y == m y x.
+
+Class Absorb {A} `\{Equiv A\} (m: A -> A -> A) (x : A) : Prop := 
+  \{ absorb_l c : m x c == x ;
+    absorb_r c : m c x == x \}.
+
+Class ECommutativeMonoid `(Equiv A) (E_dot : monoid_binop A) (E_one : A):=
+  \{ e_commmonoid_monoid :> EMonoid equiv E_dot E_one;
+    e_commmonoid_commutative :> Commutative E_dot \}.
+
+Class ESemiRing (A:Type) (E_eq :Equiv A) 
+  (E_plus : RingPlus A) (E_zero : RingZero A)
+  (E_mult : RingMult A) (E_one : RingOne A):=
+  \{ add_monoid :> ECommutativeMonoid equiv ring_plus ring_zero ;
+    mul_monoid :> EMonoid equiv ring_mult ring_one ;
+    ering_dist :> Distribute ring_mult ring_plus ;
+    ering_0_mul :> Absorb ring_mult 0 \}.
+\end{alltt}
+
+Note that we use a kind of multiple inheritance here, as a semiring contains two
+monoids, one for addition and one for multiplication, that are related
+by distributivity and absorbtion laws. To distinguish between the
+corresponding monoid operations, we introduce the new operational type
+classes \texttt{Ring}*. These classes are declared \texttt{Transparent}
+for typeclass resolution, so that their expansion to
+\texttt{monoid\_binop} can be used freely during conversion: they are
+just abbreviations used for overloading notations.
+
+We also introduce classes for the standard properties of operations like
+commutativity, distributivity etc... to be able to refer to them generically.
+
+We can now develop some generic theory on semirings using the overloaded
+lemmas about distributivity or the constituent monoids. Resolution
+automatically goes through the \texttt{ESemiRing} structure to find
+proofs regarding the underlying monoids.
+
+\begin{alltt}
+Section SemiRingTheory.
+  Context `\{ESemiRing A\}.
+
+  Definition ringtwo := 1 + 1.
+  Lemma ringtwomult : forall x : A, ringtwo * x == x + x.
+  Proof.
+    intros. unfold ringtwo.
+    rewrite distribute_r.
+    now rewrite (E_one_left x).
+  Qed.
+
+End SemiRingTheory.
+\end{alltt}
+
+\subsection{Instance Resolution}
+Let us consider again the term written ``\,\applis{binary\_power\;2\; 55}\,''.
+This term --- with all its arguments explicited --- is ``\,\applis{@binary\_power Z Zmult\_op 1\;2\;55}\,''. The implicit arguments
+\texttt{Z}, \texttt{Zmult\_op} and \texttt{1} have been inferred 
+from the type \texttt{Z} of \texttt{2}, looking at the instances
+of \texttt{Monoid} that were compatible with the instanciation
+\texttt{A:=Z}. 
+ 
+% \textbf{MS: C'est un bug de Coq de ne pas respecter la specification de
+%   la recherche d'instance. La specification est: on choisit l'instance 
+%   la plus rÈcente parmis les instances applicables de la prioritÈ la
+%   plus faible. Dans la suite, Zmult\_op est choisit tandis que Zplus\_op
+%   devrait l'Ítre (mÍme prioritÈ, mais Zplus\_op est plus rÈcente). La
+%   gestion des prioritÈs pour indiquer la prÈfÈrence fonctionne en revanche.}
+
+If we consider another instance of \texttt{Monoid} with the same 
+domain, the instance resolution mechanism, which relies on \texttt{auto},
+may not respect the user's intuition. 
+
+For instance, let us temporarily consider another monoid on \texttt{Z}.
+
+\begin{alltt}
+Section Z_additive.
+  Instance Z_plus_op : monoid_binop Z := Zplus.
+
+  Instance ZAdd : Monoid Z_plus_op 0. 
+  Proof. split;intros;unfold Z_plus_op, mon_op;ring. Defined.
+\end{alltt}
+
+Unfortunately, two instances of \texttt{monoid\_binop} are linked to the type 
+\texttt{Z}. Thus, a notation like \texttt{2 * 5} looks ambiguous: 
+
+In the interaction below, the instance \texttt{Z\_plus\_op} is preferred
+over \texttt{Z\_mult\_op}, as it was declared the latest.
+\begin{alltt}
+Compute 2 * 5.\it
+     = 7
+     : Z
+\end{alltt}
+
+To force an unambiguous interpretation regardless of the order of
+declarations, one solution is to add to the instance declaration a
+\emph{cost}, which is a natural number: the lowest the cost, the
+higher is the priority.  Let us consider the following two instance
+declarations:
+
+\begin{alltt}
+Instance Zmult_op : monoid_binop Z | 1 := Zmult.
+Instance Zplus_op : monoid_binop Z | 2 := Zplus.
+
+Compute (2 * 5)%M.\it\color{red}
+= 10 : nat
+\end{alltt}
+
+Now the highest priority (lowest cost) instance is selected.
+
+
+
+
+
+\chapter*{Conclusion}
+
+This concludes our tour of type classes and generalized rewriting. For
+more information on classes, one can consult the lecture notes by \citet
+{sozeau.Coq/classes/JFLA12} which develops other examples of
+use. \citet{math-classes} develop a large hierarchy of structures
+using classes, including pervasive use of generalized rewriting. 
+The current version of their library is available online at:
+\url{https://github.com/math-classes}. 
+The library on categories and categorical syntax and semantics by
+Benedikt Ahrens~\cite{Ahrens}, uses heavily type classes and is worth reading.
+
+
+Generalized rewriting \citep{sozeauJFR09} is an example of the use of
+type classes to develop a \emph{generic} tactic that can apply to
+arbitrary user constants as long as ``Proper'' instances are declared on
+them. As we've seen, the very nature of type classes is to do proof
+search at typechecking-time. They are hence very fit to implement
+generic tactics that depend on some properties of the terms fed to them,
+for example associativity or commutativity of functions in the work of
+\citet{DBLP:journals/corr/abs-1105-4537}.
+They can also be used to concisely specify domain-specific proof
+automation, solving side conditions for a particular class of problems
+as in \cite{DBLP:conf/icfp/GonthierZND11}. These papers provide more
+advanced examples and design patterns for working with type classes.
+
+\bibliography{biblio,morebiblio}
+\bibliographystyle{plainnat}
+
+\end{document}
