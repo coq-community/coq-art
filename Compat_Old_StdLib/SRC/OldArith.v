@@ -8,7 +8,7 @@ Lemma le_add_sub_r (n m:nat) : n <= m -> n + (m - n) = m.
 Proof. 
   intro H; rewrite Nat.add_comm, Nat.sub_add; [ reflexivity | assumption]. 
 Qed.
-
+   
 Lemma sub_add (n m : nat) : n + m - n = m.
 Proof. 
   now rewrite Nat.add_comm, Nat.add_sub. 
