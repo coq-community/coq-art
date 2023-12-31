@@ -1,6 +1,6 @@
 -R . coqart
 
-compat_old_stdlib/SRC/OldArith.v
+Compat_Old_StdLib/SRC/OldArith.v
 ch9_function_specification/SRC/fib_positive.v
 ch9_function_specification/SRC/fib_ind.v
 ch9_function_specification/SRC/extract.v
