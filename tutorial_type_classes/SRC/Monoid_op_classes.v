@@ -5,7 +5,7 @@
 
 Set Implicit Arguments.
 
-Require Import ZArith  Div2  Recdef  Mat.
+Require Import ZArith   Recdef  Mat.
 
 
 Class monoid_binop (A:Type) := monoid_op : A -> A -> A.

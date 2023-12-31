@@ -5,7 +5,7 @@ Require Import fib_ind.
 Require Import OldArith.
 
 Theorem fib_n_p :
-  forall n p, fi + 2) =
+  forall n p, fib(n + p + 2) =
              fib (n + 1) * fib (p + 1) + fib n * fib p. 
 Proof.
   intros n; elim n using fib_ind.
