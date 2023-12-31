@@ -2,28 +2,10 @@ Require Export Arith.
 Require Export ArithRing.
 Require Export ZArith.
 Require Import fib_ind.
-
-Section Compat_Old_Stdlib.
-
-(* Upward compatibility with older versions of std_lib 
-   To do: move the contents of this section to some module OldArith
- *)
-
-Lemma le_add_sub_r (n m:nat) : n <= m -> n + (m - n) = m. 
-Proof.
-  intro H; rewrite Nat.add_comm, Nat.sub_add; [ reflexivity | assumption]. 
-Qed.
-
-Lemma sub_add (n m : nat) : n + m - n = m.
-Proof. 
-  now rewrite Nat.add_comm, Nat.add_sub. 
-Qed. 
-
-End Compat_Old_Stdlib.
-
+Require Import OldArith.
 
 Theorem fib_n_p :
-  forall n p, fib (n + p + 2) =
+  forall n p, fi + 2) =
              fib (n + 1) * fib (p + 1) + fib n * fib p. 
 Proof.
   intros n; elim n using fib_ind.
