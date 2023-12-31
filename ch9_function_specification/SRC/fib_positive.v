@@ -3,6 +3,25 @@ Require Export ArithRing.
 Require Export ZArith.
 Require Import fib_ind.
 
+Section Compat_Old_Stdlib.
+
+(* Upward compatibility with older versions of std_lib 
+   To do: move the contents of this section to some module OldArith
+ *)
+
+Lemma le_add_sub_r (n m:nat) : n <= m -> n + (m - n) = m. 
+Proof.
+  intro H; rewrite Nat.add_comm, Nat.sub_add; [ reflexivity | assumption]. 
+Qed.
+
+Lemma sub_add (n m : nat) : n + m - n = m.
+Proof. 
+  now rewrite Nat.add_comm, Nat.add_sub. 
+Qed. 
+
+End Compat_Old_Stdlib.
+
+
 Theorem fib_n_p :
   forall n p, fib (n + p + 2) =
              fib (n + 1) * fib (p + 1) + fib n * fib p. 
@@ -40,7 +59,7 @@ Proof.
  -  intros p; simpl; ring.
  -  intros p; replace (1 + p) with (p + 1) by ring; simpl.  
    ring_simplify.
-   rewrite le_plus_minus_r.
+   rewrite le_add_sub_r.
    + reflexivity.  
    + apply fib_monotonic.
  -  intro p; simpl (S (S n) + p);rewrite fib_SSn.
@@ -49,12 +68,12 @@ Proof.
     replace (S n + 1) with (S (S n)) by ring.
     replace (S (n + 1)) with (S (S n)) by ring.
     repeat rewrite fib_SSn.
-    rewrite (plus_comm (fib (S n))
+    rewrite (Nat.add_comm (fib (S n))
              (fib n + fib (S n))).
-    rewrite minus_plus.
-    rewrite (plus_comm (fib n) (fib (S n))).
-    rewrite minus_plus.
-    rewrite mult_minus_distr_r.
+    rewrite sub_add.
+    rewrite (Nat.add_comm (fib n) (fib (S n))).
+    rewrite sub_add.
+    rewrite Nat.mul_sub_distr_r.
     replace
    (fib n * fib p +
    (fib (n + 1) * (fib (p + 1) - fib p) - fib n * (fib (p + 1) - fib p)) +
@@ -64,10 +83,10 @@ Proof.
    (fib n * (fib (p + 1) - fib p) +
    (fib (n + 1) * (fib (p + 1) - fib p) - 
          fib n * (fib (p + 1) - fib p))) +   fib (S n) * fib p) by ring.
-    rewrite (le_plus_minus_r).
+    rewrite (le_add_sub_r).
     replace (n + 1) with (S n) by ring.
     ring.
-    apply mult_le_compat_r.
+    apply Nat.mul_le_mono_r.
     apply fib_monotonic.
 Qed.
 
@@ -87,20 +106,20 @@ Proof.
  replace (n + 1 + 1) with (S (S n)) by ring.
  rewrite fib_SSn.
  replace (S n) with (n + 1) by ring.
- rewrite (plus_comm (fib n) (fib (n + 1))).
- rewrite minus_plus.
- apply plus_reg_l with (fib n * fib n).
- rewrite le_plus_minus_r.
- rewrite plus_permute.
- rewrite mult_minus_distr_r.
- rewrite le_plus_minus_r.
+ rewrite (Nat.add_comm (fib n) (fib (n + 1))).
+ rewrite sub_add.
+ apply Nat.add_cancel_l with (fib n * fib n).
+ rewrite le_add_sub_r.
+ rewrite Nat.add_shuffle3.
+ rewrite Nat.mul_sub_distr_r.
+ rewrite le_add_sub_r.
  ring.
- apply mult_le_compat_r.
+ apply Nat.mul_le_mono_r.
  apply fib_monotonic.
  replace (fib n * fib n) with (1 * (fib n * fib n)).
- rewrite mult_assoc_reverse.
- apply mult_le_compat; auto with arith.
- apply mult_le_compat_l.
+ rewrite <- Nat.mul_assoc.
+ apply Nat.mul_le_mono; auto with arith.
+ apply Nat.mul_le_mono_l.
  apply fib_monotonic.
  ring.
 Qed.
@@ -113,8 +132,8 @@ Proof.
  replace (n + 1 + 1) with (S (S n)) by ring.
  rewrite fib_SSn.
  replace (S n) with (n + 1) by ring.
- rewrite (plus_comm (fib n) (fib (n + 1))).
- now rewrite minus_plus.
+ rewrite (Nat.add_comm (fib n) (fib (n + 1))).
+ now rewrite sub_add.
 Qed.
 
 Theorem th_fib_positive1 :
