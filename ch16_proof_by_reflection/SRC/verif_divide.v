@@ -31,13 +31,13 @@ Theorem divisor_smaller :
     forall m p:nat, 0 < m -> forall q:nat, m = q*p -> q <= m.
 Proof.
  intros m p Hlt; case p.
- -  intros q Heq; rewrite Heq in Hlt; rewrite mult_comm in Hlt.
+ -  intros q Heq; rewrite Heq in Hlt; rewrite Nat.mul_comm in Hlt.
      elim (lt_irrefl 0);exact Hlt.
  -  intros p' q; case q.
     +  intros Heq; rewrite Heq in Hlt.
        elim (lt_irrefl _ Hlt).
     + intros q' Heq; rewrite Heq.
-      rewrite mult_comm; simpl; auto with arith.
+      rewrite Nat.mul_comm; simpl; auto with arith.
 Qed.
 
 Theorem Zabs_nat_0 : forall x:Z, Z.abs_nat x = 0 -> (x = 0)%Z.
@@ -78,7 +78,7 @@ Proof.
  intros v r; elim r.
  -  intros rz Hlt H1 H2 Hex; case Hex; intros k; case k.
    +  intros (Hle, (Hne1, (q, Heq))).
-      rewrite mult_comm in Heq; simpl in Heq.
+      rewrite Nat.mul_comm in Heq; simpl in Heq.
       rewrite (Zabs_nat_0 _ Heq) in Hlt.
       elim (Z.lt_irrefl 0); assumption.
  
@@ -91,7 +91,7 @@ Proof.
 
  -  intros r' Hrec rz Hlt H1 H2 Hex; case Hex; intros k; case k.
     intros (Hle, (Hne1, (q, Heq))).
-    rewrite mult_comm in Heq; simpl in Heq.
+    rewrite Nat.mul_comm in Heq; simpl in Heq.
     rewrite (Zabs_nat_0 _ Heq) in Hlt.
     elim (Z.lt_irrefl 0); assumption.
     intros k' (Hle, (Hne1, (q, Heq))).
@@ -155,7 +155,7 @@ Theorem check_correct :
   ~(exists k:nat, k <> 1 /\ k <> p /\ (exists q:nat, p = q*k)).
 Proof.
  unfold lt; intros p Hle; elim Hle.
- -  intros Hcp (k, (Hne1, (Hne1bis, (q, Heq)))); rewrite mult_comm in Heq.
+ -  intros Hcp (k, (Hne1, (Hne1bis, (q, Heq)))); rewrite Nat.mul_comm in Heq.
     assert (Hle' : k < 1).
     +  elim (le_lt_or_eq k 1); try(intuition; fail).
        apply divisor_smaller with (2:= Heq); auto.
@@ -177,7 +177,7 @@ Proof.
        split.
        assert (HkleSSp'': k <= S (S p'')).
        apply (divisor_smaller (S (S p'')) q); auto with arith.
-       rewrite mult_comm; assumption.
+       rewrite Nat.mul_comm; assumption.
        lia.
        split.
        assumption.

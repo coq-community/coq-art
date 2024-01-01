@@ -80,12 +80,12 @@ Theorem mult_lt_reg_l :
 Proof.
  intros m n; elim n.
  -  intros p; case p.
-  +  repeat (rewrite mult_comm; simpl); auto.
+  +  repeat (rewrite Nat.mul_comm; simpl); auto.
   +  auto with arith.
  -  intros n' Hrec p; case p.
-  +  rewrite <- (mult_comm 0); simpl; intros Hlt; elim (lt_n_O (m*S n'));auto.
+  +  rewrite <- (Nat.mul_comm 0); simpl; intros Hlt; elim (Nat.nlt_0_r (m*S n'));auto.
   + intros p'; repeat rewrite <- mult_n_Sm.
-    repeat rewrite <- (plus_comm m).
+    repeat rewrite <- (Nat.add_comm m).
     intros Hlt; assert (Hlt' : m*n' < m* p').
     *  apply plus_lt_reg_l with m; auto.
     * auto with arith.
@@ -196,7 +196,7 @@ Theorem divides_dec_aux :
   forall k n p:nat, n <= k -> divides p n \/ ~divides p n.
 Proof.
   intros k; elim k.
-  -  intros n p Hle; left; exists 0; rewrite mult_comm; simpl; 
+  -  intros n p Hle; left; exists 0; rewrite Nat.mul_comm; simpl; 
        symmetry; apply le_n_O_eq; auto.
   - intros k' Hrec n p Hlt; elim (le_lt_or_eq n (S k')).
     + auto with arith.
@@ -216,30 +216,30 @@ Proof.
            ++ intros (q, Heq'); left; exists (S q).
               rewrite (le_plus_minus (S p') (S k')).
               ** rewrite Heq'.
-                 repeat rewrite (mult_comm (S p')).
+                 repeat rewrite (Nat.mul_comm (S p')).
                  reflexivity.
               **  auto with arith.
            ++  intros Hndiv; right; intros Hdiv.
                apply Hndiv.
                elim Hdiv.
                intros q; case q.
-               **  rewrite mult_comm;  simpl; intros; discriminate.
+               **  rewrite Nat.mul_comm;  simpl; intros; discriminate.
                **  intros q' Heq'; exists q'.
                    apply plus_reg_l with (S p').
                    rewrite le_plus_minus_r.
                    { rewrite Heq'.
-                     rewrite plus_comm; rewrite mult_n_Sm; reflexivity.
+                     rewrite Nat.add_comm; rewrite mult_n_Sm; reflexivity.
                    }
                    auto with arith.
-           ++ simpl; apply le_minus.
+           ++ simpl; apply Nat.le_sub_l.
               
          -- assert (Hlt': S k' < S p').
             { apply nat_compare_Gt_gt; auto. }
             right; intros Hdiv; elim Hdiv; intros q; case q.
-            ++  rewrite mult_comm; simpl; intros; discriminate.
+            ++  rewrite Nat.mul_comm; simpl; intros; discriminate.
             ++ intros q' Heq'; elim (lt_not_le _ _ Hlt').
                rewrite Heq'.
-               rewrite mult_comm; simpl; auto with arith.
+               rewrite Nat.mul_comm; simpl; auto with arith.
     +  trivial.
 Qed.
 
@@ -265,7 +265,7 @@ Proof.
     *  right; right; split.
      --   auto.
      -- intros (p, ((_,Hlt0), (q, Heq))).
-        elim (lt_n_O p); auto.
+        elim (Nat.nlt_0_r p); auto.
     * intros k'; case k'.
      --  intros; right; right; split.
          ++ auto.
@@ -322,7 +322,7 @@ Proof.
       elim (prime_dec p).
     *  intros Hpeq0or1; elim Hpeq0or1.
      --  intros Hpeq0.
-         rewrite Hpeq0 in Hpgt1; elim (lt_n_O 1); assumption.
+         rewrite Hpeq0 in Hpgt1; elim (Nat.nlt_0_r 1); assumption.
      -- intros Hpeq1;
           rewrite Hpeq1 in Hpgt1; elim (lt_irrefl 1); assumption.
     *  intros Hpdec; elim Hpdec.
@@ -416,10 +416,10 @@ Proof.
     + assert (Hlt' : (q' - 1)*S p' < S p' * q).
      { rewrite mult_minus_distr_r.
        rewrite mult_1_l.
-       rewrite (mult_comm q').
+       rewrite (Nat.mul_comm q').
        assumption.
      }
-     rewrite (mult_comm (q' - 1)) in Hlt'.
+     rewrite (Nat.mul_comm (q' - 1)) in Hlt'.
      generalize (mult_lt_reg_l _ _ _ Hlt').
      case q'; simpl.
      * auto with arith.
@@ -439,7 +439,7 @@ Proof.
  elim (prime_dec k); auto.
  -  intros Hkeq0or1;elim Hkeq0or1.
     + intros Hkeq0.
-      rewrite Hkeq0 in Hkgt1; elim (lt_n_O 1); assumption.
+      rewrite Hkeq0 in Hkgt1; elim (Nat.nlt_0_r 1); assumption.
     + intros Hkeq1; rewrite Hkeq1 in Hkgt1; elim (lt_irrefl 1); assumption.
 - intros Hpdec; elim Hpdec.
   + intros Hexdiv.
@@ -552,13 +552,13 @@ Proof.
                  generalize (nat_compare_eq _ _ Htwc) ||
                  generalize (nat_compare_Gt_gt _ _ Htwc));
                 auto with arith. (* ICI *)
-      *  intros Heq2; rewrite Heq2; rewrite plus_comm; rewrite minus_plus;
+      *  intros Heq2; rewrite Heq2; rewrite Nat.add_comm; rewrite minus_plus;
            auto with arith.
       * intros Heq2; rewrite Heq2; unfold all_greater_than_one in Hal;
           generalize (Hal nil l0 p n (refl_equal _)); intros Hpgt1.
         pattern n at 1; rewrite plus_n_O; rewrite plus_n_Sm;
           apply plus_le_compat; auto with arith.
-      * rewrite plus_comm; rewrite minus_plus; auto with arith.
+      * rewrite Nat.add_comm; rewrite minus_plus; auto with arith.
       *  generalize (Hal nil l0 p n (refl_equal _)); intros Hpgt1.
          intros Hkltn; pattern k at 1; rewrite plus_n_O; rewrite plus_n_Sm;
            apply plus_le_compat; auto with arith.
@@ -810,7 +810,7 @@ Proof.
 
               ** split.
                  { rewrite <- Hps; apply all_multiples_add; auto with arith. 
-                   exists 2; rewrite (mult_comm 2); reflexivity. }
+                   exists 2; rewrite (Nat.mul_comm 2); reflexivity. }
 
                  rewrite <- Hps.
                  apply all_greater_than_one_add; auto with arith.

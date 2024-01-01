@@ -188,7 +188,7 @@ Ltac monoid_rw :=
   Lemma power_commute : forall x n p,  
                x ** n * x ** p = x ** p * x ** n. 
   Proof.
-   intros x n p;power_simpl; rewrite (plus_comm n p);trivial.
+   intros x n p;power_simpl; rewrite (Nat.add_comm n p);trivial.
  Qed.
 
  Lemma power_commute_with_x : forall x n ,  

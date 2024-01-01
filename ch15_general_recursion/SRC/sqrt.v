@@ -75,7 +75,7 @@ Qed.
 Ltac remove_minus :=
   match goal with
   |  |- context [(?X1 - ?X2 + ?X3)] =>
-      rewrite <- (plus_comm X3); remove_minus
+      rewrite <- (Nat.add_comm X3); remove_minus
   |  |- context [(?X1 + (?X2 - ?X3) + ?X4)] =>
       rewrite (plus_assoc_reverse X1 (X2 - X3)); remove_minus
   |  |- context [(?X1 + (?X2 + (?X3 - ?X4)))] =>

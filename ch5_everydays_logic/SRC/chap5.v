@@ -54,7 +54,8 @@ Qed.
 
 Lemma mult_le_compat_r : forall m n p:nat, le n p -> le (n * m) (p * m).
 Proof.
- intros m n p H; rewrite (mult_comm n m); rewrite (mult_comm p m).
+ intros m n p H; rewrite (Nat.mul_comm n m); 
+   rewrite (Nat.mul_comm p m).
  apply mult_le_compat_l; trivial.
 Qed.
 
@@ -231,8 +232,8 @@ Proof.
  intros n  H H0.
  rewrite <- (le_lt_S_eq 2 n).
  - reflexivity.  
- -  apply  plus_le_reg_l with (p := 6). 
-    rewrite plus_comm in H; auto with arith.
+ -  apply  plus_le_reg_l with (p := 6).  
+    rewrite Nat.add_comm in H; auto with arith.
  - apply   plus_lt_reg_l with (p:= 3); auto with arith.
 Qed.
 

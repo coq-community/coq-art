@@ -28,7 +28,7 @@ Qed.
 Lemma square_even : forall n:nat, even n -> even (n * n).
 Proof.
  intros n Hn; elim Hn; simpl; auto.
- intros n0 H0 H1; rewrite (mult_comm n0 (S (S n0))).
+ intros n0 H0 H1; rewrite (Nat.mul_comm n0 (S (S n0))).
  right; simpl;apply sum_even; auto.
 Qed.
 

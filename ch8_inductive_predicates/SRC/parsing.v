@@ -33,7 +33,7 @@ Proof.
  -  apply wp_concat.
     apply wp_encapsulate; trivial.
     trivial.
- -  repeat (simpl in |- *; rewrite app_ass); simpl in |- *.
+ -  repeat (simpl in |- *; rewrite <- app_assoc); simpl in |- *.
     trivial.
 Qed.
  
@@ -111,7 +111,7 @@ Theorem parse_rel_sound_aux :
 Proof.
  intros l1 l2 t H; elim H; clear H l1 l2 t.
  -  intros l1 l2 l3 t1 t2 Hp Hr1 Hp2 Hr2; simpl.
-     rewrite app_ass, Hr1; simpl.
+     rewrite <- app_assoc, Hr1; simpl.
      now      rewrite Hr2.
  -  reflexivity.
  -  reflexivity.
@@ -126,7 +126,7 @@ Proof.
  -  symmetry;
    replace (bin_to_string t) with (bin_to_string t ++ nil).
    +  apply parse_rel_sound_aux; auto.
-   +  rewrite app_nil_end; auto.
+   +  rewrite app_nil_r; auto.
 Qed.
 
 (* correction to exercise 8.19 *)
@@ -150,7 +150,7 @@ Proof.
  intros l1 l2 H; generalize l2; clear l2.
  elim H.
  -  simpl; auto.
- -  intros l1' l2' Hb1' Hr1 Hb2' Hr2 l2 Hb2; simpl; rewrite app_ass.
+ -  intros l1' l2' Hb1' Hr1 Hb2' Hr2 l2 Hb2; simpl; rewrite <- app_assoc.
     simpl; apply wp'_cons; auto.
 Qed.
 
@@ -205,8 +205,8 @@ Proof.
  (* Only a proof by induction on the fact that the second list is 
     well-parenthesized   is needed. *)
  intros l1 l2 H1 H2; generalize l1 H1; clear H1 l1; elim H2.
- -  intros; rewrite <- app_nil_end; trivial.
- -  intros; rewrite ass_app; auto.
+ -  intros; rewrite app_nil_r; trivial.
+ -  intros; rewrite app_assoc; auto.
 Qed.
  
 
@@ -254,14 +254,14 @@ Proof.
  intros l H; elim H.
  -  simpl; auto.
  -  intros l1 l2 H1 Hrec1 H2 Hrec2 n l'.
-    rewrite app_ass; transitivity (recognize n (l2 ++ l')); auto.
- -  intros l1 H1 Hrec n l'; simpl ; rewrite app_ass; rewrite Hrec;
+    rewrite <- app_assoc; transitivity (recognize n (l2 ++ l')); auto.
+ -  intros l1 H1 Hrec n l'; simpl ; rewrite <- app_assoc; rewrite Hrec;
     simpl ; auto.
 Qed.
  
 Theorem recognize_complete : forall l:list par, wp l -> recognize 0 l = true.
 Proof.
- intros l H; rewrite (app_nil_end l),  recognize_complete_aux; auto.
+ intros l H; rewrite <- (app_nil_r l),  recognize_complete_aux; auto.
 Qed.
 
 (* solution of exercise 8.22 *)
@@ -357,12 +357,12 @@ Proof.
    inserted in l1' or in l2', the theorem app_decompose helps here. *)
    intros l1 l2 Hp1 Hr1 Hp2 Hr2 l3 l4 Heq.
    elim app_decompose with (1 := Heq).
-   intros [l1' [Heq1 Heq2]]; rewrite Heq1, app_ass;
+   intros [l1' [Heq1 Heq2]]; rewrite Heq1, <- app_assoc;
    apply wp_concat; auto.
    intros [a' [l2' [Heq1 Heq2]]].
    rewrite Heq2.
    repeat rewrite app_comm_cons.
-   rewrite ass_app.
+   rewrite app_assoc.
   apply wp_concat; auto.
 
 - (* In the third case, we have to check three possibilities: either
@@ -377,18 +377,18 @@ Proof.
 (* If l2 is nil, then the open-close pair was introduced after the
   closing parenthesis. *)
  +  intros Heq; injection Heq; intros Heq1 Heq2.
-    rewrite <- app_nil_end in Heq1; rewrite Heq1; rewrite Heq2.
+    rewrite  app_nil_r in Heq1; rewrite Heq1; rewrite Heq2.
     rewrite app_comm_cons.
     apply wp_concat; auto.
  + (* if l2 is non nil then the open-close pair was introduced between the
    parentheses *)
  intros c' l2'; elim (cons_to_app_end  l2' c').
  intros c'' [l2'' Heq]; rewrite Heq.
- rewrite ass_app; intros Heq1.
+ rewrite app_assoc; intros Heq1.
  injection Heq1; intros Heq2 Heq3; elim last_same with (1 := Heq2).
  intros Heq4 Heq5; rewrite Heq5; rewrite Heq3.
  change (wp (open :: l1' ++ (open :: close :: l2'') ++ close :: nil)) .
- rewrite ass_app; auto.
+ rewrite app_assoc; auto.
 Qed.
  
 Theorem wp_remove_oc :
@@ -513,7 +513,7 @@ Proof.
     apply Hr2 with (s := s') (t := N t L).
     change (parse (t :: s') L (close :: l2 ++ l') = None) in |- *.
     simpl in Hrej.
-    rewrite app_ass in Hrej.
+    rewrite <- app_assoc in Hrej.
     apply Hr1 with (1 := Hrej).
     simpl; auto with arith.
    auto.
@@ -528,7 +528,7 @@ Proof.
  -   apply parse_complete_aux with (2 := H'); auto.
      apply wp_imp_wp'; auto.
  - discriminate.
- - rewrite <- app_nil_end; auto.
+ - rewrite <- app_nil_r; auto.
 Qed.
 
 (* We will use bin_to_string' to map binary trees to strings of characters.
@@ -549,15 +549,15 @@ Proof.
 -  intros s; case s.
  + simpl.
    intros t t' H; injection H; intros Heq.
-   rewrite Heq; apply app_nil_end.
+   rewrite Heq. now rewrite app_nil_r.
  +  simpl ; intros t0 s0 t t' H; discriminate H.
 -  intros a; case a; simpl; clear a; intros l' Hrec s.
   +  intros t t' H; rewrite Hrec with (1 := H).
-     simpl; repeat (rewrite app_ass; simpl); auto.
+     simpl; repeat (rewrite <- app_assoc; simpl); auto.
   + case s.
    *  intros t t' H; discriminate H.
    *  intros t0 s0 t t' Hp; rewrite Hrec with (1 := Hp);
-      simpl; repeat (rewrite app_ass; simpl); auto.
+      simpl; repeat (rewrite <- app_assoc; simpl); auto.
 Qed.
  
 Theorem parse_invert :

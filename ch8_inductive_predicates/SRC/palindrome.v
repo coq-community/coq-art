@@ -38,7 +38,7 @@ Qed.
 Lemma rev_app : forall l m:list A, rev (l ++ m) = rev m ++ rev l.
 Proof.
  intros l m; elim l; simpl; auto with datatypes.
- intros a l0 H0; rewrite ass_app; rewrite H0; auto.
+ intros a l0 H0; rewrite app_assoc; rewrite H0; auto.
 Qed.
 
 Lemma palindrome_rev : forall l:list A, palindrome l -> rev l = l.

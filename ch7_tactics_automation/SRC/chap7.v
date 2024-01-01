@@ -326,7 +326,7 @@ Qed.
 
 Theorem S_to_plus_one : forall n:nat, S n = n+1.
 Proof.
-  intros; rewrite plus_comm; reflexivity.
+  intros; rewrite Nat.add_comm; reflexivity.
 Qed.
 
 

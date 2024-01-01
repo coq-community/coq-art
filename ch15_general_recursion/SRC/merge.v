@@ -312,7 +312,7 @@ Proof.
  -  intros b' Hrec l1 l2; case l1.
     simpl in |- *; intros Hle; apply permutation_reflexive.
     + simpl in |- *; intros a l; case l2.
-      simpl in |- *; intros Hle; rewrite <- app_nil_end;
+      simpl in |- *; intros Hle; rewrite app_nil_r;
       apply permutation_reflexive.
       simpl in |- *; intros a' l'; case (Ale_dec a a').
       * intros Hale Hle;
@@ -360,7 +360,7 @@ Theorem permutation_app :
  forall l1 l2:list A, permutation (l1 ++ l2) (l2 ++ l1).
 Proof.
  intros l1; elim l1; simpl in |- *.
- -  intros l2; rewrite <- app_nil_end.
+ -  intros l2; rewrite app_nil_r.
      apply permutation_reflexive.
  - intros a tl Hrec l2.
    apply permutation_transitive with (a :: l2 ++ tl).
@@ -400,7 +400,7 @@ Proof.
  -  simpl in |- *; constructor.
  -  simpl in |- *; intros; apply permutation_reflexive.
  -  intros l1 l2 tl Hrec; simpl in |- *.
-    rewrite ass_app.
+    rewrite app_assoc.
     apply permutation_app4;auto.
     apply merge_permutation; auto.
 Qed.
@@ -416,7 +416,7 @@ Proof.
    +  simpl in |- *; intros; constructor.
    +  intros l1 tl; case tl.
       *  simpl in |- *; intros; 
-         rewrite <- app_nil_end; apply permutation_reflexive.
+         rewrite app_nil_r; apply permutation_reflexive.
       *  intros l2 tl' Hle;
         apply permutation_transitive with 
         (app_all (sort_aux1 (l1 :: l2 :: tl'))).
