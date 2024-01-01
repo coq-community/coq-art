@@ -415,7 +415,7 @@ Proof.
     + apply mult_S_le_reg_l with p'; auto.
     + assert (Hlt' : (q' - 1)*S p' < S p' * q).
      { rewrite mult_minus_distr_r.
-       rewrite mult_1_l.
+       rewrite Nat.mul_1_l.
        rewrite (Nat.mul_comm q').
        assumption.
      }

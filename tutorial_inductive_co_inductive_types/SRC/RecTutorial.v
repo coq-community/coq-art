@@ -198,7 +198,7 @@ Qed.
 Lemma four_n : forall n:nat, n+n+n+n = 4*n.
 Proof.
  intro n; pattern n at 1.
- rewrite <- mult_1_l.
+ rewrite <- Nat.mul_1_l.
  now  repeat rewrite   mult_distr_S.
 Qed.
 

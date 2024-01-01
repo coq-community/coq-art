@@ -80,21 +80,22 @@ Section binary_power.
    (* acc * (x ** n) *) := let M' := M in
    match n with 0%nat => acc
               | _ => 
-               if  Even.even_odd_dec n
-               then binary_power_mult  acc (dot x x) (div2 n)
-               else binary_power_mult  (dot acc  x) (dot  x  x) (div2 n)
+               if  Nat.Even_Odd_dec n
+               then binary_power_mult  acc (dot x x) (Nat.div2 n)
+               else binary_power_mult  (dot acc  x) (dot  x  x) (Nat.div2 n)
    end.
 
- Solve Obligations with program_simpl; intros; set(M':=M) ; apply lt_div2; auto with arith.
+ Solve Obligations with program_simpl; intros; set(M':=M) ; 
+  apply Nat.lt_div2; auto with arith.
  Import WfExtensionality.
 
  Lemma binary_power_mult_equation
          (acc x:A)(n:nat) : binary_power_mult acc x n =
    match n with 0%nat => acc
               | _ => 
-               if  Even.even_odd_dec n
-               then binary_power_mult acc (dot x x) (div2 n)
-               else binary_power_mult (dot acc  x) (dot  x  x) (div2 n)
+               if  Nat.Even_Odd_dec n
+               then binary_power_mult acc (dot x x) (Nat.div2 n)
+               else binary_power_mult (dot acc  x) (dot  x  x) (Nat.div2 n)
    end.
  Proof.
    unfold binary_power_mult at 1.
@@ -233,17 +234,18 @@ Proof.
   clear n; intros n Hn;   destruct n.
   - intros;simpl; monoid_simpl;  trivial.
   -  intros; rewrite binary_power_mult_equation. 
-     destruct (Even.even_odd_dec (S n)).
+     destruct (Nat.Even_Odd_dec (S n)).
      rewrite Hn,  power_of_square;  factorize.
-     pattern (S n) at 3;replace (S n) with (div2 (S n) + div2 (S n))%nat;auto.
-     generalize (even_double _ e);simpl;auto. 
-     apply lt_div2;auto with arith.
+     pattern (S n) at 3;replace (S n) with (Nat.div2 (S n) + Nat.div2 (S n))%nat;auto.
+     generalize (Nat.Even_double _ e);simpl;auto. 
+     apply Nat.lt_div2;auto with arith.
      rewrite Hn. 
      rewrite power_of_square ; factorize.
-     pattern (S n) at 3;replace (S n) with (S (div2 (S n) + div2 (S n)))%nat;auto.
+     pattern (S n) at 3;replace (S n) with 
+       (S (Nat.div2 (S n) + Nat.div2 (S n)))%nat; auto.
      rewrite <- dot_assoc; factorize;auto.
-     generalize (odd_double _ o);intro H;auto.
-     apply lt_div2;auto with arith.
+     generalize (Nat.Odd_double _ o);intro H;auto.
+     apply Nat.lt_div2;auto with arith.
 Qed.
 
 Lemma binary_power_ok : forall (x:A) (n:nat), binary_power x n = x ** n.

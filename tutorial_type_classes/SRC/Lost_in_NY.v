@@ -254,7 +254,7 @@ Qed.
 Lemma cons2_comm : forall d d' r, d::d'::r =r= d'::d::r.
 Proof.
  intros d d' r; change ((d::nil)++(d'::nil)++r =r= (d'::nil)++(d::nil)++r).
- do 2  rewrite <- app_ass.
+ do 2  rewrite app_assoc.
  rewrite (app_comm  (d :: nil) (d'::nil));reflexivity.
 Qed.
 
@@ -268,7 +268,7 @@ Proof.
  -  subst r; replace (r0 ++ (d :: r1) ++ d1 :: r2) with
          (r0 ++ ((d::nil) ++ r1) ++ ((d1::nil)++r2))  by (simpl;auto).
      apply app_route_Proper;[reflexivity|].
-     rewrite <- app_ass.
+     rewrite app_assoc.
      apply app_route_Proper;[|reflexivity].
      transitivity ((d1::nil)++(d::r1)).
      rewrite app_comm; reflexivity.
