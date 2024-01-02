@@ -1,4 +1,3 @@
-
 Require Import List.
 Require Import Arith.
 
@@ -87,7 +86,7 @@ Proof.
   + intros p'; repeat rewrite <- mult_n_Sm.
     repeat rewrite <- (Nat.add_comm m).
     intros Hlt; assert (Hlt' : m*n' < m* p').
-    *  apply plus_lt_reg_l with m; auto.
+    *  apply Nat.add_lt_mono_l with m; auto.
     * auto with arith.
 Qed.
 
@@ -197,8 +196,8 @@ Theorem divides_dec_aux :
 Proof.
   intros k; elim k.
   -  intros n p Hle; left; exists 0; rewrite Nat.mul_comm; simpl; 
-       symmetry; apply le_n_O_eq; auto.
-  - intros k' Hrec n p Hlt; elim (le_lt_or_eq n (S k')).
+     apply (proj1 (Nat.le_0_r _)); auto.
+  - intros k' Hrec n p Hlt; elim (proj1 (Nat.lt_eq_cases n (S k')) Hlt).
     + auto with arith.
     + intros Heq; rewrite Heq.
       case p.
@@ -214,7 +213,7 @@ Proof.
            apply nat_compare_Lt_lt; auto.
            elim (Hrec (minus (S k') (S p')) (S p')).
            ++ intros (q, Heq'); left; exists (S q).
-              rewrite (le_plus_minus (S p') (S k')).
+              rewrite <- (Nat.sub_add (S p') (S k')), Nat.add_comm.
               ** rewrite Heq'.
                  repeat rewrite (Nat.mul_comm (S p')).
                  reflexivity.
@@ -225,8 +224,8 @@ Proof.
                intros q; case q.
                **  rewrite Nat.mul_comm;  simpl; intros; discriminate.
                **  intros q' Heq'; exists q'.
-                   apply plus_reg_l with (S p').
-                   rewrite le_plus_minus_r.
+                   apply Nat.add_cancel_l with (S p').
+                   rewrite Nat.add_comm, Nat.sub_add.
                    { rewrite Heq'.
                      rewrite Nat.add_comm; rewrite mult_n_Sm; reflexivity.
                    }
@@ -237,10 +236,9 @@ Proof.
             { apply nat_compare_Gt_gt; auto. }
             right; intros Hdiv; elim Hdiv; intros q; case q.
             ++  rewrite Nat.mul_comm; simpl; intros; discriminate.
-            ++ intros q' Heq'; elim (lt_not_le _ _ Hlt').
+            ++ intros q' Heq'; elim (proj1 (Nat.lt_nge _ _) Hlt').
                rewrite Heq'.
                rewrite Nat.mul_comm; simpl; auto with arith.
-    +  trivial.
 Qed.
 
 
@@ -270,10 +268,10 @@ Proof.
      --  intros; right; right; split.
          ++ auto.
          ++ intros (p, ((Hpgt1, Hplt1),_)).
-            elim (lt_irrefl 1); apply lt_trans with p;auto.
+            elim (Nat.lt_irrefl 1); apply Nat.lt_trans with p;auto.
      -- intros k''; case k''.
         ++ intros; right; right; split; auto; intros (p, ((Hpgt1, Hplt2),_)).
-           elim (lt_irrefl p); apply le_lt_trans with 1; auto with arith.
+           elim (Nat.lt_irrefl p); apply Nat.le_lt_trans with 1; auto with arith.
         ++ intros k''' Hrec; case (divides_dec_aux n n (S (S k'''))).
            ** auto with arith.
            ** intros Hdiv; right; left; exists (S (S k'''));
@@ -288,7 +286,7 @@ Proof.
                     intros (p, ((Hpgt1, Hplt), Hex)).
                   assert (Hple : p <= S (S k''')).
                   { auto with arith. }
-                  elim (le_lt_or_eq _ _ Hple).
+                  elim (proj1 (Nat.lt_eq_cases _ _) Hple).
                   intros Hplt'.
                   elim Hnodiv; exists p; repeat split; auto with arith.
                   intros Hpeq.
@@ -311,12 +309,12 @@ Theorem div_by_prime_aux :
 Proof.
  intros k; elim k.
  -  intros n Hle Hlt Hn.
-    elim (lt_asym 1 0). 
+    elim (Nat.lt_asymm 1 0). 
   +  apply Nat.lt_le_trans with n; assumption.
   + auto with arith.
  -  intros k' Hrec n Hle Hlt Hn.
-    elim (le_lt_or_eq n (S k')).
-    +  intros Hle'; apply Hrec; auto with arith.
+    elim (proj1 (Nat.lt_eq_cases n (S k')) Hle).
+    + intros Hle'; apply Hrec; auto with arith.
     + elim Hn; intros p ((Hpgt1, Hpltn),(q,Heq)).
       intros HneqSk'.
       elim (prime_dec p).
@@ -324,22 +322,21 @@ Proof.
      --  intros Hpeq0.
          rewrite Hpeq0 in Hpgt1; elim (Nat.nlt_0_r 1); assumption.
      -- intros Hpeq1;
-          rewrite Hpeq1 in Hpgt1; elim (lt_irrefl 1); assumption.
+          rewrite Hpeq1 in Hpgt1; elim (Nat.lt_irrefl 1); assumption.
     *  intros Hpdec; elim Hpdec.
        -- intros Hexp.
           elim (Hrec p); auto with arith.
           ++ intros p' ((Hp'gt1,Hp'ltp), (Hpr,(q', Heq'))).
              exists p'.
              split;[split|split]; auto with arith.
-             ** apply lt_trans with p; auto with arith.
+             ** apply Nat.lt_trans with p; auto with arith.
              **  exists (q' * q).
-                 rewrite mult_assoc.
+                 rewrite Nat.mul_assoc.
                  rewrite Heq; rewrite Heq'; trivial.
           ++  unfold lt in Hpltn.
               rewrite HneqSk' in Hpltn; auto with arith.
        --  exists p;split;[split|split]; auto with arith.
            exists q; auto with arith.
-    + trivial.
 Qed.
 
 Theorem div_by_prime :
@@ -409,12 +406,12 @@ Theorem interval_eq :
   forall p q q', p*q'-p < p*q <= p*q' -> q=q'.
 Proof.
   intros p; case p.
-  -  simpl; intros q q' (Hlt, Hle); elim (lt_irrefl 0);assumption.
+  -  simpl; intros q q' (Hlt, Hle); elim (Nat.lt_irrefl 0);assumption.
   - intros p' q q' (Hlt, Hle).
-    apply le_antisym.
-    + apply mult_S_le_reg_l with p'; auto.
+    apply Nat.le_antisymm.
+    + apply (Nat.mul_le_mono_pos_l _ _ (S p')); [apply Nat.lt_0_succ|auto].
     + assert (Hlt' : (q' - 1)*S p' < S p' * q).
-     { rewrite mult_minus_distr_r.
+     { rewrite Nat.mul_sub_distr_r.
        rewrite Nat.mul_1_l.
        rewrite (Nat.mul_comm q').
        assumption.
@@ -423,7 +420,7 @@ Proof.
      generalize (mult_lt_reg_l _ _ _ Hlt').
      case q'; simpl.
      * auto with arith.
-       * intros n; rewrite <- minus_n_O; auto with arith.
+       * intros n; rewrite Nat.sub_0_r; auto with arith.
 Qed.
 
 
@@ -440,7 +437,7 @@ Proof.
  -  intros Hkeq0or1;elim Hkeq0or1.
     + intros Hkeq0.
       rewrite Hkeq0 in Hkgt1; elim (Nat.nlt_0_r 1); assumption.
-    + intros Hkeq1; rewrite Hkeq1 in Hkgt1; elim (lt_irrefl 1); assumption.
+    + intros Hkeq1; rewrite Hkeq1 in Hkgt1; elim (Nat.lt_irrefl 1); assumption.
 - intros Hpdec; elim Hpdec.
   + intros Hexdiv.
     generalize (div_by_prime _ Hkgt1 Hexdiv).
@@ -552,16 +549,15 @@ Proof.
                  generalize (nat_compare_eq _ _ Htwc) ||
                  generalize (nat_compare_Gt_gt _ _ Htwc));
                 auto with arith. (* ICI *)
-      *  intros Heq2; rewrite Heq2; rewrite Nat.add_comm; rewrite minus_plus;
-           auto with arith.
+      *  intros Heq2; rewrite Heq2; rewrite Nat.add_sub; auto with arith.
       * intros Heq2; rewrite Heq2; unfold all_greater_than_one in Hal;
           generalize (Hal nil l0 p n (refl_equal _)); intros Hpgt1.
         pattern n at 1; rewrite plus_n_O; rewrite plus_n_Sm;
-          apply plus_le_compat; auto with arith.
-      * rewrite Nat.add_comm; rewrite minus_plus; auto with arith.
+          apply Nat.add_le_mono; auto with arith.
+      * rewrite Nat.add_sub; auto with arith.
       *  generalize (Hal nil l0 p n (refl_equal _)); intros Hpgt1.
          intros Hkltn; pattern k at 1; rewrite plus_n_O; rewrite plus_n_Sm;
-           apply plus_le_compat; auto with arith.
+           apply Nat.add_le_mono; auto with arith.
     + generalize (all_intervals_transmit _ _ _ Hai); intros Hai'.
       generalize (all_greater_than_one_transmit _ _ Hal); intros Hal'.
       simpl; clear l1; intros fst_elem l1 l2 p' n' Heq; generalize Hup;
@@ -708,7 +704,7 @@ Proof.
       split;[idtac | split; [idtac | split;[idtac|split;[idtac|split]]]];
         try (intros l1 l2 p n Heq; elim (absurd_decompose_list _ _ _ _ Heq)).
       intros n Hle1 ((Hnneq0, Hnneq1),_); elim Hnneq1.
-      elim Hle1; intros; apply (le_antisym n 1); auto with arith.
+      elim Hle1; intros; apply (Nat.le_antisymm n 1); auto with arith.
   - 
     intros k' Hrec l Hps.
     change ((let (l', b) := 
@@ -758,7 +754,7 @@ Proof.
         -- intuition.
         -- elim Hint.
            intros Hngt0 Hnlek.
-           elim (le_lt_or_eq _ _ Hnlek).
+           elim (proj1 (Nat.lt_eq_cases _ _) Hnlek).
            ++ auto with arith; fail.
            ++ intros Hn'; injection Hn'.
               intros Hn; rewrite Hn in Hpr; elim Hpr.
@@ -787,7 +783,7 @@ Proof.
         -- split.
            ++ rewrite <- Hps.
               intros n (Hpos, Hle) Hpr.
-              elim (le_lt_or_eq _ _ Hle).
+              elim (proj1 (Nat.lt_eq_cases _ _) Hle).
               ** intros Hlt; elim (Hapf n); auto with arith.
                  intros l'1 (l'2, (p, Heq2));
                    exists ((S (S k'), 2*S(S k'))::l'1); exists l'2; exists p.
@@ -799,7 +795,8 @@ Proof.
               ** rewrite <- Hps; apply all_intervals_add; auto with arith.
                  split.
                  { simpl.
-                   rewrite minus_plus.
+                   rewrite Nat.add_comm.
+                   rewrite Nat.add_sub.
                    rewrite <- plus_n_O.
                    auto with arith.
                  }

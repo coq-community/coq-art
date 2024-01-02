@@ -32,10 +32,10 @@ Theorem divisor_smaller :
 Proof.
  intros m p Hlt; case p.
  -  intros q Heq; rewrite Heq in Hlt; rewrite Nat.mul_comm in Hlt.
-     elim (lt_irrefl 0);exact Hlt.
+     elim (Nat.lt_irrefl 0);exact Hlt.
  -  intros p' q; case q.
     +  intros Heq; rewrite Heq in Hlt.
-       elim (lt_irrefl _ Hlt).
+       elim (Nat.lt_irrefl _ Hlt).
     + intros q' Heq; rewrite Heq.
       rewrite Nat.mul_comm; simpl; auto with arith.
 Qed.
@@ -44,10 +44,10 @@ Theorem Zabs_nat_0 : forall x:Z, Z.abs_nat x = 0 -> (x = 0)%Z.
 Proof.
  intros x; case x.
  -  simpl; auto.
- -  intros p Heq; elim (lt_irrefl 0).
+ -  intros p Heq; elim (Nat.lt_irrefl 0).
     pattern 0 at 2; rewrite <- Heq.
     simpl; apply lt_O_nat_of_P.
- -  intros p Heq; elim (lt_irrefl 0).
+ -  intros p Heq; elim (Nat.lt_irrefl 0).
     pattern 0 at 2; rewrite <- Heq.
     simpl; apply lt_O_nat_of_P.
 Qed.
@@ -157,7 +157,7 @@ Proof.
  unfold lt; intros p Hle; elim Hle.
  -  intros Hcp (k, (Hne1, (Hne1bis, (q, Heq)))); rewrite Nat.mul_comm in Heq.
     assert (Hle' : k < 1).
-    +  elim (le_lt_or_eq k 1); try(intuition; fail).
+    +  elim (proj1 (Nat.lt_eq_cases k 1)); try(intuition; fail).
        apply divisor_smaller with (2:= Heq); auto.
     +  case_eq k.
        *  intros Heq'; rewrite Heq' in Heq; simpl in Heq; discriminate Heq.

@@ -21,7 +21,7 @@ Proof.
 intros m; induction m  as [m' Hrec]  using (well_founded_ind lt_wf).
 intros  n h; rewrite div_it_fix_eqn.
 case (le_gt_dec n m'); intros H; trivial.
-pattern m' at 1; rewrite (le_plus_minus n m'); auto.
+pattern m' at 1; rewrite <- (Nat.sub_add n m' H), Nat.add_comm; auto.
 pattern (m' - n) at 1; rewrite Hrec with (m' - n) n h; auto with arith.
 case (div_it (m' - n) n h); simpl; auto with arith.
 Qed.

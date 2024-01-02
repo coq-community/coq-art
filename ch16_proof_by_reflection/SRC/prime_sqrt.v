@@ -122,17 +122,17 @@ Theorem test_odds_correct :
 Proof.
  induction n.
  -  intros x p Hp1 H1ltx Hn q Hint.
-    elimtype False;  lia.
+    exfalso;  lia.
   - intros x p Hp H1ltx; simpl (test_odds (S n) p (Z_of_nat x));
     intros Htest q (H1ltq, Hqle).
     case_eq (test_odds n (p -2) (Z_of_nat x)).
     + intros Htest'true.
       rewrite Htest'true in Htest.
       unfold divides_bool in Htest.
-      elim (le_lt_or_eq q (2*S n + 1)%nat Hqle).
+      elim (proj1 (Nat.lt_eq_cases q (2*S n + 1)%nat) Hqle).
       *  intros Hqlt.
          assert (Hqle': (q <= (2* S n))%nat) by  lia.
-         elim (le_lt_or_eq q (2 * S n)%nat Hqle').
+         elim (proj1 (Nat.lt_eq_cases q (2 * S n)%nat) Hqle').
          replace (2*S n)%nat with (2*n +2)%nat.
          intros Hqlt'.
          assert (Hqle'' : (q <= 2*n +1)%nat) by lia.
@@ -218,7 +218,7 @@ Proof.
        split.
        case_eq k.
        intros Hk0; rewrite Hk0 in Heq; rewrite Heq in H1ltn;
-       rewrite mult_0_r in H1ltn; lia.
+       rewrite Nat.mul_0_r in H1ltn; lia.
        intros; unfold Z.lt; simpl; auto.
        lia.
        rewrite Zmult_comm; rewrite <- inj_mult; rewrite Heq;auto.

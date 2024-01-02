@@ -33,7 +33,7 @@ Proof.
  -  intros b' Hrec m n Hleb Hlt; case (le_gt_dec n m); simpl; auto.
     intros Hle; generalize (Hrec (m-n) n);
     case (bdiv_aux b' (m-n) n); simpl; intros q r Hrec'.
-    rewrite <- plus_assoc; rewrite <- Hrec'; auto with arith.
+    rewrite <- Nat.add_assoc; rewrite <- Hrec'; auto with arith.
     lia. 
 Qed.
 
@@ -143,7 +143,7 @@ Proof.
             (exist (div_type'' m n 0) m _)
      end); unfold div_type''; auto with arith.
   elim H_spec; intros H1 H2; split; auto.
-  rewrite (le_plus_minus n m H_n_le_m); rewrite H1; ring.
+  rewrite <- (Nat.sub_add n m H_n_le_m), H1; ring.
 Qed.
 
 Definition div :
@@ -214,7 +214,7 @@ Proof.
         rewrite Heq; auto with arith.
         rewrite Heq_test; auto.
   -  exists (0, n'); exists 0; intros k; case k.
-     + intros; elim (lt_irrefl 0); auto.
+     + intros; elim (Nat.lt_irrefl 0); auto.
      +  intros k' Hltp g; simpl; unfold div_it_F at 1.
         rewrite Heq_test; auto.
 Defined.
@@ -262,7 +262,7 @@ Proof.
  intros m; elim m using (well_founded_ind lt_wf).
  intros m' Hrec n h; rewrite div_it_fix_eqn.
  case (le_gt_dec n m'); intros H; trivial.
- pattern m' at 1; rewrite (le_plus_minus n m'); auto.
+ pattern m' at 1; rewrite <- (Nat.sub_add n m'), Nat.add_comm; auto.
  pattern (m'-n) at 1.
  rewrite Hrec with (m'-n) n h; auto with arith.
  case (div_it (m'-n) n h); simpl; auto with arith.
@@ -351,7 +351,7 @@ Proof.
  intros p l Hle.
  lazy beta iota zeta delta [two_power log_domain_inv log];
   fold log two_power.
- apply le_trans with (2 * S (div2 p)); auto with arith.
+ apply Nat.le_trans with (2 * S (div2 p)); auto with arith.
  generalize (double_div2_le (S (S p))); simpl;intro;lia.
 Qed.
 

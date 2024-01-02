@@ -48,9 +48,9 @@ refine (fun n sqrt_nat =>
     * replace (4 * (s' * s' + r'') + r') with ((4 * s') * s' + (4 * r'' + r')).
       replace (((2 * s' + 1) + 1) * ((2 * s' + 1) + 1))
       with ((4 * s') * s' + (8 * s' + 4)).
-      apply plus_lt_compat_l.
+      apply Nat.add_lt_mono_l.
       assert (H: r'' < 2 * s' + 1).
-      { apply plus_lt_reg_l with (s' * s').
+      { apply Nat.add_lt_mono_l with (s' * s').
         rewrite <- Heq'.
         replace (s' * s' + (2 * s' + 1)) with ((s' + 1) * (s' + 1)).
         assumption.
