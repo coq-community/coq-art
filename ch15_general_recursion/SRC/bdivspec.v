@@ -1,6 +1,13 @@
 Require Export Arith.
 Require Export Lia.
 Require Export ArithRing.
+
+Lemma le_plus_minus_r : forall n m : nat, n <= m -> n + (m - n) = m.
+Proof.
+intros n m Hle.
+rewrite (Nat.add_comm n (m - n)), (Nat.sub_add n m Hle).
+reflexivity.
+Qed.
  
 Lemma sub_decrease : forall b n m:nat, n <= S b -> 0 < m -> n - m <= b.
 Proof. intros; lia. Qed.

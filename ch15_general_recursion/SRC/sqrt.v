@@ -1,6 +1,13 @@
 Require Export Arith.
 Require Export ArithRing.
 Require Export Lia.
+
+Lemma le_plus_minus_r : forall n m : nat, n <= m -> n + (m - n) = m.
+Proof.
+intros n m Hle.
+rewrite (Nat.add_comm n (m - n)), (Nat.sub_add n m Hle).
+reflexivity.
+Qed.
  
 Ltac CaseEq f := generalize (refl_equal f); 
     pattern f at -1 in |- *; case f.

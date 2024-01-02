@@ -2,7 +2,14 @@ Require Export Arith.
 Require Export ArithRing.
 Require Export Lia.
 Require Export Wf_nat.
- 
+
+Lemma le_plus_minus_r : forall n m : nat, n <= m -> n + (m - n) = m.
+Proof.
+intros n m Hle.
+rewrite (Nat.add_comm n (m - n)), (Nat.sub_add n m Hle).
+reflexivity.
+Qed.
+
 Definition div8_spec:
  forall n,  ({q : nat & {r : nat | n = 8 * q + r /\ r < 8}}).
 Proof.

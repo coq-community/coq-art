@@ -3,6 +3,13 @@ Require Export ArithRing.
 Require Export Lia.
 Require Export Compare_dec.
 Require Export Wf_nat.
+
+Lemma le_plus_minus_r : forall n m : nat, n <= m -> n + (m - n) = m.
+Proof.
+intros n m Hle.
+rewrite (Nat.add_comm n (m - n)), (Nat.sub_add n m Hle).
+reflexivity.
+Qed.
  
 Definition div4_spec:
  forall (n : nat),  ({q : nat & {r : nat | n = 4 * q + r /\ r < 4}}).

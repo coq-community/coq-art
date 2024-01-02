@@ -6,7 +6,6 @@ Set Implicit Arguments.
 
 Require Import ZArith Arith.
 Require Import Mat.
-Require Import Div2.
 Require Import Program.
 
 Class Monoid {A:Type}(dot : A -> A -> A)(one : A) : Type := {

@@ -72,8 +72,6 @@ Time Eval lazy beta delta iota zeta in
 
 *)
 
-Require Import Lt.
-
 (** Also proven in Coq.Arith.Wf_nat *)
 
 Theorem lt_Acc : forall n:nat, Acc lt n.
