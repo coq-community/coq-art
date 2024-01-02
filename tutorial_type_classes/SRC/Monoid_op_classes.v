@@ -5,7 +5,7 @@
 
 Set Implicit Arguments.
 
-Require Import ZArith   Recdef  Mat.
+Require Import ZArith Recdef  Mat.
 
 
 Class monoid_binop (A:Type) := monoid_op : A -> A -> A.
@@ -123,8 +123,7 @@ Definition tail_recursive_power  `{M : Monoid}(x:A)(n:nat) :=
 
 (* Todo:  Fix Div2 deprecation *)
 
-Require
-  Recdef  Nat.
+Require Recdef  Nat.
 
 
 

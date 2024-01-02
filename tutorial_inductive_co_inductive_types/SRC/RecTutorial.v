@@ -747,7 +747,6 @@ Defined.
 Print Acc.
 
 
-Require Import Minus.
 
 (*
 Fixpoint div (x y:nat){struct x}: nat :=
