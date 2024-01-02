@@ -209,7 +209,7 @@ Proof.
      exists (S p).
      intros k.
      case k.
-     +  intros; elim (lt_n_O (S p)); auto.
+     +  intros; elim (Nat.nlt_0_r (S p)); auto.
      +  intros k' Hplt g; simpl; unfold div_it_F at 1.
         rewrite Heq; auto with arith.
         rewrite Heq_test; auto.

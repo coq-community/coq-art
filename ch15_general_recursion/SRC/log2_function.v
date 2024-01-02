@@ -51,14 +51,14 @@ Proof.
   induction n as [| | n IHn] using div2_rect; auto.
   - now destruct 1.
   - simpl;intros.
-    apply le_lt_trans with (S n);auto.
+    apply Nat.le_lt_trans with (S n);auto.
     generalize (div2_le n);auto with arith.
 Qed.
 
  
 Function log2 (n:nat) {measure (fun n:nat => n)} :=
 match n with 0 | 1 => 0
-           | n => S (log2 (div2 n))
+           | _ => S (log2 (div2 n))
 end.
  intros; apply div2_lt; discriminate.
 Qed.
@@ -83,9 +83,9 @@ Proof.
       intro H.
       case_eq (exp2 p).
       * intro H0; destruct (exp2_positive p);auto.
-      * intros n H0;  rewrite H0 in H; elimtype False; lia.   
+      * intros n H0;  rewrite H0 in H.  elimtype False; lia.   
  - intros p H;  destruct p. 
-   +  simpl in H;  subst n;    contradiction. 
+   +  simpl in H;  subst n; contradiction. 
    +  simpl in H; rewrite (IHn0 p); auto. 
     rewrite H;   generalize (div2_double (exp2 p));auto.
 Qed.

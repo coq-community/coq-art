@@ -318,8 +318,8 @@ Infix "==" := equiv (at level 70):type_scope.
   Open Scope M_scope.
 
   Class EMonoid (A:Type)(E_eq :Equiv A)(E_dot : monoid_binop A)(E_one : A):={
-  E_rel :> Equivalence equiv; 
-  dot_proper :> Proper (equiv ==> equiv ==> equiv) monoid_op; 
+  E_rel :: Equivalence equiv; 
+  dot_proper :: Proper (equiv ==> equiv ==> equiv) monoid_op; 
   E_dot_assoc : forall x y z:A,
       x * (y * z) == x * y * z;
   E_one_left : forall x, E_one * x == x;
@@ -440,8 +440,8 @@ Module SemiRing.
 
 Class RingOne A := ring_one : A.
 Class RingZero A := ring_zero : A.
-Class RingPlus A := ring_plus :> monoid_binop A.
-Class RingMult A := ring_mult :> monoid_binop A.
+Class RingPlus A := ring_plus :: monoid_binop A.
+Class RingMult A := ring_mult :: monoid_binop A.
 
 Infix "+" := ring_plus.
 Infix "*" := ring_mult.
@@ -463,15 +463,15 @@ Class Absorb {A} `{Equiv A} (m: A -> A -> A) (x : A) : Prop :=
     absorb_r c : m c x = x }.
 
 Class ECommutativeMonoid `(Equiv A) (E_dot : monoid_binop A)(E_one : A):=
-  { e_commmonoid_monoid :> EMonoid equiv E_dot E_one;
-    e_commmonoid_commutative :> Commutative E_dot }.
+  { e_commmonoid_monoid :: EMonoid equiv E_dot E_one;
+    e_commmonoid_commutative :: Commutative E_dot }.
 
 Class ESemiRing (A:Type) (E_eq :Equiv A) (E_plus : RingPlus A) (E_zero : RingZero A)
             (E_mult : RingMult A) (E_one : RingOne A):=
-  { add_monoid :> ECommutativeMonoid equiv ring_plus ring_zero ;
-    mul_monoid :> EMonoid equiv ring_mult ring_one ;
-    ering_dist :> Distribute ring_mult ring_plus ;
-    ering_0_mult :> Absorb ring_mult 0
+  { add_monoid :: ECommutativeMonoid equiv ring_plus ring_zero ;
+    mul_monoid :: EMonoid equiv ring_mult ring_one ;
+    ering_dist :: Distribute ring_mult ring_plus ;
+    ering_0_mult :: Absorb ring_mult 0
   }.
 
 

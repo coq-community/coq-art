@@ -49,7 +49,7 @@ Section weird_induc_proof.
  Proof.
  induction 1;simpl;auto.
   apply f_P.
-  apply le_trans with m. auto . apply i_f_i.
+  apply Nat.le_trans with m. auto . apply i_f_i.
  auto.
  Qed.
 

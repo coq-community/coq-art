@@ -5,8 +5,8 @@ Require Import Morphisms Relations.
 
 
 Class EMonoid (A:Type)(E_eq :relation  A)(dot : A->A->A)(one : A):={
-  E_rel :> Equivalence E_eq; 
-  E_dot_proper :> Proper (E_eq ==> E_eq ==> E_eq) dot; 
+  E_rel :: Equivalence E_eq; 
+  E_dot_proper :: Proper (E_eq ==> E_eq ==> E_eq) dot; 
   E_dot_assoc : forall x y z:A, E_eq (dot x (dot y z)) (dot (dot x y) z);
   E_one_left : forall x, E_eq (dot one  x) x;
   E_one_right : forall x, E_eq (dot x  one) x}.

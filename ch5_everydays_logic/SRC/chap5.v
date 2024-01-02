@@ -64,7 +64,7 @@ Lemma le_mult_mult :
    forall a b c d:nat, a <= c -> b <= d -> a * b <= c * d.
 Proof.
  intros a b c d H H0.  
- apply le_trans with (m := c  *b).
+ apply Nat.le_trans with (m := c * b).
  - apply mult_le_compat_r; assumption.
  - apply mult_le_compat_l; assumption.
 Qed.
@@ -77,7 +77,7 @@ Lemma le_mult_mult' :
  forall a b c d:nat, a <= c -> b <= d -> a*b <= c*d.
 Proof.
  intros a b c d H H0.  
- eapply le_trans.
+ eapply Nat.le_trans.
  - eapply mult_le_compat_l.
    eexact H0.
  -  now apply mult_le_compat_r.

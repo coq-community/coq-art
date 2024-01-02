@@ -322,7 +322,7 @@ Proof.
  
  destruct (rev (a :: l)) as [ | a0 l0].
  -  (* If (rev (cons a l)) was nil, then there would be a contradiction. *)
-   simpl ; elim (lt_n_O 0); auto.
+   simpl ; elim (Nat.nlt_0_r 0); auto.
  -  exists a0,  (rev l0); simpl ; auto.
 Qed.
  

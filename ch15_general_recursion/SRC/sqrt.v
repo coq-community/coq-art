@@ -81,8 +81,8 @@ Ltac remove_minus :=
   |  |- context [(?X1 + (?X2 + (?X3 - ?X4)))] =>
       rewrite (plus_assoc X1 X2 (X3 - X4))
   |  |- (_ = ?X1 + (?X2 - ?X3)) =>
-      apply (fun n m p:nat => plus_reg_l m p n) with X3;
-       try rewrite (plus_permute X3 X1 (X2 - X3)); 
+      apply (fun n m p:nat => Nat.add_cancel_l m p n) with X3;
+       try rewrite (Nat.add_shuffle3 X3 X1 (X2 - X3)); 
        rewrite le_plus_minus_r
   end.
 

@@ -97,7 +97,7 @@ intros x; case x.
     * intros Hle Hlt _; rewrite (log2_fix_eqn (S (S p))).
       cbv zeta iota beta delta [exp2]; fold exp2.
       split.
-      apply le_trans with (2 * div2 (S (S p))).
+      apply Nat.le_trans with (2 * div2 (S (S p))).
       auto with arith.
       elim (div2_eq (S (S p))).
       lia.

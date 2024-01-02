@@ -63,7 +63,7 @@ with
    rewrite Heqc.
    split.
    ring.
-   apply plus_le_reg_l with ((12 * (c' * c') + 6 * c') + 1).
+   apply Nat.add_le_mono_l with ((12 * (c' * c') + 6 * c') + 1).
    rewrite le_plus_minus_r.
    replace ((2 * c' + 1) * (2 * c' + 1)) with ((4 * (c' * c') + 4 * c') + 1).
    lia.

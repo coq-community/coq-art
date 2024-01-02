@@ -312,7 +312,7 @@ Proof.
  intros k; elim k.
  -  intros n Hle Hlt Hn.
     elim (lt_asym 1 0). 
-  +  apply lt_le_trans with n; assumption.
+  +  apply Nat.lt_le_trans with n; assumption.
   + auto with arith.
  -  intros k' Hrec n Hle Hlt Hn.
     elim (le_lt_or_eq n (S k')).
