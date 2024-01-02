@@ -18,15 +18,18 @@ jobs:
       matrix:
         image:
           - 'coqorg/coq:dev'
+          - 'coqorg/coq:8.19'
+          - 'coqorg/coq:8.18'
+          - 'coqorg/coq:8.17'
           - 'coqorg/coq:8.16'
-          - 'coqorg/coq:8.15'
       fail-fast: false
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: coq-community/docker-coq-action@v1
         with:
           opam_file: 'coq-coq-art.opam'
           custom_image: ${{ matrix.image }}
+
 
 # See also:
 # https://github.com/coq-community/docker-coq-action#readme

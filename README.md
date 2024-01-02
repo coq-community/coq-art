@@ -10,8 +10,8 @@ Follow the instructions on https://github.com/coq-community/templates to regener
 [![Zulip][zulip-shield]][zulip-link]
 [![DOI][doi-shield]][doi-link]
 
-[docker-action-shield]: https://github.com/coq-community/coq-art/workflows/Docker%20CI/badge.svg?branch=master
-[docker-action-link]: https://github.com/coq-community/coq-art/actions?query=workflow:"Docker%20CI"
+[docker-action-shield]: https://github.com/coq-community/coq-art/actions/workflows/docker-action.yml/badge.svg?branch=master
+[docker-action-link]: https://github.com/coq-community/coq-art/actions/workflows/docker-action.yml
 
 [contributing-shield]: https://img.shields.io/badge/contributions-welcome-%23f7931e.svg
 [contributing-link]: https://github.com/coq-community/manifesto/blob/master/CONTRIBUTING.md
@@ -40,7 +40,7 @@ out of over 200 exercises from the book.
   - Yves Bertot ([**@ybertot**](https://github.com/ybertot))
   - Pierre Castéran ([**@Casteran**](https://github.com/Casteran))
 - License: [MIT License](LICENSE)
-- Compatible Coq versions: 8.15 or later (use the corresponding release for other Coq versions)
+- Compatible Coq versions: 8.16 or later (use the corresponding release for other Coq versions)
 - Additional dependencies: none
 - Coq namespace: `coqart`
 - Related publication(s):
