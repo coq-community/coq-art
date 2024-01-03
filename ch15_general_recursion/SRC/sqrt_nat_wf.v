@@ -3,6 +3,13 @@ Require Export ArithRing.
 Require Export Lia.
 Require Export Compare_dec.
 Require Export Wf_nat.
+
+Lemma le_plus_minus_r : forall n m : nat, n <= m -> n + (m - n) = m.
+Proof.
+intros n m Hle.
+rewrite (Nat.add_comm n (m - n)), (Nat.sub_add n m Hle).
+reflexivity.
+Qed.
  
 Definition div4_spec:
  forall (n : nat),  ({q : nat & {r : nat | n = 4 * q + r /\ r < 4}}).
@@ -48,9 +55,9 @@ refine (fun n sqrt_nat =>
     * replace (4 * (s' * s' + r'') + r') with ((4 * s') * s' + (4 * r'' + r')).
       replace (((2 * s' + 1) + 1) * ((2 * s' + 1) + 1))
       with ((4 * s') * s' + (8 * s' + 4)).
-      apply plus_lt_compat_l.
+      apply Nat.add_lt_mono_l.
       assert (H: r'' < 2 * s' + 1).
-      { apply plus_lt_reg_l with (s' * s').
+      { apply Nat.add_lt_mono_l with (s' * s').
         rewrite <- Heq'.
         replace (s' * s' + (2 * s' + 1)) with ((s' + 1) * (s' + 1)).
         assumption.

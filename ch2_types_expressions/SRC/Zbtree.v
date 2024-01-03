@@ -15,12 +15,10 @@ match t with
 | bnode _ t1 t2 => 1 + size t1 + size t2
 end.
 
-Require Export Max.
-
 Fixpoint height (t:Zbtree) : nat :=
 match t with 
 | leaf => 0
-| bnode _ t1 t2 => 1 + max (height t1 ) (height t2)
+| bnode _ t1 t2 => 1 + Nat.max (height t1 ) (height t2)
 end.
 
 Fixpoint mirror (t:Zbtree) : Zbtree :=

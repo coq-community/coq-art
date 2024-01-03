@@ -83,7 +83,7 @@ Proof.
       intro H.
       case_eq (exp2 p).
       * intro H0; destruct (exp2_positive p);auto.
-      * intros n H0;  rewrite H0 in H.  elimtype False; lia.   
+      * intros n H0;  rewrite H0 in H.  exfalso; lia.   
  - intros p H;  destruct p. 
    +  simpl in H;  subst n; contradiction. 
    +  simpl in H; rewrite (IHn0 p); auto. 

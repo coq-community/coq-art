@@ -17,7 +17,7 @@ Proof.
       replace (3 * (p' - 3) + 5 * 2) 
         with    (S (3 * 3 + 3 * (p' - 3)))
         by  lia.
-      rewrite <- mult_plus_distr_l.
-      rewrite le_plus_minus_r; auto.
-   +   exists (p'+2), q'; rewrite H;  ring.
+      rewrite <- Nat.mul_add_distr_l.
+      rewrite (Nat.add_comm 3), Nat.sub_add; auto.
+   + exists (p'+2), q'; rewrite H;  ring.
 Qed.

@@ -1,6 +1,13 @@
 Require Export Arith.
 Require Export ArithRing.
 Require Export Lia.
+
+Lemma le_plus_minus_r : forall n m : nat, n <= m -> n + (m - n) = m.
+Proof.
+intros n m Hle.
+rewrite (Nat.add_comm n (m - n)), (Nat.sub_add n m Hle).
+reflexivity.
+Qed.
  
 Ltac CaseEq f := generalize (refl_equal f); 
     pattern f at -1 in |- *; case f.
@@ -77,9 +84,9 @@ Ltac remove_minus :=
   |  |- context [(?X1 - ?X2 + ?X3)] =>
       rewrite <- (Nat.add_comm X3); remove_minus
   |  |- context [(?X1 + (?X2 - ?X3) + ?X4)] =>
-      rewrite (plus_assoc_reverse X1 (X2 - X3)); remove_minus
+      rewrite <- (Nat.add_assoc X1 (X2 - X3)); remove_minus
   |  |- context [(?X1 + (?X2 + (?X3 - ?X4)))] =>
-      rewrite (plus_assoc X1 X2 (X3 - X4))
+      rewrite (Nat.add_assoc X1 X2 (X3 - X4))
   |  |- (_ = ?X1 + (?X2 - ?X3)) =>
       apply (fun n m p:nat => Nat.add_cancel_l m p n) with X3;
        try rewrite (Nat.add_shuffle3 X3 X1 (X2 - X3)); 
@@ -124,7 +131,7 @@ Proof.
 (* When the bound is zero, if n is lower than the bound, it
   is also 0, it is only a matter of computation to check the
   equality. *)
- intros n Hle; rewrite <- (le_n_O_eq _ Hle); simpl in |- *; auto.
+ intros n Hle; rewrite (proj1 (Nat.le_0_r _) Hle); simpl in |- *; auto.
 
  (*We limit simplification to the bsqrt function. *)
  intros b' Hrec n Hle; cbv beta iota zeta delta [bsqrt] in |- *;
@@ -152,7 +159,7 @@ Theorem bsqrt_rem :
    let (s, r) := bsqrt n b in n < (s + 1) * (s + 1).
 Proof.
  intros b; elim b.
- -  intros n Hle; rewrite <- (le_n_O_eq _ Hle); 
+ -  intros n Hle; rewrite (proj1 (Nat.le_0_r _) Hle); 
   simpl in |- *; auto with arith.
 
  (*We limit simplification to the bsqrt function. *)
@@ -173,7 +180,7 @@ Proof.
    the case analysis on this function call. *)
  case (le_gt_dec (4 * s' + 1) (4 * r' + r)).
  *  intros Hle' Heq'; rewrite Heq.
-    apply lt_le_trans with (4 * S q' + 4).
+    apply Nat.lt_le_trans with (4 * S q' + 4).
     auto with arith.
      replace ((2 * s' + 1 + 1) * (2 * s' + 1 + 1)) with
      (4 * ((s' + 1) * (s' + 1))).

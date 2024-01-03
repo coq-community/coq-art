@@ -102,7 +102,7 @@ intros x; case x.
       elim (div2_eq (S (S p))).
       lia.
       lia.
-      apply le_lt_trans with (2 * div2 (S (S p)) + 1).
+      apply Nat.le_lt_trans with (2 * div2 (S (S p)) + 1).
       elim (div2_eq (S (S p))).
       lia.
       lia.

@@ -7,7 +7,7 @@ Section bad_proof_example_for_Induction1.
   Theorem le_plus_minus' : forall n m:nat, m <= n -> n = m+(n-m).
   Proof.
     intros n m H;  induction n. 
-    -   rewrite <- le_n_O_eq with (1 := H); simpl; trivial. 
+    -   rewrite (proj1 (Nat.le_0_r _) H); simpl; trivial. 
     - (* dead end *) 
   Abort.
 
@@ -18,7 +18,7 @@ Theorem lazy_example : forall n:nat, (S n) + 0 = S n.
 Proof.
   intros n; lazy beta iota zeta delta. 
   fold plus.
-  rewrite plus_0_r; reflexivity.
+  rewrite Nat.add_0_r; reflexivity.
 Qed.
 
 #[export] Hint  Extern  4 (_ <> _) => discriminate : core.
@@ -79,8 +79,8 @@ Proof.
   subst a.
   subst.
   lazy delta [mult] iota zeta beta; 
-    rewrite  plus_0_r; 
-    repeat rewrite plus_assoc_reverse;
+    rewrite  Nat.add_0_r; 
+    repeat rewrite <- Nat.add_assoc;
     trivial.
 Qed.
 
@@ -286,7 +286,7 @@ Section primes.
     end.
   Open Scope nat_scope.
 
-  #[local] Hint Resolve lt_O_Sn : core.
+  #[local] Hint Resolve Nat.lt_0_succ : core.
 
   Ltac check_lt_not_divides :=
     match goal with

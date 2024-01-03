@@ -51,7 +51,7 @@ Proof.
  intro; absurd (0 < 0); auto with arith.
  intros n0 Hn0 H1.
  elim H1; intros q Hq.
- rewrite mult_0_r in Hq; discriminate Hq.
+ rewrite Nat.mul_0_r in Hq; discriminate Hq.
  lia.
 Qed.
   

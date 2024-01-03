@@ -56,7 +56,7 @@ Lemma mult_le_compat_r : forall m n p:nat, le n p -> le (n * m) (p * m).
 Proof.
  intros m n p H; rewrite (Nat.mul_comm n m); 
    rewrite (Nat.mul_comm p m).
- apply mult_le_compat_l; trivial.
+ apply Nat.mul_le_mono_l; trivial.
 Qed.
 
 
@@ -66,7 +66,7 @@ Proof.
  intros a b c d H H0.  
  apply Nat.le_trans with (m := c * b).
  - apply mult_le_compat_r; assumption.
- - apply mult_le_compat_l; assumption.
+ - apply Nat.mul_le_mono_l; assumption.
 Qed.
 
 
@@ -78,7 +78,7 @@ Lemma le_mult_mult' :
 Proof.
  intros a b c d H H0.  
  eapply Nat.le_trans.
- - eapply mult_le_compat_l.
+ - eapply Nat.mul_le_mono_l.
    eexact H0.
  -  now apply mult_le_compat_r.
 Qed.   
@@ -232,9 +232,9 @@ Proof.
  intros n  H H0.
  rewrite <- (le_lt_S_eq 2 n).
  - reflexivity.  
- -  apply  plus_le_reg_l with (p := 6).  
+ -  apply  Nat.add_le_mono_l with (p := 6).  
     rewrite Nat.add_comm in H; auto with arith.
- - apply   plus_lt_reg_l with (p:= 3); auto with arith.
+ - apply Nat.add_lt_mono_l with (p:= 3); auto with arith.
 Qed.
 
 (** A shorter proof ...

@@ -452,16 +452,16 @@ Module Nat_Order : DEC_ORDER with Definition A := nat with Definition
 
 
   Theorem lt_le_weak : forall a b:A, lt a b -> le a b.
-  Proof lt_le_weak. 
+  Proof Nat.lt_le_incl.
   
   Theorem lt_diff : forall a b:A, lt a b -> a <> b.
   Proof.
     unfold  lt, le in |- *; intros a b H e;
-      rewrite e in H;  case (lt_irrefl b H).
+      rewrite e in H;  case (Nat.lt_irrefl b H).
   Qed.
 
   Theorem le_lt_or_eq : forall a b:A, le a b -> lt a b \/ a = b.
-  Proof le_lt_or_eq. 
+  Proof (fun a b Hle => proj1 (Nat.lt_eq_cases _ _) Hle).
 
   
   Definition lt_eq_lt_dec : forall a b:A, {lt a b} + {a = b} + {lt b a} :=
