@@ -316,13 +316,15 @@ Infix "==" := equiv (at level 70):type_scope.
 
   Open Scope M_scope.
 
-  Class EMonoid (A:Type)(E_eq :Equiv A)(E_dot : monoid_binop A)(E_one : A):={
-  E_rel :> Equivalence equiv; 
-  dot_proper :> Proper (equiv ==> equiv ==> equiv) monoid_op; 
+Class EMonoid (A:Type)(E_eq :Equiv A)(E_dot : monoid_binop A)(E_one : A) :=
+{ E_rel : Equivalence equiv; 
+  dot_proper : Proper (equiv ==> equiv ==> equiv) monoid_op; 
   E_dot_assoc : forall x y z:A,
       x * (y * z) == x * y * z;
   E_one_left : forall x, E_one * x == x;
-  E_one_right : forall x, x * E_one == x}.
+  E_one_right : forall x, x * E_one == x }.
+#[global] Existing Instance E_rel.
+#[global] Existing Instance dot_proper.
 
 Generalizable Variables E_eq E_dot E_one.
 
@@ -438,9 +440,14 @@ Module SemiRing.
 (* Overloaded notations *)
 
 Class RingOne A := ring_one : A.
+
 Class RingZero A := ring_zero : A.
-Class RingPlus A := ring_plus :> monoid_binop A.
-Class RingMult A := ring_mult :> monoid_binop A.
+
+Class RingPlus A := ring_plus : monoid_binop A.
+#[global] Existing Instance ring_plus.
+
+Class RingMult A := ring_mult : monoid_binop A.
+#[global] Existing Instance ring_mult.
 
 Infix "+" := ring_plus.
 Infix "*" := ring_mult.
@@ -461,19 +468,23 @@ Class Absorb {A} `{Equiv A} (m: A -> A -> A) (x : A) : Prop :=
   { absorb_l c : m x c = x ;
     absorb_r c : m c x = x }.
 
-Class ECommutativeMonoid `(Equiv A) (E_dot : monoid_binop A)(E_one : A):=
-  { e_commmonoid_monoid :> EMonoid equiv E_dot E_one;
-    e_commmonoid_commutative :> Commutative E_dot }.
+Class ECommutativeMonoid `(Equiv A) (E_dot : monoid_binop A)(E_one : A) :=
+  { e_commmonoid_monoid : EMonoid equiv E_dot E_one;
+    e_commmonoid_commutative : Commutative E_dot }.
+#[global] Existing Instance e_commmonoid_monoid.
+#[global] Existing Instance e_commmonoid_commutative.
 
 Class ESemiRing (A:Type) (E_eq :Equiv A) (E_plus : RingPlus A) (E_zero : RingZero A)
             (E_mult : RingMult A) (E_one : RingOne A):=
-  { add_monoid :> ECommutativeMonoid equiv ring_plus ring_zero ;
-    mul_monoid :> EMonoid equiv ring_mult ring_one ;
-    ering_dist :> Distribute ring_mult ring_plus ;
-    ering_0_mult :> Absorb ring_mult 0
+  { add_monoid : ECommutativeMonoid equiv ring_plus ring_zero ;
+    mul_monoid : EMonoid equiv ring_mult ring_one ;
+    ering_dist : Distribute ring_mult ring_plus ;
+    ering_0_mult : Absorb ring_mult 0
   }.
-
-
+#[global] Existing Instance add_monoid.
+#[global] Existing Instance mul_monoid.
+#[global] Existing Instance ering_dist.
+#[global] Existing Instance ering_0_mult.
 
 Section SemiRingTheory.
 
