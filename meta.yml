@@ -45,6 +45,7 @@ supported_coq_versions:
 
 tested_coq_opam_versions:
 - version: dev
+  repo: 'rocq/rocq-prover'
 - version: '8.20'
 - version: '8.19'
 - version: '8.18'
