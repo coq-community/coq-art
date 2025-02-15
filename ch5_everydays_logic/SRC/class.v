@@ -23,9 +23,8 @@ Qed.
 Lemma classic_excluded_middle: classic -> excluded_middle.
 Proof.
  unfold excluded_middle; intros H P.
- apply H; intro H0; absurd P.
- -  intro H1; apply H0 ; now left.
- -  apply H; intro H1; apply H0; now right.
+ apply H; intro H0; apply H0; right.
+ intro H1; apply H0 ; now left.
 Qed.
 
 
